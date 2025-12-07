@@ -31,7 +31,7 @@
 .resource-form__label {
   font-size: 14px;
   font-weight: 600;
-  color: #374151;
+  color: #1f2937;
 }
 
 .resource-form__input {
@@ -40,9 +40,14 @@
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 14px;
-  background: white;
+  background: #ffffff;
+  color: #1f2937;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  border-color: #f97316; 
+  border-color: #f97316;
+}
+
+.resource-form__input::placeholder {
+  color: #9ca3af;
 }
 
 .resource-form__input:focus {
@@ -55,6 +60,12 @@
 .resource-form__textarea {
   min-height: 120px;
   resize: vertical;
+  color: #1f2937;
+  background: #ffffff;
+}
+
+.resource-form__textarea::placeholder {
+  color: #9ca3af;
 }
 
 .resource-form__submit {
