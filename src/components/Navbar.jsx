@@ -8,6 +8,7 @@ const navLinks = [
   { label: 'Resources', href: '#resources' },
   { label: 'Events', href: '#events' },
   { label: 'Contact', href: '#contact' },
+  { label: 'Submit Resource', href: '#submit-resource' },
 ];
 
 export default function Navbar() {
