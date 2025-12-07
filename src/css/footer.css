@@ -1,0 +1,154 @@
+.footer-root {
+  background: linear-gradient(135deg,#0f1724 0%, #111827 100%);
+  color: #d1d5db;
+}
+
+/* Container similar to Tailwind max-w-7xl and padding */
+#contact > div, .footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+  }
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,#fb923c 0%, #ec4899 100%);
+}
+
+.logo-letter {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.brand-name {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.footer-root p,
+.footer-root li {
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+.footer-heading {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  gap: 0.75rem;
+}
+
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-icon {
+  color: #fb923c;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.contact-text {
+  color: #9ca3af;
+}
+
+.social-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1f2937;
+  color: #d1d5db;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.social-btn:hover {
+  background: #fb923c;
+  color: white;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(148,163,184,0.12);
+}
+
+.footer-bottom-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.copyright, .credit {
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+/* Links */
+#contact a, .footer-root a {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+#contact a:hover, .footer-root a:hover {
+  color: #fb923c;
+}
