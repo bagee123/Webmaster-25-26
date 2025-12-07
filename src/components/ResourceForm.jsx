@@ -80,11 +80,13 @@ export default function ResourceForm(){
               required
             >
               <option value="">Select a category</option>
-              <option value="stuff">stuff</option>
-              <option value="stuff">stuff</option>
-              <option value="stuff">stuff</option>
-              <option value="stuff">stuff</option>
-              <option value="stuff">stuff</option>
+              <option value="Health">Health</option>
+              <option value="Education">Education</option>
+              <option value="Volunteering">Volunteering</option>
+              <option value="Events">Events</option>
+              <option value="Support Services">Support Services</option>
+              <option value="Recreation">Recreation</option>
+              <option value="Nonprofits">Nonprofits</option>
             </select>
           </div>
 
