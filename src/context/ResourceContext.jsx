@@ -1,12 +1,13 @@
 import React, { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { resources as defaultResources } from '../data/resources';
 
 
 export const ResourceContext = createContext();
 
 
-export function ResourceProvider({ children }) {
-    const [resources, setResources] = useState(defaultResources);
+export function ResourceProvider({children}) {
+    const [resources] = useState(defaultResources);
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('name');
 
@@ -20,5 +21,9 @@ export function ResourceProvider({ children }) {
         <ResourceContext.Provider value={{ resources: filteredResources, search, setSearch, sort, setSort }}>
             {children}
         </ResourceContext.Provider>
-);
+    );
 }
+
+ResourceProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};

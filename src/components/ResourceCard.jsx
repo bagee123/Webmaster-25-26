@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../css/card.css';
 
 
@@ -12,3 +13,19 @@ export default function ResourceCard({ item }) {
     </div>
     );
 }
+
+ResourceCard.propTypes = {
+    item: PropTypes.shape({
+        category: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        desc: PropTypes.string.isRequired,
+    }).isRequired,
+};
+
+ResourceCard.propTypes = {
+    item: PropTypes.shape({
+        category: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        desc: PropTypes.string.isRequired,
+    }).isRequired,
+};
