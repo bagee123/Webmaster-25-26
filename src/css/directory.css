@@ -1,0 +1,5 @@
+.directory { width: 90%; margin: auto; padding: 60px 0; }
+.controls { display: flex; gap: 15px; margin-bottom: 20px; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.tag { padding: 6px 12px; background: #e5d9c5; border-radius: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
