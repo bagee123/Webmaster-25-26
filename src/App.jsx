@@ -5,7 +5,7 @@ import PopularCategories from './components/PopularCategories';
 import ResourceDirectory from './components/ResourceDirectory';
 import EventsStrip from './components/EventsStrip';
 import { ResourceProvider } from './context/ResourceContext';
-
+import ResourceForm from './components/ResourceForm';
 export default function App() {
   return (
     <ResourceProvider>
@@ -14,6 +14,9 @@ export default function App() {
       <PopularCategories />
       <ResourceDirectory />
       <EventsStrip />
+      <section id="submit-resource">
+        <ResourceForm />
+      </section>
     </ResourceProvider>
   );
 }
