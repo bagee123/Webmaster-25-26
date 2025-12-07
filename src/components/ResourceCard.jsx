@@ -6,6 +6,7 @@ import '../css/card.css';
 export default function ResourceCard({ item }) {
     return (
     <div className="card">
+        {item.icon && <div className="icon">{item.icon}</div>}
         <span className="badge">{item.category}</span>
         <h4>{item.title}</h4>
         <p>{item.desc}</p>
@@ -19,13 +20,6 @@ ResourceCard.propTypes = {
         category: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         desc: PropTypes.string.isRequired,
-    }).isRequired,
-};
-
-ResourceCard.propTypes = {
-    item: PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        desc: PropTypes.string.isRequired,
+        icon: PropTypes.string,
     }).isRequired,
 };
