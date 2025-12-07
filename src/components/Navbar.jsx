@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../css/navbar.css';
 
 
@@ -6,14 +7,16 @@ export default function Navbar() {
     return (
         <header className="navbar">
             <div className="navbar-inner">
-                <h1 className="logo">Coppell Community Resource Hub</h1>
+                <Link to="/" style={{ textDecoration: 'none' }}>
+                    <h1 className="logo">Coppell Community Resource Hub</h1>
+                </Link>
                 <nav>
-                    <button>Home</button>
-                    <button>Resource Directory</button>
-                    <button>Highlights</button>
-                    <button>Submit a Resource</button>
-                    <button>Map</button>
-                    <button>Contact</button>
+                    <Link to="/">Home</Link>
+                    <Link to="/directory">Resource Directory</Link>
+                    <Link to="/highlights">Highlights</Link>
+                    <Link to="/submit">Submit a Resource</Link>
+                    <Link to="/map">Map</Link>
+                    <Link to="/contact">Contact</Link>
                 </nav>
             </div>
         </header>
