@@ -1,71 +1,92 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 import '../css/navbar.css';
 
+const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'Categories', href: '#categories' },
+  { label: 'Resources', href: '#resources' },
+  { label: 'Events', href: '#events' },
+  { label: 'Contact', href: '#contact' },
+];
 
 export default function Navbar() {
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const navRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 8);
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    useEffect(() => {
-        const onClickOutside = (e) => {
-            if (mobileOpen && navRef.current && !navRef.current.contains(e.target)) {
-                setMobileOpen(false);
-            }
-        };
-        document.addEventListener('mousedown', onClickOutside);
-        return () => document.removeEventListener('mousedown', onClickOutside);
-    }, [mobileOpen]);
+  const scrollToSection = (e, href) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      setIsMobileMenuOpen(false);
+    }
+  };
 
-    useEffect(() => {
-        const onResize = () => {
-            if (window.innerWidth > 900 && mobileOpen) setMobileOpen(false);
-        };
-        window.addEventListener('resize', onResize);
-        return () => window.removeEventListener('resize', onResize);
-    }, [mobileOpen]);
+  return (
+    <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <div className="navbar-container">
+        <div className="navbar-inner">
+          {/* Logo */}
+          <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="navbar-logo">
+            <div className="logo-badge">C</div>
+            <span>Coppell Community Resource Hub</span>
+          </a>
 
-    const toggleMobile = () => setMobileOpen((s) => !s);
-    const closeMobile = () => setMobileOpen(false);
+          {/* Desktop Navigation */}
+          <div className="navbar-links-desktop">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="navbar-link"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
 
-    return (
-        <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-            <div className="navbar-inner">
-                <Link to="/" className="brand" onClick={closeMobile} aria-label="Home">
-                    <h1 className="logo">
-                        <span className="logo-gradient">Coppell Community</span>
-                        <span className="logo-mini">Resource Hub</span>
-                    </h1>
-                </Link>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="navbar-mobile-btn"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
-                <nav ref={navRef} className={`nav-links ${mobileOpen ? 'open' : ''}`} aria-expanded={mobileOpen}>
-                    <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Home</NavLink>
-                    <NavLink to="/directory" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Resource Directory</NavLink>
-                    <NavLink to="/highlights" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Highlights</NavLink>
-                    <NavLink to="/submit" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Submit a Resource</NavLink>
-                    <NavLink to="/map" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Map</NavLink>
-                    <NavLink to="/contact" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Contact</NavLink>
-                    <div className="nav-indicator" aria-hidden="true" />
-                </nav>
-
-                <button
-                    className={`hamburger ${mobileOpen ? 'is-active' : ''}`}
-                    onClick={toggleMobile}
-                    aria-label="Toggle menu"
-                    aria-expanded={mobileOpen}
-                >
-                    <span />
-                    <span />
-                    <span />
-                </button>
-            </div>
-        </header>
-    );
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="navbar-mobile-menu">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="navbar-mobile-link"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </nav>
+  );
 }
