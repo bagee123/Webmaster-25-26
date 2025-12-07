@@ -3,6 +3,9 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-react'
 import '../css/footer.css';
 
 export default function Footer() {
+  const openMap = () => {
+    window.open('https://www.google.com/maps/search/Coppell,+TX', '_blank');
+  };
   return (
     <footer id="contact" className="footer-root">
       <div className="footer-container">
@@ -37,7 +40,7 @@ export default function Footer() {
                 <a href="#submit" className="text-gray-400 hover:text-orange-400 transition-colors">Submit a Resource</a>
               </li>
               <li>
-                <a href="#map" className="text-gray-400 hover:text-orange-400 transition-colors">Map</a>
+                <a href="#map" onClick={(e) => { e.preventDefault(); openMap(); }} className="text-gray-400 hover:text-orange-400 transition-colors">Map</a>
               </li>
             </ul>
           </div>
