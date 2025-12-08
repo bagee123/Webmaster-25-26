@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MoreHorizontal, MapPin, ChevronUp, ChevronDown } from 'lucide-react';
+import { Search, Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MoreHorizontal, MapPin, ChevronDown } from 'lucide-react';
 import DetailModal from './DetailModal';
 import resources from '../data/resources';
 import '../css/directory.css';
@@ -21,7 +21,7 @@ export default function ResourceDirectory() {
   const [sortBy, setSortBy] = useState('name');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedResource, setSelectedResource] = useState(null);
-  const[isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const handleCategorySelected = (event) => {
@@ -53,7 +53,21 @@ export default function ResourceDirectory() {
       return 0;
     });
    
-    const displayedResources =isExpanded ? filteredResources : filteredResources.slice(0, 9);
+  const itemsPerRow = 4;
+  const collapsedRows = 2;
+  const itemsToShow = isExpanded ? filteredResources : filteredResources.slice(0, collapsedRows * itemsPerRow);
+
+  const handleCollapseClick = () => {
+    setIsExpanded(!isExpanded);
+    if (isExpanded) {
+      setTimeout(() => {
+        const directionSection = document.getElementById('directory');
+        if (directionSection) {
+          directionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  };
 
   const getCategoryIcon = (categoryId) => {
     const category = categories.find(c => c.id === categoryId);
@@ -115,7 +129,7 @@ export default function ResourceDirectory() {
 
           {/* Resource Cards Grid - Scrollable */}
           <div className="resources-grid">
-            {displayedResources.map((resource) => {
+            {itemsToShow.map((resource) => {
               const Icon = getCategoryIcon(resource.category);
               return (
                 <div
@@ -145,10 +159,14 @@ export default function ResourceDirectory() {
             })}
           </div>
 
-          {filteredResources.length > 9 && (
+          {filteredResources.length > itemsPerRow * 2 && (
             <div className="collapsible-parent">
-               <button onClick={() => setIsExpanded(!isExpanded)} className="collapsible">
-                  {isExpanded ? <ChevronUp /> : <ChevronDown />}
+               <button onClick={handleCollapseClick} className="collapsible">
+                  <ChevronDown style={{ 
+                    transform: isExpanded ? 'rotate(180deg) translateY(0px)' : 'rotate(0deg) translateY(-12px)', 
+                    transition: 'transform 0.6s ease-in-out',
+                    display: 'inline-block'
+                  }} />
                </button>
             </div>   
           )}

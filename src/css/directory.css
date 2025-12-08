@@ -141,15 +141,27 @@
 /* Resources Grid - Scrollable */
 .resources-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     margin-bottom: 48px;
 }
 
+@media (max-width: 1024px) {
+    .resources-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .resources-grid {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .resources-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -161,6 +173,10 @@
     border: 1px solid #e8e8e8;
     cursor: pointer;
     transition: all 300ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    animation: cardSlideIn 0.5s ease-out;
+}
+
+.resource-card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
@@ -253,23 +269,55 @@
   margin-bottom: 24px;
 }
 
+@keyframes arrowRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0.6;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
   background-color: transparent;
-  color: #444;
+  color: #ea580c;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
   border: none;
   text-align: center;
   outline: none;
   font-size: 15px;
   width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.collapsible svg {
+  transition: transform 0.6s ease-in-out;
+  display: inline-block;
+}
+
+.collapsible:hover {
+  background-color: rgba(234, 88, 12, 0.1);
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-  background-color: #ccc;
+.active {
+  background-color: rgba(234, 88, 12, 0.1);
 }
 
 /* Style the collapsible content. Note: hidden by default */
