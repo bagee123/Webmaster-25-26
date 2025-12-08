@@ -21,6 +21,7 @@ export default function ResourceDirectory() {
   const [sortBy, setSortBy] = useState('name');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedResource, setSelectedResource] = useState(null);
+  const[isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const handleCategorySelected = (event) => {
@@ -51,6 +52,8 @@ export default function ResourceDirectory() {
       }
       return 0;
     });
+   
+    const displayedResources =isExpanded ? filteredResources : filteredResources.slice(0, 9);
 
   const getCategoryIcon = (categoryId) => {
     const category = categories.find(c => c.id === categoryId);
@@ -112,7 +115,7 @@ export default function ResourceDirectory() {
 
           {/* Resource Cards Grid - Scrollable */}
           <div className="resources-grid">
-            {filteredResources.map((resource) => {
+            {displayedResources.map((resource) => {
               const Icon = getCategoryIcon(resource.category);
               return (
                 <div
@@ -141,6 +144,14 @@ export default function ResourceDirectory() {
               );
             })}
           </div>
+
+          {filteredResources.length > 9 && (
+            <div className="collapsible-parent">
+               <button onClick={() => setIsExpanded(!isExpanded)} className="collapsible">
+                  {isExpanded ? '^' : 'v'}
+               </button>
+            </div>   
+          )}
 
           {filteredResources.length === 0 && (
             <div className="no-results">
