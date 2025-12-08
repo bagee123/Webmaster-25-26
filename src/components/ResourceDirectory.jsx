@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MoreHorizontal, MapPin } from 'lucide-react';
+import { Search, Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MoreHorizontal, MapPin, ChevronUp, ChevronDown } from 'lucide-react';
 import DetailModal from './DetailModal';
 import resources from '../data/resources';
 import '../css/directory.css';
@@ -148,7 +148,7 @@ export default function ResourceDirectory() {
           {filteredResources.length > 9 && (
             <div className="collapsible-parent">
                <button onClick={() => setIsExpanded(!isExpanded)} className="collapsible">
-                  {isExpanded ? '^' : 'v'}
+                  {isExpanded ? <ChevronUp /> : <ChevronDown />}
                </button>
             </div>   
           )}
