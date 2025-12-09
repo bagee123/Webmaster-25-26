@@ -2,11 +2,13 @@
 .events-filters {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 32px 20px;
+    padding: 32px 16px;
     display: flex;
     flex-direction: column;
     gap: 24px;
     background: var(--bg-primary, white);
+    align-items: center;
+    width: 100%;
 }
 
 /* Search Bar Container */
@@ -97,6 +99,10 @@
     color: white;
     border-color: transparent;
     box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+}
+
+.dark .events-category-btn.active {
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
 }
 
 .events-more-filters-btn {

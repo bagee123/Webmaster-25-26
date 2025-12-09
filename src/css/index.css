@@ -11,6 +11,31 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  scrollbar-gutter: stable;
+}
+
+html {
+  scrollbar-gutter: stable;
+  width: 100%;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }
 
 a {
@@ -18,6 +43,7 @@ a {
   color: var(--accent-orange, #ea580c);
   text-decoration: inherit;
 }
+
 a:hover {
   color: var(--accent-pink, #ec4899);
 }

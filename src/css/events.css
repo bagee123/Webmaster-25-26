@@ -104,6 +104,10 @@
     flex-shrink: 0;
 }
 
+.dark .event-date-badge {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c42);
+}
+
 .date-month {
     font-size: 12px;
     font-weight: 600;

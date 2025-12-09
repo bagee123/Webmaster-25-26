@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart, GraduationCap, HandHeart, Calendar, Users, Leaf, Building2, Home } from 'lucide-react';
 import '../css/categories.css';
 
@@ -14,17 +15,11 @@ const categories = [
 ];
 
 export default function PopularCategories() {
+  const navigate = useNavigate();
+
   const handleCategoryClick = (categoryId) => {
-    // Dispatch a custom event with the category
-    window.dispatchEvent(new CustomEvent('categorySelected', { detail: { categoryId } }));
-    
-    // Scroll to the directory section
-    const directorySection = document.getElementById('directory');
-    if (directorySection) {
-      setTimeout(() => {
-        directorySection.scrollIntoView({ behavior: 'smooth' });
-      }, 0);
-    }
+    // Navigate to resources page with state
+    navigate('/resources', { state: { selectedCategory: categoryId } });
   };
 
   return (

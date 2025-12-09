@@ -53,6 +53,10 @@
   flex-shrink: 0;
 }
 
+.dark .logo-badge {
+  background: linear-gradient(135deg, #ff6b4a, #ff8c42);
+}
+
 .logo-text {
   background: linear-gradient(90deg, #ea580c, #be185d);
   -webkit-background-clip: text;
@@ -124,6 +128,10 @@
   cursor: pointer;
   font-weight: 500;
   font-size: 0.95rem;
+}
+
+.dark .nav-login-btn {
+  background: linear-gradient(90deg, #ff6b4a, #ff8c42);
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
 }
@@ -202,6 +210,10 @@
   transition: all 0.3s ease;
   margin-top: 1rem;
   box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
+}
+
+.dark .nav-login-btn-mobile {
+  background: linear-gradient(90deg, #ff6b4a, #ff8c42);
 }
 
 .nav-login-btn-mobile:hover {

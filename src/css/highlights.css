@@ -130,6 +130,10 @@
     background: linear-gradient(135deg, #f43f5e, #ec4899);
 }
 
+.dark .highlight-btn-rose-pink {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c42);
+}
+
 .highlight-btn-rose-pink:hover {
     box-shadow: 0 10px 20px rgba(244, 63, 94, 0.3);
     transform: translateY(-2px);
