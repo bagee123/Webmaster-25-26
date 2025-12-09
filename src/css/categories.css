@@ -83,6 +83,10 @@
     background: linear-gradient(135deg, #f43f5e, #ec4899);
 }
 
+.dark .category-rose-pink .category-icon-wrapper {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c42);
+}
+
 .category-blue-cyan .category-icon-wrapper {
     background: linear-gradient(135deg, #3b82f6, #06b6d4);
 }
@@ -93,6 +97,10 @@
 
 .category-purple-pink .category-icon-wrapper {
     background: linear-gradient(135deg, #a855f7, #ec4899);
+}
+
+.dark .category-purple-pink .category-icon-wrapper {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c42);
 }
 
 .category-green-emerald .category-icon-wrapper {

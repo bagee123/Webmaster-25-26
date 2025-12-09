@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Search, Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MoreHorizontal, MapPin, ChevronDown } from 'lucide-react';
 import DetailModal from './DetailModal';
 import resources from '../data/resources';
@@ -17,11 +18,19 @@ const categories = [
 
 
 export default function ResourceDirectory() {
+  const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedResource, setSelectedResource] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    // Check if category was passed via navigation state
+    if (location.state?.selectedCategory) {
+      setSelectedCategory(location.state.selectedCategory);
+    }
+  }, [location]);
 
   useEffect(() => {
     const handleCategorySelected = (event) => {

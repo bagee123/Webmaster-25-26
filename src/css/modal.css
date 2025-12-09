@@ -222,6 +222,10 @@
   cursor: pointer;
 }
 
+.dark .website-btn {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+}
+
 .website-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(251, 146, 60, 0.3);
@@ -270,6 +274,10 @@
   cursor: pointer;
   transition: all 200ms;
   outline: none;
+}
+
+.dark .btn-close-modal {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
 }
 
 .btn-close-modal:hover {

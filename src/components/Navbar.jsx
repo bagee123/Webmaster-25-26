@@ -32,6 +32,11 @@ export default function Navbar({ onLoginClick = () => {} }) {
     return false;
   };
 
+  const handleNavClick = () => {
+    window.scrollTo(0, 0);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
@@ -46,6 +51,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
               <Link
                 key={link.label}
                 to={link.href}
+                onClick={handleNavClick}
                 className={`nav-link ${isActive(link.href) ? 'nav-link-active' : ''}`}
               >
                 {link.label}
@@ -75,7 +81,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
               <Link
                 key={link.label}
                 to={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={handleNavClick}
                 className={`nav-link-mobile ${isActive(link.href) ? 'nav-link-mobile-active' : ''}`}
               >
                 {link.label}

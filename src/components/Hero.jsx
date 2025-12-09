@@ -1,14 +1,15 @@
 import React from 'react';
 import { ArrowRight, Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import reactLogo from '../assets/react.svg';
 import '../css/hero.css';
 
 export default function Hero() {
+    const navigate = useNavigate();
+
     const handleExploreClick = () => {
-        const resourceSection = document.getElementById('directory');
-        if (resourceSection) {
-            resourceSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        navigate('/resources');
+        window.scrollTo(0, 0);
     };
 
     const handleSubmitClick = () => {

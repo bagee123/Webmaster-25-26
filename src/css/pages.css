@@ -20,6 +20,13 @@
     -webkit-text-fill-color: transparent;
 }
 
+.dark .page-container h2 {
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .page-container p {
     font-size: 16px;
     color: var(--text-secondary, #4b5563);
@@ -81,6 +88,10 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 200ms ease;
+}
+
+.dark .contact-form button {
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
 }
 
 .contact-form button:hover {
