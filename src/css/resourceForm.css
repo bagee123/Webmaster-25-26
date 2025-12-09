@@ -3,7 +3,7 @@
   max-width: 860px;
   margin: 0 auto;
   padding: 64px 52px;
-  /* background: #ffffff; */
+  background: #ffffff;
   border: 3px solid #f97316;
   border-radius: 20px;
   box-shadow: 0 18px 48px rgba(249, 115, 22, 0.16);
@@ -127,16 +127,6 @@
   align-items: center;
   justify-content: center;
   padding: 80px 16px 40px;
-  background: light-dark(#ffffff, #000000);
-  /* color-scheme: light dark; */
-}
-
-/* .resource-form-container {
-    background: #ffffff;
+  background: #ffffff;
   color-scheme: light;
 }
-
-.resource-form-container {
-    background: #000000;
-  color-scheme: dark;
-} */

@@ -789,6 +789,10 @@
 }
 
 /* Resource Form Dark Mode */
+.dark .resource-form-container {
+  background: #1e3a5f;
+}
+
 .dark .resource-form {
   background: #1e3a5f;
   border-color: #ff6b4a;
