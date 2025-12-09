@@ -1,0 +1,325 @@
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--shadow, rgba(0, 0, 0, 0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 200ms ease;
+}
+
+/* Modal Content */
+.modal-content {
+  background: var(--card-bg, white);
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: 0 20px 60px var(--shadow, rgba(0, 0, 0, 0.3));
+  position: relative;
+  animation: slideUp 300ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  color: var(--text-primary, #333);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 200ms;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  color: var(--text-primary, #333);
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-color, #e8e8e8);
+}
+
+.modal-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-icon {
+  font-size: 32px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary, #2c2c2c);
+  margin-bottom: 8px;
+}
+
+.modal-category-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  background: var(--bg-tertiary, #f5f5f5);
+  color: var(--text-secondary, #666);
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+/* Modal Section */
+.modal-section {
+  margin-bottom: 28px;
+}
+
+.modal-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary, #2c2c2c);
+  margin-bottom: 16px;
+}
+
+.modal-description {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary, #555);
+}
+
+/* Contact Info Grid */
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 500px) {
+  .contact-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-info-item {
+  display: flex;
+  gap: 12px;
+}
+
+.contact-info-icon {
+  color: #fb923c;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.contact-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.contact-value {
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  transition: color 200ms;
+}
+
+.contact-value:hover {
+  color: #fb923c;
+}
+
+/* Location & Hours Grid */
+.location-hours-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 500px) {
+  .location-hours-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.location-item {
+  display: flex;
+  gap: 12px;
+}
+
+.location-icon {
+  color: #fb923c;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.location-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.location-value {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Website Button */
+.website-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 200ms;
+  border: none;
+  cursor: pointer;
+}
+
+.dark .website-btn {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+}
+
+.website-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(251, 146, 60, 0.3);
+}
+
+/* Action Buttons */
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e8e8e8;
+}
+
+.btn-favorite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border: 1px solid #fb923c;
+  background: transparent;
+  color: #fb923c;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms;
+  outline: none;
+}
+
+.btn-favorite:hover {
+  background: rgba(251, 146, 60, 0.08);
+  transform: translateY(-2px);
+}
+
+.btn-close-modal {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms;
+  outline: none;
+}
+
+.dark .btn-close-modal {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+}
+
+.btn-close-modal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(251, 146, 60, 0.3);
+}
+
+/* Scrollbar Styling */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 500px) {
+  .modal-content {
+    padding: 24px;
+    margin: 0 16px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .modal-icon-box {
+    margin: 0 auto;
+  }
+
+  .modal-actions {
+    grid-template-columns: 1fr;
+  }
+}

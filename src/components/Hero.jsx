@@ -1,32 +1,35 @@
 import React from 'react';
 import { ArrowRight, Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import reactLogo from '../assets/react.svg';
 import '../css/hero.css';
 
 export default function Hero() {
+    const navigate = useNavigate();
+
     const handleExploreClick = () => {
-        const resourceSection = document.getElementById('resources');
-        if (resourceSection) {
-            resourceSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        navigate('/resources');
+        window.scrollTo(0, 0);
     };
 
     const handleSubmitClick = () => {
-        window.location.href = '/submit';
+        const submitSection = document.getElementById('submit-resource');
+        if (submitSection) {
+            submitSection.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     return (
-        <section id="home" className="hero-section">
-            {/* Background Image with Overlay */}
+        <section id="hero" className="hero-section">
             <div className="hero-background">
                 <img
-                    src="https://images.unsplash.com/photo-1632580254134-94c4a73dab76?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tdW5pdHklMjBnYXRoZXJpbmclMjBwZW9wbGV8ZW58MXx8fHwxNzY1MTA0MTg5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                    src={reactLogo}
                     alt="Community gathering"
                     className="hero-image"
                 />
                 <div className="hero-overlay"></div>
             </div>
 
-            {/* Content */}
             <div className="hero-content">
                 <h1>Connecting Coppell Residents with Local Support and Services</h1>
                 <p>
@@ -34,7 +37,6 @@ export default function Hero() {
                     Discover opportunities to get help, volunteer, and connect with your neighbors.
                 </p>
 
-                {/* CTA Buttons */}
                 <div className="hero-buttons">
                     <button
                         onClick={handleExploreClick}

@@ -12,7 +12,7 @@ const events = [
 
 export default function EventsStrip() {
   return (
-    <section className="events-section">
+    <section id="events" className="events-section">
       <div className="events-container">
         <div className="events-header">
           <div>

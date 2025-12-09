@@ -1,0 +1,131 @@
+.popular-categories-section {
+    padding: 64px 0;
+    background: white;
+}
+
+.categories-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.categories-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.categories-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.categories-header p {
+    margin: 0;
+    font-size: 16px;
+    color: #4b5563;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+@media (min-width: 640px) {
+    .categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .categories-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+.category-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-button:hover {
+    background: #f9fafb;
+}
+
+.category-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-button:hover .category-icon-wrapper {
+    transform: scale(1.1);
+}
+
+/* Category Color Gradients */
+.category-rose-pink .category-icon-wrapper {
+    background: linear-gradient(135deg, #f43f5e, #ec4899);
+}
+
+.dark .category-rose-pink .category-icon-wrapper {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c42);
+}
+
+.category-blue-cyan .category-icon-wrapper {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+}
+
+.category-orange-amber .category-icon-wrapper {
+    background: linear-gradient(135deg, #f97316, #f59e0b);
+}
+
+.category-purple-pink .category-icon-wrapper {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+}
+
+.dark .category-purple-pink .category-icon-wrapper {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c42);
+}
+
+.category-green-emerald .category-icon-wrapper {
+    background: linear-gradient(135deg, #22c55e, #10b981);
+}
+
+.category-teal-cyan .category-icon-wrapper {
+    background: linear-gradient(135deg, #14b8a6, #06b6d4);
+}
+
+.category-indigo-blue .category-icon-wrapper {
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
+}
+
+.category-red-orange .category-icon-wrapper {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+}
+
+.category-name {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.category-button:hover .category-name {
+    color: #111827;
+}

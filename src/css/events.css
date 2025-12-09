@@ -1,6 +1,6 @@
 .events-section {
     padding: 64px 0;
-    background: linear-gradient(to right, #fef2f2, #fdf2f8, #faf5ff);
+    background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
 }
 
 .events-container {
@@ -102,6 +102,10 @@
     justify-content: center;
     color: white;
     flex-shrink: 0;
+}
+
+.dark .event-date-badge {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c42);
 }
 
 .date-month {

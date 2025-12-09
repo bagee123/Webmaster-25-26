@@ -1,0 +1,115 @@
+.resource-form {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 64px 52px;
+  background: #ffffff;
+  border: 3px solid #f97316;
+  border-radius: 20px;
+  box-shadow: 0 18px 48px rgba(249, 115, 22, 0.16);
+  color-scheme: light;
+}
+
+.resource-form__title {
+  margin: 0 0 16px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #f97316;
+  text-align: center;
+}
+
+.resource-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resource-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resource-form__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.resource-form__input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #1f2937;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-color: #f97316;
+  color-scheme: light;
+}
+
+.resource-form__input::placeholder {
+  color: #9ca3af;
+}
+
+.resource-form__input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  background: #ffffff;
+}
+
+.resource-form__textarea {
+  min-height: 120px;
+  resize: vertical;
+  color: #1f2937;
+  background: #ffffff;
+  color-scheme: light;
+}
+
+.resource-form__textarea::placeholder {
+  color: #9ca3af;
+}
+
+.resource-form__submit {
+  align-self: center;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #f97316 0%, #ec4899 100%); 
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.resource-form__submit:hover {
+  background: #1d4ed8;
+}
+
+.resource-form__submit:active {
+  transform: translateY(1px);
+}
+
+.resource-form-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 16px 40px;
+  background: #ffffff;
+  color-scheme: light;
+}
+
+/* Match the class used in the JSX so the white background applies in dark mode */
+.resource-form-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 16px 40px;
+  background: #ffffff;
+  color-scheme: light;
+}

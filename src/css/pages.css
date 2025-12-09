@@ -1,0 +1,169 @@
+/* Generic Page Container Styles */
+.page-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 60vh;
+    text-align: center;
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #1f2937);
+}
+
+.page-container h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary, #1f2937);
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark .page-container h2 {
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-container p {
+    font-size: 16px;
+    color: var(--text-secondary, #4b5563);
+    line-height: 1.6;
+}
+
+/* Dark mode support */
+.dark .page-container {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.dark .page-container h2 {
+    color: var(--text-primary);
+}
+
+.dark .page-container p {
+    color: var(--text-secondary);
+}
+
+/* Contact Page Specific */
+.contact-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 32px;
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px var(--shadow, rgba(0, 0, 0, 0.1));
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 8px;
+    font-size: 14px;
+    background: var(--input-bg, #ffffff);
+    color: var(--text-primary, #1f2937);
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-orange, #ea580c);
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 200ms ease;
+}
+
+.dark .contact-form button {
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+}
+
+.contact-form button:hover {
+    box-shadow: 0 8px 20px rgba(234, 88, 12, 0.3);
+    transform: translateY(-2px);
+}
+
+.dark .contact-form {
+    background: var(--card-bg);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.dark .contact-form input,
+.dark .contact-form textarea {
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Submit Resource Page */
+.submit-form {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 32px;
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px var(--shadow, rgba(0, 0, 0, 0.1));
+    text-align: left;
+}
+
+.submit-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary, #1f2937);
+}
+
+.submit-form input,
+.submit-form textarea,
+.submit-form select {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 8px;
+    font-size: 14px;
+    background: var(--input-bg, #ffffff);
+    color: var(--text-primary, #1f2937);
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.submit-form input:focus,
+.submit-form textarea:focus,
+.submit-form select:focus {
+    outline: none;
+    border-color: var(--accent-orange, #ea580c);
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+}
+
+.dark .submit-form {
+    background: var(--card-bg);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.dark .submit-form label {
+    color: var(--text-primary);
+}
+
+.dark .submit-form input,
+.dark .submit-form textarea,
+.dark .submit-form select {
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}

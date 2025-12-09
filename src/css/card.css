@@ -1,48 +1,59 @@
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-    text-align: center;
+  background: var(--card-bg, white);
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 4px solid var(--accent-orange, #ea580c);
+  box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.08));
+  transition: box-shadow 0.3s ease;
+  text-align: left;
 }
 
-.icon {
-    font-size: 50px;
-    margin-bottom: 15px;
-    line-height: 1;
+.card:hover {
+  box-shadow: 0 8px 20px var(--shadow, rgba(0, 0, 0, 0.12));
 }
 
 .badge {
-    display: inline-block;
-    background: #e8dcc8;
-    color: #9b8b79;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin-bottom: 12px;
-    font-weight: 500;
+  display: inline-block;
+  background: var(--bg-tertiary, #fff3e0);
+  color: var(--accent-orange, #ea580c);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .card h4 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #2c2c2c;
-    margin: 12px 0 8px 0;
-    line-height: 1.3;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+  margin: 8px 0 4px 0;
+  line-height: 1.3;
 }
 
 .card p {
-    color: #777;
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 12px;
+  color: var(--text-secondary, #555);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
 }
 
 .learn {
-    background: none;
-    border: none;
-    color: #b8956a;
-    font-weight: 500;
-    cursor: pointer;
-    font-size: 13px;
+  background: none;
+  border: none;
+  color: var(--accent-orange, #ea580c);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s ease;
+}
+
+.learn:hover {
+  gap: 8px;
 }

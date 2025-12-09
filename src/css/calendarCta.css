@@ -1,0 +1,63 @@
+.calendar-cta {
+  padding: 4rem 1rem;
+  background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
+}
+
+.calendar-cta-content {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.calendar-cta-icon {
+  margin: 0 auto 1rem;
+  color: #ea580c;
+}
+
+.calendar-cta-content h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #ea580c, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.calendar-cta-content p {
+  font-size: 1rem;
+  color: #4b5563;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.calendar-cta-button {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(to right, #ea580c, #ec4899);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.calendar-cta-button:hover {
+  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .calendar-cta {
+    padding: 2rem 1rem;
+  }
+
+  .calendar-cta-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .calendar-cta-content p {
+    font-size: 0.9375rem;
+  }
+}

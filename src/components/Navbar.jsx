@@ -1,71 +1,109 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, LogIn } from 'lucide-react';
 import '../css/navbar.css';
 
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Resources', href: '/resources' },
+  { label: 'Events', href: '/events' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
 
-export default function Navbar() {
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const navRef = useRef(null);
+export default function Navbar({ onLoginClick = () => {} }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 8);
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    useEffect(() => {
-        const onClickOutside = (e) => {
-            if (mobileOpen && navRef.current && !navRef.current.contains(e.target)) {
-                setMobileOpen(false);
-            }
-        };
-        document.addEventListener('mousedown', onClickOutside);
-        return () => document.removeEventListener('mousedown', onClickOutside);
-    }, [mobileOpen]);
+  const isActive = (href) => {
+    if (href === '/' && location.pathname === '/') return true;
+    if (href !== '/' && location.pathname.startsWith(href)) return true;
+    return false;
+  };
 
-    useEffect(() => {
-        const onResize = () => {
-            if (window.innerWidth > 900 && mobileOpen) setMobileOpen(false);
-        };
-        window.addEventListener('resize', onResize);
-        return () => window.removeEventListener('resize', onResize);
-    }, [mobileOpen]);
+  const handleNavClick = () => {
+    window.scrollTo(0, 0);
+    setIsMobileMenuOpen(false);
+  };
 
-    const toggleMobile = () => setMobileOpen((s) => !s);
-    const closeMobile = () => setMobileOpen(false);
+  return (
+    <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <div className="navbar-container">
+        <div className="navbar-inner">
+          <Link to="/" className="navbar-logo">
+            <div className="logo-badge">C</div>
+            <span className="logo-text">Coppell Community Resource Hub</span>
+          </Link>
 
-    return (
-        <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-            <div className="navbar-inner">
-                <Link to="/" className="brand" onClick={closeMobile} aria-label="Home">
-                    <h1 className="logo">
-                        <span className="logo-gradient">Coppell Community</span>
-                        <span className="logo-mini">Resource Hub</span>
-                    </h1>
-                </Link>
+          <div className="navbar-desktop">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.href}
+                onClick={handleNavClick}
+                className={`nav-link ${isActive(link.href) ? 'nav-link-active' : ''}`}
+              >
+                {link.label}
+                <span className="nav-underline"></span>
+              </Link>
+            ))}
+            <button
+              onClick={onLoginClick}
+              className="nav-login-btn"
+            >
+              <LogIn size={18} />
+              Login
+            </button>
+          </div>
 
-                <nav ref={navRef} className={`nav-links ${mobileOpen ? 'open' : ''}`} aria-expanded={mobileOpen}>
-                    <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Home</NavLink>
-                    <NavLink to="/directory" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Resource Directory</NavLink>
-                    <NavLink to="/highlights" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Highlights</NavLink>
-                    <NavLink to="/submit" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Submit a Resource</NavLink>
-                    <NavLink to="/map" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Map</NavLink>
-                    <NavLink to="/contact" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} onClick={closeMobile}>Contact</NavLink>
-                    <div className="nav-indicator" aria-hidden="true" />
-                </nav>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="navbar-toggle"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
-                <button
-                    className={`hamburger ${mobileOpen ? 'is-active' : ''}`}
-                    onClick={toggleMobile}
-                    aria-label="Toggle menu"
-                    aria-expanded={mobileOpen}
-                >
-                    <span />
-                    <span />
-                    <span />
-                </button>
-            </div>
-        </header>
-    );
+        {isMobileMenuOpen && (
+          <div className="navbar-mobile">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.href}
+                onClick={handleNavClick}
+                className={`nav-link-mobile ${isActive(link.href) ? 'nav-link-mobile-active' : ''}`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onLoginClick();
+              }}
+              className="nav-login-btn-mobile"
+            >
+              <LogIn size={18} />
+              Login
+            </button>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
 }
+
+Navbar.propTypes = {
+  onLoginClick: PropTypes.func,
+};

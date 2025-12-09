@@ -1,0 +1,38 @@
+.resources-hero {
+  background: linear-gradient(to bottom right, #ea580c, #ec4899, #9333ea);
+  padding: 4rem 1rem;
+  margin-top: 0;
+}
+
+.resources-hero-content {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.resources-hero h1 {
+  color: white;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.resources-hero p {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.125rem;
+  max-width: 42rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .resources-hero h1 {
+    font-size: 1.875rem;
+  }
+
+  .resources-hero p {
+    font-size: 1rem;
+  }
+}
