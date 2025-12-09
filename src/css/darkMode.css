@@ -806,21 +806,22 @@
 .dark .resource-form__field input,
 .dark .resource-form__field textarea,
 .dark .resource-form__field select {
-  background: #0f172a;
-  color: white;
-  border-color: #2a4a7f;
+  background: #ffffff;
+  color: #1f2937;
+  border-color: #f97316;
 }
 
 .dark .resource-form__field input::placeholder,
 .dark .resource-form__field textarea::placeholder {
-  color: #64748b;
+  color: #9ca3af;
 }
 
 .dark .resource-form__field input:focus,
 .dark .resource-form__field textarea:focus,
 .dark .resource-form__field select:focus {
-  border-color: #ff6b4a;
-  box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.1);
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
 .dark .resource-form__submit {
@@ -849,9 +850,9 @@
 }
 
 /* Forms Dark Mode */
-.dark form {
+/* .dark form {
   background: var(--card-bg);
-}
+} */
 
 .dark label {
   color: var(--text-primary);
