@@ -7,10 +7,34 @@ export default function ResourceForm(){
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({ firstName: '', lastName: '', resourceName: '', website: '', category: '', description: '' });
+
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbwMLj97yo1CJB9If_hLUsTUvrTpadBnDhwjAI51dGsVUiwCGFbNrA23maTF8y9LUy8tSg/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "text/plain"
+        }
+      });
+
+      alert("Resource submitted!");
+
+      setFormData({
+        firstName: '',
+        lastName: '',
+        resourceName: '',
+        website: '',
+        category: '',
+        description: '',
+      });
+
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      alert("Something went wrong submitting the form.");
+    }
   };
 
   return(
