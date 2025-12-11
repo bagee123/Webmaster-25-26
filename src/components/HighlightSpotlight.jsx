@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart, Users, Sparkles } from 'lucide-react';
 import DetailModal from './DetailModal';
 import '../css/highlights.css';
@@ -30,8 +30,55 @@ const highlights = [
   },
 ];
 
+const testimonials = [
+  {
+    id: 1,
+    quote: 'The Coppell Community Resource Hub has been invaluable for our family. We found amazing support services and connected with wonderful volunteers who truly care about our community.',
+    author: 'Sarah Johnson',
+    title: 'Coppell Resident',
+    avatars: ['S', 'J', 'C', 'R'],
+  },
+  {
+    id: 2,
+    quote: 'As a volunteer, I\'ve never felt more appreciated. This hub connects people who want to make a difference with opportunities that truly matter. Highly recommended!',
+    author: 'Michael Chen',
+    title: 'Local Volunteer',
+    avatars: ['M', 'C', 'L', 'V'],
+  },
+  {
+    id: 3,
+    quote: 'My kids have grown so much through the youth programs here. The mentors are dedicated and the activities are engaging. Best investment in our community!',
+    author: 'Jennifer Martinez',
+    title: 'Community Parent',
+    avatars: ['J', 'M', 'C', 'P'],
+  },
+  {
+    id: 4,
+    quote: 'I came here looking for health resources and left with a whole new support network. The staff is friendly and the services are comprehensive.',
+    author: 'David Thompson',
+    title: 'Healthcare Advocate',
+    avatars: ['D', 'T', 'H', 'A'],
+  },
+  {
+    id: 5,
+    quote: 'This resource hub is exactly what our community needed. Easy to navigate, helpful staff, and genuine care for making a difference.',
+    author: 'Amanda Lee',
+    title: 'Community Organizer',
+    avatars: ['A', 'L', 'C', 'O'],
+  },
+];
+
 export default function HighlightSpotlight() {
   const [selectedResource, setSelectedResource] = useState(null);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLearnMore = (highlight) => {
     const resource = {
@@ -83,24 +130,31 @@ export default function HighlightSpotlight() {
           })}
         </div>
 
-        {/* Testimonial Section */}
+        {/* Testimonial Section - Auto-scrolling Carousel */}
         <div className="testimonial-section">
-          <div className="testimonial-avatars">
-            {[1, 2, 3, 4].map((i) => (
+          <h3 className="testimonial-header">What Our Community Says</h3>
+          <div className="testimonial-carousel-auto">
+            {testimonials.map((testimonial, index) => (
               <div
-                key={i}
-                className="testimonial-avatar"
+                key={testimonial.id}
+                className={`testimonial-card ${index === currentTestimonial ? 'active' : ''}`}
               >
-                {String.fromCharCode(64 + i)}
+                <div className="testimonial-avatars">
+                  {testimonial.avatars.map((letter, idx) => (
+                    <div key={idx} className="testimonial-avatar">
+                      {letter}
+                    </div>
+                  ))}
+                </div>
+                <blockquote className="testimonial-quote">
+                  &ldquo;{testimonial.quote}&rdquo;
+                </blockquote>
+                <p className="testimonial-author">
+                  — {testimonial.author}, {testimonial.title}
+                </p>
               </div>
             ))}
           </div>
-          <blockquote className="testimonial-quote">
-            &ldquo;The Coppell Community Resource Hub has been invaluable for our family. We found amazing support services and connected with wonderful volunteers who truly care about our community.&rdquo;
-          </blockquote>
-          <p className="testimonial-author">
-            — Sarah Johnson, Coppell Resident
-          </p>
         </div>
       </div>
     </section>

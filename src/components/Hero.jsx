@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import reactLogo from '../assets/react.svg';
 import '../css/hero.css';
 
 export default function Hero() {
@@ -22,11 +21,6 @@ export default function Hero() {
   return (
     <section id="hero" className="hero-section">
       <div className="hero-background">
-        <img
-          src={reactLogo}
-          alt="Community gathering"
-          className="hero-image"
-        />
         <div className="hero-overlay"></div>
       </div>
 

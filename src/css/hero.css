@@ -51,7 +51,7 @@
 
 .hero-content p {
     color: rgba(255, 255, 255, 0.95);
-    font-size: 20px;
+    font-size: 18px;
     max-width: 768px;
     margin: 0 auto 40px;
     line-height: 1.6;
@@ -159,7 +159,7 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    animation: bounce 2s infinite;
+    animation: bounce 1.6s ease-in-out infinite;
 }
 
 .scroll-dot {
@@ -180,7 +180,7 @@
     height: 6px;
     background: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
-    animation: scroll-bounce 2s infinite;
+    animation: scroll-bounce 1.6s ease-in-out infinite;
 }
 
 @keyframes bounce {
@@ -188,7 +188,7 @@
         transform: translateX(-50%) translateY(0);
     }
     50% {
-        transform: translateX(-50%) translateY(8px);
+        transform: translateX(-50%) translateY(6px);
     }
 }
 
@@ -199,7 +199,7 @@
     }
     100% {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(10px);
     }
 }
 

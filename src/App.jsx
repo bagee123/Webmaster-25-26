@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import './css/app.css';
+import './css/animations.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import DarkModeToggle from './components/DarkModeToggle';

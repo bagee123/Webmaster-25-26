@@ -101,10 +101,6 @@
     box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
 }
 
-.dark .events-category-btn.active {
-    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
-}
-
 .events-more-filters-btn {
     display: flex;
     align-items: center;
@@ -158,34 +154,4 @@
     }
 }
 
-/* Dark mode support */
-.dark .events-search-input {
-    background: var(--card-bg, #1f2937);
-    color: var(--text-primary, #f1f5f9);
-    border-color: var(--border-color, #374151);
-}
-
-.dark .events-search-input:focus {
-    border-color: #ea580c;
-    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.2);
-}
-
-.dark .events-category-btn:not(.active) {
-    background: var(--card-bg, #1f2937);
-    color: var(--text-primary, #f1f5f9);
-    border-color: var(--border-color, #374151);
-}
-
-.dark .events-category-btn:not(.active):hover {
-    background: #374151;
-}
-
-.dark .events-more-filters-btn {
-    background: var(--card-bg, #1f2937);
-    color: var(--text-primary, #f1f5f9);
-    border-color: var(--border-color, #374151);
-}
-
-.dark .events-more-filters-btn:hover {
-    background: #374151;
-}
+/* Dark mode styling has been centralized in darkMode.css */

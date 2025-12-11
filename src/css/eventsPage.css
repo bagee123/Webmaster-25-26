@@ -37,7 +37,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 32px;
-  max-width: 56rem;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -48,7 +48,6 @@
 .events-search-input-container {
   position: relative;
   width: 100%;
-  max-width: 600px;
 }
 
 .events-search-icon {
@@ -105,7 +104,7 @@
 @media (max-width: 768px) {
   .events-filters-wrapper {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 }
 
@@ -114,6 +113,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  justify-content: center;
 }
 
 .events-category-item {
@@ -147,16 +147,24 @@
   padding: 8px 12px;
   border: 1px solid var(--border-color, #ddd);
   border-radius: 8px;
-  background: var(--card-bg, white);
-  color: var(--text-primary, #333);
+  background: white;
+  color: #333;
   cursor: pointer;
   transition: all 200ms ease;
   font-size: 14px;
   outline: none;
 }
 
+.events-more-filters svg {
+  color: #333;
+}
+
 .events-more-filters:hover {
   border-color: var(--accent-orange, #fb923c);
+  color: var(--accent-orange, #fb923c);
+}
+
+.events-more-filters:hover svg {
   color: var(--accent-orange, #fb923c);
 }
 
@@ -417,48 +425,15 @@
   color: white;
 }
 
-.dark .events-search-field {
-  background: var(--input-bg, #0f172a);
-  color: var(--text-primary, white);
-  border-color: var(--border-color, #2a4a7f);
-}
-
-.dark .events-search-field::placeholder {
-  color: #64748b;
-}
-
-.dark .events-search-field:focus {
-  box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-}
+/* Dark mode search styling moved to darkMode.css for consistency */
 
 .dark .events-main-container {
   background: #0f172a;
 }
 
-.dark .events-category-item {
-  background: #1e293b;
-  color: #cbd5e1;
-  border-color: #334155;
-}
+/* Dark mode styling for category items moved to darkMode.css for consistency */
 
-.dark .events-category-item:hover {
-  border-color: #ff6b4a;
-}
-
-.dark .events-category-item.active {
-  background: linear-gradient(to right, #ff6b4a, #ff8c42);
-}
-
-.dark .events-more-filters {
-  background: #1e293b;
-  color: #cbd5e1;
-  border-color: #334155;
-}
-
-.dark .events-more-filters:hover {
-  border-color: #ff6b4a;
-  color: #ff6b4a;
-}
+/* Dark mode more filters styling moved to darkMode.css */
 
 .dark .events-card {
   background: #1e293b;

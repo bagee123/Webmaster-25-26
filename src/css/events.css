@@ -1,5 +1,5 @@
 .events-section {
-    padding: 64px 0;
+    padding: 80px 0;
     background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
 }
 
@@ -13,14 +13,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 32px;
+    text-align: center;
+    margin-bottom: 64px;
+    gap: 24px;
+}
+
+.events-header > div {
+    flex: 1;
 }
 
 .events-header h3 {
-    margin: 0 0 8px 0;
-    font-size: 28px;
-    font-weight: 600;
-    color: #111827;
+    margin: 0 0 16px 0;
+    font-size: 36px;
+    font-weight: 700;
+    background: linear-gradient(to right, #f43f5e, #db2777);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .events-header p {

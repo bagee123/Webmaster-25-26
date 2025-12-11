@@ -1,0 +1,374 @@
+/* Animations with scroll-triggered effects */
+
+/* Slide-in animations - end at final position */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 107, 74, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 107, 74, 0.6);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Default state - hidden until scroll triggers .animate class */
+/* EXCEPT hero section which is visible on page load */
+.category-button,
+.event-card,
+.resource-form__field {
+  opacity: 0;
+}
+
+/* Headers and major sections visible by default */
+.hero-section,
+.hero-overlay,
+.hero-content h1,
+.hero-content p,
+.hero-buttons,
+.stat-card,
+.popular-categories-section,
+.categories-header,
+.events-section,
+.highlight-card,
+.highlights-section,
+.testimonial-section,
+.testimonial-header,
+.testimonial-card,
+.testimonial-avatars,
+.resource-form-container,
+.resource-form,
+.categories-header,
+.events-header,
+.highlights-header,
+.resource-form__title {
+  opacity: 1;
+}
+
+/* Hero Section Animations - trigger on scroll */
+.hero-section.animate {
+  animation: fadeIn 0.6s ease-out forwards;
+  will-change: opacity;
+}
+
+.hero-overlay.animate {
+  animation: slideInDown 0.7s ease-out forwards;
+  will-change: transform;
+}
+
+.hero-content h1.animate {
+  animation: slideInUp 0.6s ease-out 0.15s both;
+  will-change: transform, opacity;
+}
+
+.hero-content p.animate {
+  animation: slideInUp 0.6s ease-out 0.3s both;
+  will-change: transform, opacity;
+}
+
+.hero-buttons.animate {
+  animation: slideInUp 0.6s ease-out 0.45s both;
+  will-change: transform, opacity;
+}
+
+.stat-card.animate {
+  animation: slideInScale 0.5s ease-out both;
+  will-change: transform, opacity;
+}
+
+.stat-card:nth-child(1).animate { animation-delay: 0.6s; }
+.stat-card:nth-child(2).animate { animation-delay: 0.7s; }
+.stat-card:nth-child(3).animate { animation-delay: 0.8s; }
+
+/* Button interactions */
+button {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: translateY(0px);
+}
+
+/* Popular Categories Animations - trigger on scroll */
+.popular-categories-section.animate {
+  animation: fadeIn 0.6s ease-out forwards;
+  will-change: opacity;
+}
+
+.categories-header.animate {
+  animation: slideInUp 0.6s ease-out 0.08s both;
+  will-change: transform, opacity;
+}
+
+.category-button.animate {
+  animation: slideInUp 0.5s ease-out both;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform, opacity;
+}
+
+.categories-grid .category-button:nth-child(1).animate { animation-delay: 0.1s; }
+.categories-grid .category-button:nth-child(2).animate { animation-delay: 0.15s; }
+.categories-grid .category-button:nth-child(3).animate { animation-delay: 0.2s; }
+.categories-grid .category-button:nth-child(4).animate { animation-delay: 0.25s; }
+.categories-grid .category-button:nth-child(5).animate { animation-delay: 0.3s; }
+.categories-grid .category-button:nth-child(6).animate { animation-delay: 0.35s; }
+.categories-grid .category-button:nth-child(7).animate { animation-delay: 0.4s; }
+.categories-grid .category-button:nth-child(8).animate { animation-delay: 0.45s; }
+
+.category-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Events Strip Animations - trigger on scroll */
+.events-section.animate {
+  animation: fadeIn 0.6s ease-out forwards;
+  will-change: opacity;
+}
+
+.events-header.animate {
+  animation: slideInUp 0.6s ease-out 0.08s both;
+  will-change: transform, opacity;
+}
+
+.event-card.animate {
+  animation: slideInRight 0.5s ease-out both;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform, opacity;
+}
+
+.events-scroll-container .event-card:nth-child(1).animate { animation-delay: 0.12s; }
+.events-scroll-container .event-card:nth-child(2).animate { animation-delay: 0.18s; }
+.events-scroll-container .event-card:nth-child(3).animate { animation-delay: 0.24s; }
+.events-scroll-container .event-card:nth-child(4).animate { animation-delay: 0.3s; }
+.events-scroll-container .event-card:nth-child(5).animate { animation-delay: 0.36s; }
+
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Highlights Section Animations - trigger on scroll */
+.highlights-section.animate {
+  animation: fadeIn 0.6s ease-out forwards;
+  will-change: opacity;
+}
+
+.highlights-header.animate {
+  animation: slideInUp 0.6s ease-out 0.08s both;
+  will-change: transform, opacity;
+}
+
+/* Highlight cards already have animations in highlights.css, so we just trigger opacity */
+.highlight-card {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform;
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.highlight-icon-wrapper {
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+
+.highlight-card:hover .highlight-icon-wrapper {
+  animation: float 2s ease-in-out infinite, glow 1.5s ease-in-out infinite;
+}
+
+/* Testimonial Section Animations - trigger on scroll */
+.testimonial-section.animate {
+  animation: fadeIn 0.6s ease-out forwards;
+  will-change: opacity;
+}
+
+.testimonial-header.animate {
+  animation: slideInUp 0.6s ease-out 0.08s both;
+  will-change: transform, opacity;
+}
+
+.testimonial-card.animate {
+  animation: slideInUp 0.6s ease-out both;
+  will-change: transform, opacity;
+}
+
+.testimonial-avatars.animate {
+  animation: slideInDown 0.5s ease-out 0.22s both;
+  will-change: transform, opacity;
+}
+
+.testimonial-avatar {
+  animation: pulse 2s ease-in-out infinite;
+  transition: opacity 0.2s ease;
+  will-change: opacity;
+}
+
+.testimonial-avatar:nth-child(1) { animation-delay: 0s; }
+.testimonial-avatar:nth-child(2) { animation-delay: 0.2s; }
+.testimonial-avatar:nth-child(3) { animation-delay: 0.4s; }
+.testimonial-avatar:nth-child(4) { animation-delay: 0.6s; }
+
+/* Resource Form Animations - trigger on scroll */
+.resource-form-container.animate {
+  animation: fadeIn 0.6s ease-out forwards;
+  will-change: opacity;
+}
+
+.resource-form.animate {
+  animation: slideInUp 0.6s ease-out 0.15s both;
+  will-change: transform, opacity;
+}
+
+.resource-form__field.animate {
+  animation: slideInUp 0.5s ease-out both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform, opacity;
+}
+
+.resource-form__field:nth-child(1).animate { animation-delay: 0.2s; }
+.resource-form__field:nth-child(2).animate { animation-delay: 0.24s; }
+.resource-form__field:nth-child(3).animate { animation-delay: 0.28s; }
+.resource-form__field:nth-child(4).animate { animation-delay: 0.32s; }
+.resource-form__field:nth-child(5).animate { animation-delay: 0.36s; }
+.resource-form__field:nth-child(6).animate { animation-delay: 0.4s; }
+.resource-form__field:nth-child(7).animate { animation-delay: 0.44s; }
+
+.resource-form__input,
+.resource-form__textarea {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.resource-form__input:focus,
+.resource-form__textarea:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(251, 146, 60, 0.15);
+}
+
+.resource-form__submit {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.resource-form__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(251, 146, 60, 0.25);
+}
+
+/* Heading animations */
+h1, h2, h3 {
+  opacity: 1;
+}
+
+h1.animate, h2.animate, h3.animate {
+  animation: slideInUp 0.6s ease-out both;
+  will-change: transform, opacity;
+}
+
+.hero-content h1.animate { animation-delay: 0.2s; }
+.categories-header h3.animate { animation-delay: 0.1s; }
+.events-header h3.animate { animation-delay: 0.1s; }
+.highlights-header h2.animate { animation-delay: 0.1s; }
+.testimonial-header h2.animate { animation-delay: 0.1s; }
+.resource-form__title.animate { animation-delay: 0.2s; }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

@@ -125,9 +125,7 @@
     box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
 }
 
-.dark .category-btn.active {
-    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
-}
+/* Dark mode styling moved to darkMode.css for consistency */
 
 /* Sort Wrapper */
 .sort-wrapper {
@@ -294,8 +292,8 @@
 
 @keyframes cardSlideIn {
   from {
-    opacity: 0.6;
-    transform: scale(0.92);
+    opacity: 0.7;
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
