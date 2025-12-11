@@ -1,5 +1,9 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 const resources = [
+=======
+export const resources = [
+>>>>>>> Stashed changes
 =======
 export const resources = [
 >>>>>>> Stashed changes
@@ -73,4 +77,3 @@ export const resources = [
 export default resources;
 =======
 export default resources;
->>>>>>> Stashed changes

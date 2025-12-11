@@ -24,10 +24,14 @@ export function ResourceProvider({children}) {
     );
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 ResourceProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
+=======
+}
+>>>>>>> Stashed changes
 =======
 }
 >>>>>>> Stashed changes

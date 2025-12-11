@@ -13,7 +13,12 @@ const navLinks = [
 ];
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 export default function Navbar({ onLoginClick = () => {} }) {
+=======
+export default function Navbar() {
+  const navigate = useNavigate();
+>>>>>>> Stashed changes
 =======
 export default function Navbar() {
   const navigate = useNavigate();
@@ -108,9 +113,12 @@ export default function Navbar() {
   );
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 Navbar.propTypes = {
   onLoginClick: PropTypes.func,
 };
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
