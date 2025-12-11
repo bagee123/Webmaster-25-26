@@ -87,11 +87,6 @@ export default function ResourceDirectory() {
     <>
       <section id="directory" className="directory-section">
         <div className="directory-container">
-          <div className="directory-header">
-            <h2>Interactive Resource Directory</h2>
-            <p>Search and filter through our comprehensive database of community resources</p>
-          </div>
-
           {/* Search Bar */}
           <div className="search-wrapper">
             <div className="search-box">

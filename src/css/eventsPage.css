@@ -28,48 +28,59 @@
   color: rgba(255, 255, 255, 0.95);
   font-size: 1.125rem;
   max-width: 42rem;
-  margin: 0 auto 2.5rem;
+  margin: 0 auto;
   line-height: 1.6;
 }
 
 /* Search Bar */
 .events-search-wrapper {
-  max-width: 32rem;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .events-search-input-container {
   position: relative;
+  width: 100%;
 }
 
 .events-search-icon {
   position: absolute;
-  left: 1rem;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  color: #9ca3af;
+  color: var(--text-tertiary, #999);
   pointer-events: none;
+  transition: color 240ms;
 }
 
 .events-search-field {
   width: 100%;
-  padding: 1rem 1rem 1rem 2.75rem;
-  border-radius: 1rem;
-  border: 0;
-  font-size: 1rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  background: white;
-  color: #1f2937;
-  transition: ring 200ms ease;
+  padding: 14px 16px 14px 44px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 28px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 240ms, box-shadow 240ms, background-color 240ms, color 240ms;
+  box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.04));
+  background: var(--input-bg, #ffffff);
+  color: var(--text-primary, #333);
 }
 
 .events-search-field:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent-orange, #fb923c);
+  box-shadow: 0 4px 12px rgba(251, 146, 60, 0.2);
 }
 
 .events-search-field::placeholder {
-  color: #d1d5db;
+  color: var(--text-tertiary, #ccc);
 }
 
 /* Main Container */
@@ -82,17 +93,17 @@
 /* Filters Wrapper */
 .events-filters-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 3rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+  width: 100%;
   flex-wrap: wrap;
+  gap: 16px;
 }
 
-@media (min-width: 640px) {
+@media (max-width: 768px) {
   .events-filters-wrapper {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
   }
 }
@@ -102,6 +113,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  justify-content: center;
 }
 
 .events-category-item {
@@ -109,11 +121,10 @@
   border-radius: 9999px;
   transition: all 200ms ease;
   font-size: 0.875rem;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color, #e5e7eb);
   cursor: pointer;
-  background: white;
-  color: #374151;
-  border-color: #e5e7eb;
+  background: var(--card-bg, white);
+  color: var(--text-primary, #374151);
 }
 
 .events-category-item:hover {
@@ -133,18 +144,28 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.75rem;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
   background: white;
-  color: #374151;
+  color: #333;
   cursor: pointer;
   transition: all 200ms ease;
+  font-size: 14px;
+  outline: none;
+}
+
+.events-more-filters svg {
+  color: #333;
 }
 
 .events-more-filters:hover {
-  border-color: #fed7aa;
-  color: #ea580c;
+  border-color: var(--accent-orange, #fb923c);
+  color: var(--accent-orange, #fb923c);
+}
+
+.events-more-filters:hover svg {
+  color: var(--accent-orange, #fb923c);
 }
 
 /* Events Grid Container */
@@ -251,6 +272,7 @@
   margin-bottom: 1rem;
   line-height: 1.5;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -403,48 +425,15 @@
   color: white;
 }
 
-.dark .events-search-field {
-  background: #0f172a;
-  color: white;
-  border-color: #2a4a7f;
-}
-
-.dark .events-search-field::placeholder {
-  color: #64748b;
-}
-
-.dark .events-search-field:focus {
-  box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-}
+/* Dark mode search styling moved to darkMode.css for consistency */
 
 .dark .events-main-container {
   background: #0f172a;
 }
 
-.dark .events-category-item {
-  background: #1e293b;
-  color: #cbd5e1;
-  border-color: #334155;
-}
+/* Dark mode styling for category items moved to darkMode.css for consistency */
 
-.dark .events-category-item:hover {
-  border-color: #ff6b4a;
-}
-
-.dark .events-category-item.active {
-  background: linear-gradient(to right, #ff6b4a, #ff8c42);
-}
-
-.dark .events-more-filters {
-  background: #1e293b;
-  color: #cbd5e1;
-  border-color: #334155;
-}
-
-.dark .events-more-filters:hover {
-  border-color: #ff6b4a;
-  color: #ff6b4a;
-}
+/* Dark mode more filters styling moved to darkMode.css */
 
 .dark .events-card {
   background: #1e293b;

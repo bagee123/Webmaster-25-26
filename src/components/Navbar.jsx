@@ -8,8 +8,9 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Resources', href: '/resources' },
   { label: 'Events', href: '/events' },
+  { label: 'Highlights', href: '/highlights' },
   { label: 'Blog', href: '/blog' },
-  { label: 'About', href: '/about' },
+  { label: 'References', href: '/references' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -19,9 +20,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -41,7 +40,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-inner">
-          <Link to="/" className="navbar-logo">
+          <Link to="/" className="navbar-logo" onClick={handleNavClick}>
             <div className="logo-badge">C</div>
             <span className="logo-text">Coppell Community Resource Hub</span>
           </Link>
@@ -61,6 +60,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
             <button
               onClick={onLoginClick}
               className="nav-login-btn"
+              type="button"
             >
               <LogIn size={18} />
               Login
@@ -70,6 +70,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="navbar-toggle"
+            type="button"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -93,6 +94,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                 onLoginClick();
               }}
               className="nav-login-btn-mobile"
+              type="button"
             >
               <LogIn size={18} />
               Login

@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Users, Search, Filter, Bookmark } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import '../css/eventsPage.css';
 import reactLogo from '../assets/react.svg';
 
-const events = [
+const eventData = [
   {
     id: 1,
     name: 'Community Farmers Market',
@@ -76,12 +75,11 @@ const events = [
 const categories = ['All', 'Community', 'Volunteering', 'Health', 'Education', 'Social', 'Business'];
 
 export default function Events() {
-  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedEvents, setSavedEvents] = useState(new Set());
 
-  const filteredEvents = events
+  const filteredEvents = eventData
     .filter(event => selectedCategory === 'All' || event.category === selectedCategory)
     .filter(event => 
       searchQuery === '' || 
@@ -108,24 +106,24 @@ export default function Events() {
           <p className="events-header-subtitle">
             Discover upcoming events, workshops, and gatherings in Coppell
           </p>
-
-          {/* Search Bar */}
-          <div className="events-search-wrapper">
-            <div className="events-search-input-container">
-              <Search className="events-search-icon" size={20} />
-              <input
-                type="text"
-                placeholder="Search events..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="events-search-field"
-              />
-            </div>
-          </div>
         </div>
       </div>
 
       <div className="events-main-container">
+        {/* Search Bar */}
+        <div className="events-search-wrapper">
+          <div className="events-search-input-container">
+            <Search className="events-search-icon" size={20} />
+            <input
+              type="text"
+              placeholder="Search events..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="events-search-field"
+            />
+          </div>
+        </div>
+
         {/* Filters */}
         <div className="events-filters-wrapper">
           <div className="events-category-list">

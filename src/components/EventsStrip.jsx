@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, Clock, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import '../css/events.css';
 
 const events = [
@@ -11,6 +12,11 @@ const events = [
 ];
 
 export default function EventsStrip() {
+  const navigate = useNavigate();
+
+  const handleViewAll = () => {
+    navigate('/events');
+  };
   return (
     <section id="events" className="events-section">
       <div className="events-container">
@@ -19,7 +25,7 @@ export default function EventsStrip() {
             <h3>Upcoming Events</h3>
             <p>Stay connected with community activities and gatherings</p>
           </div>
-          <button className="view-all-btn">View All</button>
+          <button className="view-all-btn" onClick={handleViewAll}>View All</button>
         </div>
 
         <div className="events-scroll-wrapper">

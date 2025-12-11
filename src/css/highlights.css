@@ -3,6 +3,10 @@
     background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
 }
 
+.dark .highlights-section {
+    background: #0f172a;
+}
+
 .highlights-container {
     max-width: 1280px;
     margin: 0 auto;
@@ -16,9 +20,9 @@
 
 .highlights-header h2 {
     margin: 0 0 16px 0;
-    font-size: 30px;
-    font-weight: 600;
-    background: linear-gradient(to right, #ea580c, #db2777);
+    font-size: 36px;
+    font-weight: 700;
+    background: linear-gradient(to right, #f43f5e, #db2777);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -26,7 +30,7 @@
 
 .highlights-header p {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
     color: #4b5563;
     max-width: 768px;
     margin-left: auto;
@@ -159,23 +163,114 @@
 
 /* Testimonial Section */
 .testimonial-section {
-    background: white;
-    border-radius: 24px;
     padding: 48px 32px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    border: 1px solid #f0f0f0;
     text-align: center;
+}
+
+.testimonial-header {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 32px;
+}
+
+.testimonial-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 24px;
+    padding: 16px 0;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.testimonial-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.testimonial-carousel::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.testimonial-carousel::-webkit-scrollbar-thumb {
+    background: #d0d0d0;
+    border-radius: 10px;
+}
+
+.testimonial-carousel::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+/* Auto-scrolling Carousel */
+.testimonial-carousel-auto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+}
+
+.testimonial-card {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    opacity: 0;
+    animation: slideOut 0.8s ease-in-out forwards;
+    pointer-events: none;
+}
+
+.testimonial-card.active {
+    opacity: 1;
+    animation: slideIn 0.6s ease-in-out forwards;
+    pointer-events: auto;
+    position: relative;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+}
+
+.testimonial-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    min-width: 320px;
+    max-width: 400px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
 }
 
 .testimonial-avatars {
     display: flex;
     justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .testimonial-avatar {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: linear-gradient(135deg, #f97316, #ec4899);
     border: 2px solid white;
@@ -184,8 +279,9 @@
     justify-content: center;
     color: white;
     font-weight: 700;
-    margin: 0 -12px;
+    margin: 0 -10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
 }
 
 .testimonial-avatars .testimonial-avatar:first-child {
@@ -198,18 +294,15 @@
 
 .testimonial-quote {
     margin: 0 0 16px 0;
-    font-size: 18px;
+    font-size: 16px;
     color: #374151;
     line-height: 1.8;
     font-style: italic;
-    max-width: 768px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .testimonial-author {
     margin: 0;
-    font-size: 14px;
+    font-size: 13px;
     color: #6b7280;
     font-weight: 500;
 }
@@ -234,10 +327,16 @@
     }
 
     .testimonial-section {
-        padding: 32px 24px;
+        padding: 24px 16px;
+    }
+
+    .testimonial-card {
+        min-width: 280px;
+        max-width: 320px;
+        padding: 24px;
     }
 
     .testimonial-quote {
-        font-size: 16px;
+        font-size: 14px;
     }
 }

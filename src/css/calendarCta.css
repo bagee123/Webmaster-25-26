@@ -3,6 +3,10 @@
   background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
 }
 
+.dark .calendar-cta {
+  background: #0f172a;
+}
+
 .calendar-cta-content {
   max-width: 56rem;
   margin: 0 auto;
