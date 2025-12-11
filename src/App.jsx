@@ -11,6 +11,7 @@ import Contact from './pages/Contact';
 import SubmitResource from './pages/SubmitResource';
 import Login from './pages/Login';
 import Highlights from './pages/Highlights';
+import References from './pages/References';
 import { ResourceProvider } from './context/ResourceContext';
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/submit-resource" element={<SubmitResource />} />
         <Route path="/login" element={<Login />} />
         <Route path="/highlights" element={<Highlights />} />
+        <Route path="/references" element={<References />} />
       </Routes>
       <Footer />
     </ResourceProvider>
