@@ -21,7 +21,7 @@ export default function References() {
     },
     {
       name: 'Coppell Public Library',
-      url: 'https://www.coppelltx.gov/departments/library',
+      url: 'https://www.coppelltx.gov/1183/Cozby-Library-Community-Commons',
       description: 'Library services, programs, and community events'
     },
     {
