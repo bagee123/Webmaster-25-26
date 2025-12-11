@@ -442,7 +442,7 @@
 }
 
 .dark .modal-content {
-  background-color: var(--card-bg);
+  background: #1e293b !important;
   color: var(--text-primary);
 }
 
@@ -915,6 +915,47 @@
 
 .dark .modal-close:hover {
   color: var(--text-primary);
+}
+
+/* Modal Elements Dark Mode */
+.dark .modal-category-badge {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+.dark .modal-section-title {
+  color: #f1f5f9;
+}
+
+.dark .modal-description {
+  color: #cbd5e1;
+}
+
+.dark .contact-label,
+.dark .location-label {
+  color: #94a3b8;
+}
+
+.dark .contact-value,
+.dark .location-value {
+  color: #e2e8f0;
+}
+
+.dark .contact-value:hover {
+  color: #ff8c42;
+}
+
+.dark .contact-info-icon,
+.dark .location-icon {
+  color: #ff8c42 !important;
+}
+
+.dark .modal-icon-box {
+  background: linear-gradient(135deg, rgba(255, 107, 74, 0.15) 0%, rgba(255, 140, 66, 0.15) 100%);
+}
+
+.dark .modal-title {
+  color: #f1f5f9;
 }
 
 /* Directory Cards Dark Mode */

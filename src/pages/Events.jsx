@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Users, Search, Filter, Bookmark } from 'lucide-react';
 import '../css/eventsPage.css';
 import reactLogo from '../assets/react.svg';
 
-const events = [
+const eventData = [
   {
     id: 1,
     name: 'Community Farmers Market',
@@ -79,7 +79,7 @@ export default function Events() {
   const [searchQuery, setSearchQuery] = useState('');
   const [savedEvents, setSavedEvents] = useState(new Set());
 
-  const filteredEvents = events
+  const filteredEvents = eventData
     .filter(event => selectedCategory === 'All' || event.category === selectedCategory)
     .filter(event => 
       searchQuery === '' || 

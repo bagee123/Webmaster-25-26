@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './css/app.css';
 import './css/animations.css';
 import Navbar from './components/Navbar';
@@ -17,6 +17,19 @@ import { ResourceProvider } from './context/ResourceContext';
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Prevent browser from restoring scroll position
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const handleLoginClick = () => {
     navigate('/login');

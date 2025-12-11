@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { X, Phone, Mail, MapPin, Clock, Globe, Heart } from 'lucide-react';
 import '../css/modal.css';
 
 export default function DetailModal({ resource, onClose }) {
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const handleFavoriteClick = () => {
+    setIsFavorited(!isFavorited);
+  };
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -86,9 +91,12 @@ export default function DetailModal({ resource, onClose }) {
 
         {/* Action Buttons */}
         <div className="modal-actions">
-          <button className="btn-favorite">
-            <Heart size={18} />
-            Save to Favorites
+          <button 
+            className={`btn-favorite ${isFavorited ? 'active' : ''}`}
+            onClick={handleFavoriteClick}
+          >
+            <Heart size={18} fill={isFavorited ? 'currentColor' : 'none'} />
+            {isFavorited ? 'Saved!' : 'Save to Favorites'}
           </button>
           <button className="btn-close-modal" onClick={onClose}>
             Close

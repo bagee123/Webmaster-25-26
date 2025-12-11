@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Hero from '../components/Hero';
 import PopularCategories from '../components/PopularCategories';
 import EventsStrip from '../components/EventsStrip';
