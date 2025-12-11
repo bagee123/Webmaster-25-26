@@ -135,7 +135,7 @@ export default function Login() {
 
         {/* Link to signup page for new users */}
         <p className="signup-link">
-          Don't have an account? <a href="/signup">Sign up here</a>
+          Don&apos;t have an account? <a href="/signup">Sign up here</a>
         </p>
       </div>
     </div>

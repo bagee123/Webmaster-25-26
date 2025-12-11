@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, LogIn } from 'lucide-react';
 import '../css/navbar.css';
 
@@ -7,30 +8,17 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Resources', href: '/resources' },
   { label: 'Events', href: '/events' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'About', href: '/about' },
+  { label: 'Highlights', href: '/highlights' },
   { label: 'Contact', href: '/contact' },
 ];
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 export default function Navbar({ onLoginClick = () => {} }) {
-=======
-export default function Navbar() {
-  const navigate = useNavigate();
->>>>>>> Stashed changes
-=======
-export default function Navbar() {
-  const navigate = useNavigate();
->>>>>>> Stashed changes
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -50,7 +38,7 @@ export default function Navbar() {
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-inner">
-          <Link to="/" className="navbar-logo">
+          <Link to="/" className="navbar-logo" onClick={handleNavClick}>
             <div className="logo-badge">C</div>
             <span className="logo-text">Coppell Community Resource Hub</span>
           </Link>
@@ -68,8 +56,9 @@ export default function Navbar() {
               </Link>
             ))}
             <button
-              onClick={() => navigate('/login')}
+              onClick={onLoginClick}
               className="nav-login-btn"
+              type="button"
             >
               <LogIn size={18} />
               Login
@@ -79,6 +68,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="navbar-toggle"
+            type="button"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -99,9 +89,10 @@ export default function Navbar() {
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
-                navigate('/login');
+                onLoginClick();
               }}
               className="nav-login-btn-mobile"
+              type="button"
             >
               <LogIn size={18} />
               Login
@@ -112,13 +103,7 @@ export default function Navbar() {
     </nav>
   );
 }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
 Navbar.propTypes = {
   onLoginClick: PropTypes.func,
 };
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
