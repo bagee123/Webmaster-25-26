@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -19,7 +19,7 @@
 
 /* White card box that holds the login form */
 .login-box {
-  background: white;
+  background: #1e293b;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   padding: 40px;
@@ -45,7 +45,7 @@
 .login-title {
   font-size: 28px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #f1f5f9;
   margin: 0 0 8px 0;
   text-align: center;
 }
@@ -53,7 +53,7 @@
 /* Subtitle text */
 .login-subtitle {
   font-size: 14px;
-  color: #666;
+  color: #cbd5e1;
   text-align: center;
   margin: 0 0 30px 0;
 }
@@ -88,7 +88,7 @@
 .form-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #333;
+  color: #e2e8f0;
 }
 
 /* Wrapper for input field and icon */
@@ -102,7 +102,7 @@
 .input-icon {
   position: absolute;
   left: 12px;
-  color: #999;
+  color: #94a3b8;
   pointer-events: none;
 }
 
@@ -110,23 +110,25 @@
 .form-input {
   width: 100%;
   padding: 12px 12px 12px 40px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #334155;
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  background: #0f172a;
+  color: #e2e8f0;
 }
 
 /* Focus state - highlight border and add subtle shadow */
 .form-input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #fb923c;
+  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
 }
 
 /* Placeholder text styling */
 .form-input::placeholder {
-  color: #999;
+  color: #94a3b8;
 }
 
 /* Eye icon button to toggle password visibility */
@@ -136,7 +138,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #999;
+  color: #94a3b8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,7 +148,7 @@
 
 /* Icon color change on hover */
 .password-toggle:hover {
-  color: #667eea;
+  color: #fb923c;
 }
 
 /* Container for remember me and forgot password */
@@ -163,20 +165,20 @@
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  color: #666;
+  color: #cbd5e1;
 }
 
-/* Checkbox styling - purple accent color */
+/* Checkbox styling - orange accent color */
 .remember-me input[type='checkbox'] {
   width: 18px;
   height: 18px;
   cursor: pointer;
-  accent-color: #667eea;
+  accent-color: #fb923c;
 }
 
 /* Forgot password link styling */
 .forgot-password {
-  color: #667eea;
+  color: #fb923c;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -184,7 +186,7 @@
 
 /* Forgot password link on hover */
 .forgot-password:hover {
-  color: #764ba2;
+  color: #ec4899;
   text-decoration: underline;
 }
 
@@ -192,7 +194,7 @@
 .login-button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -200,13 +202,13 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
 }
 
 /* Button hover effect - slight lift and enhanced shadow */
 .login-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.6);
 }
 
 /* Disabled state - appears greyed out */
@@ -223,7 +225,7 @@
 /* Divider line with "or" text between login methods */
 .login-divider {
   text-align: center;
-  color: #999;
+  color: #64748b;
   font-size: 14px;
   margin: 20px 0;
   position: relative;
@@ -237,7 +239,7 @@
   top: 50%;
   width: calc(50% - 15px);
   height: 1px;
-  background-color: #e0e0e0;
+  background-color: #475569;
 }
 
 /* Left divider line */
@@ -254,9 +256,9 @@
 .google-login {
   width: 100%;
   padding: 12px;
-  background-color: #f5f5f5;
-  color: #333;
-  border: 2px solid #e0e0e0;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border: 2px solid #334155;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -271,8 +273,8 @@
 
 /* Google button hover state */
 .google-login:hover {
-  background-color: #f0f0f0;
-  border-color: #ccc;
+  background-color: #1e293b;
+  border-color: #475569;
 }
 
 /* Google logo sizing */
@@ -285,99 +287,20 @@
 .signup-link {
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: #cbd5e1;
   margin: 0;
 }
 
 .signup-link a {
-  color: #667eea;
+  color: #fb923c;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .signup-link a:hover {
-  color: #764ba2;
+  color: #ec4899;
   text-decoration: underline;
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .login-container {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  }
-
-  .login-box {
-    background: #0f0f1e;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  }
-
-  .login-title {
-    color: #fff;
-  }
-
-  .login-subtitle {
-    color: #aaa;
-  }
-
-  .form-group label {
-    color: #ddd;
-  }
-
-  .input-icon {
-    color: #666;
-  }
-
-  .form-input {
-    background: #1a1a2e;
-    border-color: #333;
-    color: #790707;
-  }
-
-  .form-input:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-  }
-
-  .form-input::placeholder {
-    color: #666;
-  }
-
-  .password-toggle {
-    color: #666;
-  }
-
-  .password-toggle:hover {
-    color: #667eea;
-  }
-
-  .remember-me {
-    color: #aaa;
-  }
-
-  .login-divider {
-    color: #666;
-  }
-
-  .login-divider::before,
-  .login-divider::after {
-    background-color: #333;
-  }
-
-  .google-login {
-    background-color: #1a1a2e;
-    color: #ddd;
-    border-color: #333;
-  }
-
-  .google-login:hover {
-    background-color: #252540;
-    border-color: #444;
-  }
-
-  .signup-link {
-    color: #aaa;
-  }
 }
 
 /* Responsive Design */

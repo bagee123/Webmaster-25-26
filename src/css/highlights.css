@@ -3,6 +3,10 @@
     background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
 }
 
+.dark .highlights-section {
+    background: #0f172a;
+}
+
 .highlights-container {
     max-width: 1280px;
     margin: 0 auto;

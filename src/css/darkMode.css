@@ -36,6 +36,11 @@
 .dark body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+body {
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 .dark {
@@ -1051,5 +1056,97 @@
 
 .dark .events-main-container {
   background: #0f172a;
+}
+
+/* Login Page Dark Mode Styles */
+.dark .login-container {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+}
+
+.dark .login-box {
+  background: #1e293b;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.dark .login-title {
+  color: #f1f5f9;
+}
+
+.dark .login-subtitle {
+  color: #cbd5e1;
+}
+
+.dark .form-group label {
+  color: #e2e8f0;
+}
+
+.dark .input-icon {
+  color: #94a3b8;
+}
+
+.dark .form-input {
+  background: #0f172a;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .form-input:focus {
+  border-color: #ff8c42;
+  box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.2);
+}
+
+.dark .form-input::placeholder {
+  color: #94a3b8;
+}
+
+.dark .password-toggle {
+  color: #94a3b8;
+}
+
+.dark .password-toggle:hover {
+  color: #ff8c42;
+}
+
+.dark .remember-me {
+  color: #cbd5e1;
+}
+
+.dark .login-button {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 74, 0.4);
+}
+
+.dark .login-button:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(255, 107, 74, 0.6);
+}
+
+.dark .login-error {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #fca5a5;
+  border-left-color: #dc2626;
+}
+
+.dark .login-divider {
+  color: #64748b;
+}
+
+.dark .login-divider::before,
+.dark .login-divider::after {
+  background-color: #475569;
+}
+
+.dark .google-login {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+.dark .google-login:hover {
+  background-color: #1e293b;
+  border-color: #475569;
+}
+
+.dark .signup-link {
+  color: #cbd5e1;
 }
 

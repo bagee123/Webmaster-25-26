@@ -6,27 +6,49 @@ const DarkModeContext = createContext(undefined);
 export function DarkModeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Check localStorage first
-    const stored = localStorage.getItem('darkMode');
-    if (stored !== null) {
-      return stored === 'true';
+    try {
+      const stored = localStorage.getItem('darkMode');
+      console.log('Initializing dark mode - stored value:', stored, 'type:', typeof stored);
+      if (stored === 'true') {
+        console.log('Using stored value: TRUE');
+        return true;
+      } else if (stored === 'false') {
+        console.log('Using stored value: FALSE');
+        return false;
+      }
+    } catch (error) {
+      console.error('Error reading localStorage:', error);
     }
-    // Check system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // DEFAULT to light mode if no stored value
+    console.log('No stored value - defaulting to light mode');
+    return false;
   });
 
   useEffect(() => {
+    console.log('isDarkMode changed to:', isDarkMode);
     // Apply or remove dark class on document element
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
+      console.log('Dark mode ON - .dark class added to document');
     } else {
       document.documentElement.classList.remove('dark');
+      console.log('Dark mode OFF - .dark class removed from document');
     }
     // Store preference
-    localStorage.setItem('darkMode', String(isDarkMode));
+    try {
+      localStorage.setItem('darkMode', String(isDarkMode));
+      console.log('Saved to localStorage:', isDarkMode);
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(prev => !prev);
+    console.log('Toggle clicked - current isDarkMode:', isDarkMode);
+    setIsDarkMode(prev => {
+      console.log('Toggling from', prev, 'to', !prev);
+      return !prev;
+    });
   };
 
   return (
