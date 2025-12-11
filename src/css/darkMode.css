@@ -937,3 +937,12 @@
   color: #94a3b8;
 }
 
+/* Dark Mode Background for Functional Pages - Dark Blue */
+.dark .directory-section {
+  background: #0f172a;
+}
+
+.dark .events-main-container {
+  background: #0f172a;
+}
+

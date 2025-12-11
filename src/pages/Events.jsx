@@ -108,24 +108,24 @@ export default function Events() {
           <p className="events-header-subtitle">
             Discover upcoming events, workshops, and gatherings in Coppell
           </p>
-
-          {/* Search Bar */}
-          <div className="events-search-wrapper">
-            <div className="events-search-input-container">
-              <Search className="events-search-icon" size={20} />
-              <input
-                type="text"
-                placeholder="Search events..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="events-search-field"
-              />
-            </div>
-          </div>
         </div>
       </div>
 
       <div className="events-main-container">
+        {/* Search Bar */}
+        <div className="events-search-wrapper">
+          <div className="events-search-input-container">
+            <Search className="events-search-icon" size={20} />
+            <input
+              type="text"
+              placeholder="Search events..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="events-search-field"
+            />
+          </div>
+        </div>
+
         {/* Filters */}
         <div className="events-filters-wrapper">
           <div className="events-category-list">
