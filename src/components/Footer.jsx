@@ -6,11 +6,11 @@ export default function Footer() {
   const openMap = () => {
     window.open('https://www.google.com/maps/search/Coppell,+TX', '_blank');
   };
+
   return (
     <footer id="contact" className="footer-root">
       <div className="footer-container">
         <div className="footer-grid">
-          {/* About */}
           <div>
             <div className="footer-brand">
               <div className="logo-circle">
@@ -23,7 +23,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="text-white mb-4">Quick Links</h4>
             <ul className="space-y-3">
@@ -45,7 +44,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
           <div>
             <h4 className="text-white mb-4">Resources</h4>
             <ul className="space-y-3">
@@ -67,7 +65,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="footer-heading">Contact Us</h4>
             <ul className="contact-list">
@@ -85,7 +82,6 @@ export default function Footer() {
               </li>
             </ul>
 
-            {/* Social Media */}
             <div className="social-row">
               <a href="#" className="social-btn">
                 <Facebook size={18} />
@@ -100,17 +96,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="footer-bottom">
           <div className="footer-bottom-inner">
             <p className="copyright">© 2025 Coppell Community Resource Hub (WebMaster 2025). All rights reserved.</p>
-             <p className="copyright"> <p className="copyright">ISC License
-
-Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2023 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2025.
-
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p></p>
+            <p className="copyright">Icons by Lucide (ISC License). THE SOFTWARE IS PROVIDED &quot;AS IS&quot; WITHOUT WARRANTY OF ANY KIND.</p>
             <p className="credit">Created for the Coppell HS TSA Webmaster Contest</p>
           </div>
         </div>

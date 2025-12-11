@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Calendar, Clock, MapPin, Users, Search, Filter, Bookmark } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import '../css/eventsPage.css';
 import reactLogo from '../assets/react.svg';
 
@@ -76,7 +75,6 @@ const events = [
 const categories = ['All', 'Community', 'Volunteering', 'Health', 'Education', 'Social', 'Business'];
 
 export default function Events() {
-  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedEvents, setSavedEvents] = useState(new Set());

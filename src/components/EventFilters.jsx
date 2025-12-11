@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Search, Filter } from 'lucide-react';
 import '../css/eventFilters.css';
 
@@ -42,3 +43,10 @@ export default function EventFilters({ selectedCategory, onCategoryChange, searc
     </div>
   );
 }
+
+EventFilters.propTypes = {
+  selectedCategory: PropTypes.string.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
+};

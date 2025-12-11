@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Calendar, Clock, MapPin, Users } from 'lucide-react';
 import reactLogo from '../assets/react.svg';
 import '../css/eventCard.css';
@@ -40,3 +41,16 @@ export default function EventCard({ event }) {
     </div>
   );
 }
+
+EventCard.propTypes = {
+  event: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    attendees: PropTypes.number,
+    description: PropTypes.string,
+  }).isRequired,
+};
