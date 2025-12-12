@@ -19,7 +19,7 @@
 
 /* White card box that holds the login form */
 .login-box {
-  background: #1e293b;
+  background: white;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   padding: 40px;
@@ -45,7 +45,7 @@
 .login-title {
   font-size: 28px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #1f2937;
   margin: 0 0 8px 0;
   text-align: center;
 }
@@ -53,7 +53,7 @@
 /* Subtitle text */
 .login-subtitle {
   font-size: 14px;
-  color: #cbd5e1;
+  color: #4b5563;
   text-align: center;
   margin: 0 0 30px 0;
 }
@@ -88,7 +88,7 @@
 .form-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: #1f2937;
 }
 
 /* Wrapper for input field and icon */
@@ -110,13 +110,13 @@
 .form-input {
   width: 100%;
   padding: 12px 12px 12px 40px;
-  border: 2px solid #334155;
+  border: 2px solid #d1d5db;
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
   box-sizing: border-box;
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #ffffff;
+  color: #1f2937;
 }
 
 /* Focus state - highlight border and add subtle shadow */
@@ -256,9 +256,9 @@
 .google-login {
   width: 100%;
   padding: 12px;
-  background-color: #0f172a;
-  color: #e2e8f0;
-  border: 2px solid #334155;
+  background-color: white;
+  color: #1f2937;
+  border: 2px solid #d1d5db;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -273,7 +273,7 @@
 
 /* Google button hover state */
 .google-login:hover {
-  background-color: #1e293b;
+  background-color: white;
   border-color: #475569;
 }
 

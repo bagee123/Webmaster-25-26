@@ -33,23 +33,9 @@
 }
 
 /* General Dark Mode Styles */
-.dark html {
-  background-color: #0f172a;
-}
-
 .dark body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 300ms ease, color 300ms ease;
-}
-
-html {
-  background-color: #ffffff;
-  transition: background-color 300ms ease;
-}
-
-body {
-  transition: background-color 300ms ease, color 300ms ease;
 }
 
 .dark {
@@ -59,12 +45,12 @@ body {
 
 /* Navbar Dark Mode */
 .dark .navbar {
-  background-color: #0f1729;
+  background-color: #2a2a3e;
   box-shadow: 0 4px 6px var(--shadow);
 }
 
 .dark .navbar-scrolled {
-  background-color: #0f1729;
+  background-color: #2a2a3e;
 }
 
 .dark .logo-text {
@@ -122,7 +108,7 @@ body {
 
 /* Hero Dark Mode */
 .dark .hero-overlay {
-  background: linear-gradient(to bottom right, #1a2a4e, #16213e, #0f3460) !important;
+  background: linear-gradient(to bottom right, #1a1a2e, #16213e, #0f3460) !important;
 }
 
 .dark .hero-content h1,
@@ -259,7 +245,6 @@ body {
 
 
 .dark .events-category-btn,
-.dark .events-category-item,
 .dark .category-btn {
   background-color: var(--card-bg) !important;
   color: var(--text-secondary) !important;
@@ -267,7 +252,6 @@ body {
 }
 
 .dark .events-category-btn:hover,
-.dark .events-category-item:hover,
 .dark .category-btn:hover {
   background-color: var(--bg-tertiary) !important;
   border-color: var(--accent-orange) !important;
@@ -275,7 +259,6 @@ body {
 }
 
 .dark .events-category-btn.active,
-.dark .events-category-item.active,
 .dark .category-btn.active {
   background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%) !important;
   color: white !important;
@@ -285,7 +268,6 @@ body {
 
 /* Search Bar Dark Mode */
 .dark .events-search-input,
-.dark .events-search-field,
 .dark .search-input {
   background-color: var(--input-bg) !important;
   color: var(--text-primary) !important;
@@ -294,7 +276,6 @@ body {
 }
 
 .dark .events-search-input:focus,
-.dark .events-search-field:focus,
 .dark .search-input:focus {
   background-color: var(--input-bg) !important;
   border-color: var(--accent-orange) !important;
@@ -302,33 +283,24 @@ body {
 }
 
 .dark .events-search-input::placeholder,
-.dark .events-search-field::placeholder,
 .dark .search-input::placeholder {
   color: var(--text-tertiary) !important;
 }
 
 .dark .events-search-icon,
 .dark .search-icon {
-  color: var(--text-primary) !important;
+  color: var(--text-tertiary) !important;
 }
 
-.dark .events-more-filters-btn,
-.dark .events-more-filters {
-  background-color: white !important;
-  color: #333 !important;
+.dark .events-more-filters-btn {
+  background-color: var(--card-bg) !important;
+  color: var(--text-secondary) !important;
   border-color: var(--border-color) !important;
 }
 
-.dark .events-more-filters svg {
-  color: #333 !important;
-}
-
-.dark .events-more-filters:hover {
+.dark .events-more-filters-btn:hover {
+  background-color: var(--bg-tertiary) !important;
   border-color: var(--accent-orange) !important;
-  color: var(--accent-orange) !important;
-}
-
-.dark .events-more-filters:hover svg {
   color: var(--accent-orange) !important;
 }
 
@@ -456,7 +428,7 @@ body {
 }
 
 .dark .modal-content {
-  background: #1e293b !important;
+  background-color: var(--card-bg);
   color: var(--text-primary);
 }
 
@@ -619,14 +591,11 @@ body {
 
 /* Popular Categories Dark Mode */
 .dark .popular-categories-section {
-  background: linear-gradient(to bottom right, #1a2a4e, #1a2544, #0f1a3e);
+  background: #0f172a;
 }
 
 .dark .categories-header h3 {
-  background: linear-gradient(to right, #ff6b4a, #ff8c42);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: white;
 }
 
 .dark .categories-header p {
@@ -682,14 +651,11 @@ body {
 
 /* Events Strip Dark Mode */
 .dark .events-section {
-  background: linear-gradient(to bottom right, #1a2a4e, #1a2544, #0f1a3e);
+  background: linear-gradient(to bottom right, #172844, #1a2a4e, #0f1a3e);
 }
 
 .dark .events-header h3 {
-  background: linear-gradient(to right, #ff6b4a, #ff8c42);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: white;
 }
 
 .dark .events-header p {
@@ -823,10 +789,6 @@ body {
 }
 
 /* Resource Form Dark Mode */
-.dark .resource-form-container {
-  background: #1e3a5f;
-}
-
 .dark .resource-form {
   background: #1e3a5f;
   border-color: #ff6b4a;
@@ -931,47 +893,6 @@ body {
   color: var(--text-primary);
 }
 
-/* Modal Elements Dark Mode */
-.dark .modal-category-badge {
-  background: #334155;
-  color: #cbd5e1;
-}
-
-.dark .modal-section-title {
-  color: #f1f5f9;
-}
-
-.dark .modal-description {
-  color: #cbd5e1;
-}
-
-.dark .contact-label,
-.dark .location-label {
-  color: #94a3b8;
-}
-
-.dark .contact-value,
-.dark .location-value {
-  color: #e2e8f0;
-}
-
-.dark .contact-value:hover {
-  color: #ff8c42;
-}
-
-.dark .contact-info-icon,
-.dark .location-icon {
-  color: #ff8c42 !important;
-}
-
-.dark .modal-icon-box {
-  background: linear-gradient(135deg, rgba(255, 107, 74, 0.15) 0%, rgba(255, 140, 66, 0.15) 100%);
-}
-
-.dark .modal-title {
-  color: #f1f5f9;
-}
-
 /* Directory Cards Dark Mode */
 .dark .resource-card {
   background: #1e293b;
@@ -1017,145 +938,47 @@ body {
   color: #94a3b8;
 }
 
-/* Testimonial Dark Mode */
-.dark .testimonial-section {
-  background: transparent;
-}
-
-.dark .testimonial-header {
-  color: #f1f5f9;
-}
-
-.dark .testimonial-card {
-  background: #1e293b;
-  border-color: #334155;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.dark .testimonial-quote {
-  color: #cbd5e1;
-}
-
-.dark .testimonial-author {
-  color: #94a3b8;
-}
-
-.dark .testimonial-avatar {
-  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%) !important;
-  border-color: #1e293b !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-}
-
-.dark .testimonial-carousel::-webkit-scrollbar-track {
-  background: #334155;
-}
-
-.dark .testimonial-carousel::-webkit-scrollbar-thumb {
-  background: #475569;
-}
-
-.dark .testimonial-carousel::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
-}
-
-/* Dark Mode Background for Functional Pages - Dark Blue */
-.dark .directory-section {
-  background: #0f172a;
-}
-
-.dark .events-main-container {
-  background: #0f172a;
-}
-
-/* Login Page Dark Mode Styles */
+/* Login page dark mode ya ya y ay a ya y a ya y */
+/* Login Page Dark Mode */
 .dark .login-container {
-  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
 .dark .login-box {
   background: #1e293b;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-}
-
-.dark .login-title {
   color: #f1f5f9;
 }
 
-.dark .login-subtitle {
+.dark .login-box .login-title {
+  color: #f1f5f9;
+}
+
+.dark .login-box .login-subtitle {
   color: #cbd5e1;
 }
 
-.dark .form-group label {
+.dark .login-box .form-group label {
   color: #e2e8f0;
 }
 
-.dark .input-icon {
-  color: #94a3b8;
-}
-
-.dark .form-input {
+.dark .login-box .form-input {
   background: #0f172a;
-  border-color: #334155;
   color: #e2e8f0;
+  border: 2px solid #334155;
 }
 
-.dark .form-input:focus {
-  border-color: #ff8c42;
-  box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.2);
-}
-
-.dark .form-input::placeholder {
-  color: #94a3b8;
-}
-
-.dark .password-toggle {
-  color: #94a3b8;
-}
-
-.dark .password-toggle:hover {
-  color: #ff8c42;
-}
-
-.dark .remember-me {
-  color: #cbd5e1;
-}
-
-.dark .login-button {
-  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
-  box-shadow: 0 4px 15px rgba(255, 107, 74, 0.4);
-}
-
-.dark .login-button:hover:not(:disabled) {
-  box-shadow: 0 6px 20px rgba(255, 107, 74, 0.6);
-}
-
-.dark .login-error {
-  background-color: rgba(220, 38, 38, 0.1);
-  color: #fca5a5;
-  border-left-color: #dc2626;
-}
-
-.dark .login-divider {
-  color: #64748b;
-}
-
-.dark .login-divider::before,
-.dark .login-divider::after {
-  background-color: #475569;
+.dark .login-box .form-input:focus {
+  border-color: #fb923c;
+  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
 }
 
 .dark .google-login {
   background-color: #0f172a;
   color: #e2e8f0;
-  border-color: #334155;
+  border: 2px solid #334155;
 }
 
 .dark .google-login:hover {
   background-color: #1e293b;
   border-color: #475569;
 }
-
-.dark .signup-link {
-  color: #cbd5e1;
-}
-
