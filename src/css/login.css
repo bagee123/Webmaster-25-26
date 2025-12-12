@@ -165,7 +165,7 @@
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  color: #cbd5e1;
+  color: black;
 }
 
 /* Checkbox styling - orange accent color */
@@ -173,7 +173,28 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
-  accent-color: #fb923c;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid black;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.remember-me input[type='checkbox']:checked {
+  background-color: #fb923c;
+  position: relative;
+}
+
+.remember-me input[type='checkbox']:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 /* Forgot password link styling */
