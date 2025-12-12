@@ -4,8 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 80px;
+    padding-top: clamp(60px, 8vw, 80px);
     overflow: hidden;
+    contain: layout style paint;
 }
 
 .hero-background {
@@ -43,17 +44,17 @@
 
 .hero-content h1 {
     color: white;
-    margin-bottom: 24px;
-    font-size: 48px;
+    margin-bottom: clamp(16px, 3vw, 24px);
+    font-size: clamp(32px, 6vw, 48px);
     font-weight: 700;
     line-height: 1.2;
 }
 
 .hero-content p {
     color: rgba(255, 255, 255, 0.95);
-    font-size: 18px;
+    font-size: clamp(15px, 2vw, 18px);
     max-width: 768px;
-    margin: 0 auto 40px;
+    margin: 0 auto clamp(24px, 4vw, 40px);
     line-height: 1.6;
 }
 

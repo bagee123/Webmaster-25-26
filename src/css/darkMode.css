@@ -33,10 +33,19 @@
 }
 
 /* General Dark Mode Styles */
+.dark html {
+  background-color: #0f172a;
+}
+
 .dark body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 300ms ease, color 300ms ease;
+}
+
+html {
+  background-color: #ffffff;
+  transition: background-color 300ms ease;
 }
 
 body {
@@ -300,7 +309,7 @@ body {
 
 .dark .events-search-icon,
 .dark .search-icon {
-  color: white !important;
+  color: var(--text-primary) !important;
 }
 
 .dark .events-more-filters-btn,

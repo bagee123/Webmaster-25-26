@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, LogIn } from 'lucide-react';
+import { Menu, X, LogIn, Moon, Sun } from 'lucide-react';
+import { useDarkMode } from '../context/DarkModeContext';
 import '../css/navbar.css';
 
 const navLinks = [
@@ -18,9 +19,12 @@ export default function Navbar({ onLoginClick = () => {} }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -58,6 +62,14 @@ export default function Navbar({ onLoginClick = () => {} }) {
               </Link>
             ))}
             <button
+              onClick={toggleDarkMode}
+              className="nav-dark-mode-btn"
+              aria-label="Toggle dark mode"
+              title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
               onClick={onLoginClick}
               className="nav-login-btn"
               type="button"
@@ -88,17 +100,27 @@ export default function Navbar({ onLoginClick = () => {} }) {
                 {link.label}
               </Link>
             ))}
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onLoginClick();
-              }}
-              className="nav-login-btn-mobile"
-              type="button"
-            >
-              <LogIn size={18} />
-              Login
-            </button>
+            <div className="navbar-mobile-actions">
+              <button
+                onClick={toggleDarkMode}
+                className="nav-dark-mode-btn-mobile"
+                aria-label="Toggle dark mode"
+                title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onLoginClick();
+                }}
+                className="nav-login-btn-mobile"
+                type="button"
+              >
+                <LogIn size={18} />
+                Login
+              </button>
+            </div>
           </div>
         )}
       </div>

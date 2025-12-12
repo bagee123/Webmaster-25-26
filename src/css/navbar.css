@@ -141,6 +141,40 @@
   transform: translateY(-2px);
 }
 
+.nav-dark-mode-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #ea580c;
+  padding: 0.625rem 0.75rem;
+  border: 2px solid #ea580c;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.nav-dark-mode-btn:hover {
+  background: #ea580c;
+  color: white;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+  transform: scale(1.08);
+}
+
+.dark .nav-dark-mode-btn {
+  background: #1f2937;
+  color: #ff8c42;
+  border-color: #ff8c42;
+}
+
+.dark .nav-dark-mode-btn:hover {
+  background: #ff8c42;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
+  transform: scale(1.08);
+}
+
 .navbar-toggle {
   display: flex;
   align-items: center;
@@ -194,29 +228,72 @@
 }
 
 .nav-login-btn-mobile {
-  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
   background: linear-gradient(90deg, #f97316, #ec4899);
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0.625rem 1.5rem;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
   font-weight: 500;
   font-size: 0.95rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.75rem;
   transition: all 0.3s ease;
-  margin-top: 1rem;
-  box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
-}
-
-.dark .nav-login-btn-mobile {
-  background: linear-gradient(90deg, #ff6b4a, #ff8c42);
 }
 
 .nav-login-btn-mobile:hover {
   box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+  transform: translateY(-2px);
+}
+
+.navbar-mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark .navbar-mobile-actions {
+  border-top-color: #374151;
+}
+
+.nav-dark-mode-btn-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #ea580c;
+  padding: 0.75rem 1rem;
+  border: 2px solid #ea580c;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  width: 100%;
+}
+
+.nav-dark-mode-btn-mobile:hover {
+  background: #ea580c;
+  color: white;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+  transform: translateY(-2px);
+}
+
+.dark .nav-dark-mode-btn-mobile {
+  background: #1f2937;
+  color: #ff8c42;
+  border-color: #ff8c42;
+}
+
+.dark .nav-dark-mode-btn-mobile:hover {
+  background: #ff8c42;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
   transform: translateY(-2px);
 }

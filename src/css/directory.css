@@ -2,28 +2,40 @@
 .directory-section {
     width: 100%;
     background: linear-gradient(to bottom, var(--bg-secondary, #f9f9f7), var(--bg-primary, #ffffff));
-    padding: 80px 0;
+    padding: clamp(48px, 8vw, 80px) 0;
+    animation: sectionFadeIn 0.8s ease-out;
+    contain: content;
+}
+
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .directory-container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 clamp(16px, 4vw, 20px);
 }
 
 .directory-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: clamp(32px, 5vw, 48px);
+    animation: slideInDown 0.7s ease-out;
 }
 
 .directory-header h2 {
-    font-size: 36px;
+    font-size: clamp(28px, 4vw, 36px);
     font-weight: 700;
     background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 12px;
+    margin-bottom: clamp(8px, 2vw, 12px);
 }
 
 .dark .directory-header h2 {
@@ -48,6 +60,7 @@
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    animation: slideInUp 0.6s ease-out 0.1s backwards;
 }
 
 .search-box {
@@ -91,26 +104,39 @@
 .category-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: clamp(8px, 2vw, 10px);
     justify-content: center;
-    margin-bottom: 32px;
+    margin-bottom: clamp(24px, 4vw, 32px);
+    animation: slideInUp 0.6s ease-out 0.15s backwards;
+    padding: 0 clamp(16px, 4vw, 20px);
 }
 
 .category-btn {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 16px;
+    padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2vw, 16px);
     border: 1px solid var(--border-color, #e0e0e0);
     background: var(--card-bg, #ffffff);
     color: var(--text-secondary, #666);
     border-radius: 24px;
-    font-size: 14px;
+    font-size: clamp(13px, 1.5vw, 14px);
     font-weight: 500;
     cursor: pointer;
     transition: all 200ms ease;
     outline: none;
+    animation: scaleIn 0.5s ease-out backwards;
+    white-space: nowrap;
 }
+
+.category-btn:nth-child(1) { animation-delay: 0.2s; }
+.category-btn:nth-child(2) { animation-delay: 0.24s; }
+.category-btn:nth-child(3) { animation-delay: 0.28s; }
+.category-btn:nth-child(4) { animation-delay: 0.32s; }
+.category-btn:nth-child(5) { animation-delay: 0.36s; }
+.category-btn:nth-child(6) { animation-delay: 0.4s; }
+.category-btn:nth-child(7) { animation-delay: 0.44s; }
+.category-btn:nth-child(8) { animation-delay: 0.48s; }
 
 .category-btn:hover {
     border-color: var(--accent-orange, #fb923c);
@@ -131,7 +157,9 @@
 .sort-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 32px;
+    margin-bottom: clamp(24px, 4vw, 32px);
+    animation: slideInRight 0.6s ease-out 0.2s backwards;
+    padding: 0 clamp(16px, 4vw, 20px);
 }
 
 .sort-select {
@@ -150,31 +178,31 @@
     border-color: var(--accent-orange, #fb923c);
 }
 
-/* Resources Grid - Scrollable */
+/* Resources Grid - Responsive Auto-fit */
 .resources-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-bottom: 48px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(16px, 3vw, 24px);
+    margin-bottom: clamp(32px, 5vw, 48px);
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
+    contain: layout style;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
     .resources-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .resources-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     .resources-grid {
         grid-template-columns: 1fr;
     }
@@ -183,13 +211,15 @@
 /* Resource Card */
 .resource-card {
     background: var(--card-bg, white);
-    border-radius: 12px;
-    padding: 16px;
+    border-radius: clamp(8px, 2vw, 12px);
+    padding: clamp(12px, 3vw, 16px);
     border: 1px solid var(--border-color, #e8e8e8);
     cursor: pointer;
     transition: all 300ms cubic-bezier(0.2, 0.9, 0.2, 1);
-    animation: cardSlideIn 0.5s ease-out;
     box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.04));
+    will-change: transform, opacity;
+    animation: cardSlideInStaggered 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    contain: layout style paint;
 }
 
 .resource-card:hover {
@@ -301,6 +331,61 @@
   }
 }
 
+@keyframes cardSlideInStaggered {
+  from {
+    opacity: 0.7;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
   background-color: transparent;
@@ -316,15 +401,17 @@
   align-items: center;
   gap: 8px;
   transition: all 0.3s ease;
+  animation: slideInUp 0.6s ease-out 0.3s backwards;
 }
 
 .collapsible svg {
-  transition: transform 0.6s ease-in-out;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: inline-block;
 }
 
 .collapsible:hover {
   background-color: rgba(234, 88, 12, 0.1);
+  transform: translateY(-2px);
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */

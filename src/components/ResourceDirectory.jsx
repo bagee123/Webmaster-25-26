@@ -23,7 +23,7 @@ export default function ResourceDirectory() {
   const [sortBy, setSortBy] = useState('name');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedResource, setSelectedResource] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [displayCount, setDisplayCount] = useState(8);
 
   useEffect(() => {
     // Check if category was passed via navigation state
@@ -41,6 +41,11 @@ export default function ResourceDirectory() {
     window.addEventListener('categorySelected', handleCategorySelected);
     return () => window.removeEventListener('categorySelected', handleCategorySelected);
   }, []);
+
+  // Reset filters when expanding to trigger fresh animation
+  useEffect(() => {
+    // Force animation reset on expand
+  }, [displayCount]);
 
   const filteredResources = resources
     .filter(resource => selectedCategory === 'all' || resource.category === selectedCategory)
@@ -62,20 +67,10 @@ export default function ResourceDirectory() {
       return 0;
     });
    
-  const itemsPerRow = 4;
-  const collapsedRows = 2;
-  const itemsToShow = isExpanded ? filteredResources : filteredResources.slice(0, collapsedRows * itemsPerRow);
+  const itemsToShow = filteredResources.slice(0, displayCount);
 
-  const handleCollapseClick = () => {
-    setIsExpanded(!isExpanded);
-    if (isExpanded) {
-      setTimeout(() => {
-        const directionSection = document.getElementById('directory');
-        if (directionSection) {
-          directionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    }
+  const handleLoadMore = () => {
+    setDisplayCount(displayCount + 12);
   };
 
   const getCategoryIcon = (categoryId) => {
@@ -133,13 +128,17 @@ export default function ResourceDirectory() {
 
           {/* Resource Cards Grid - Scrollable */}
           <div className="resources-grid">
-            {itemsToShow.map((resource) => {
+            {itemsToShow.map((resource, index) => {
               const Icon = getCategoryIcon(resource.category);
               return (
                 <div
                   key={resource.id}
+                  data-card-index={index}
                   onClick={() => setSelectedResource(resource)}
                   className="resource-card"
+                  style={{
+                    animationDelay: '0s',
+                  }}
                   role="button"
                   tabIndex={0}
                   onKeyPress={(e) => {
@@ -163,14 +162,14 @@ export default function ResourceDirectory() {
             })}
           </div>
 
-          {filteredResources.length > itemsPerRow * 2 && (
+          {filteredResources.length > displayCount && (
             <div className="collapsible-parent">
-               <button onClick={handleCollapseClick} className="collapsible">
+               <button onClick={handleLoadMore} className="collapsible">
                   <ChevronDown style={{ 
-                    transform: isExpanded ? 'rotate(180deg) translateY(0px)' : 'rotate(0deg) translateY(-12px)', 
                     transition: 'transform 0.6s ease-in-out',
                     display: 'inline-block'
                   }} />
+                  Load More
                </button>
             </div>   
           )}

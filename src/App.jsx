@@ -4,7 +4,7 @@ import './css/app.css';
 import './css/animations.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import DarkModeToggle from './components/DarkModeToggle';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import ResourceDirectoryPage from './pages/ResourceDirectoryPage';
 import Events from './pages/Events';
@@ -39,7 +39,7 @@ export default function App() {
 
   return (
     <ResourceProvider>
-      <DarkModeToggle />
+      <ScrollToTop />
       <Navbar onLoginClick={handleLoginClick} />
       <Routes>
         <Route path="/" element={<Home />} />

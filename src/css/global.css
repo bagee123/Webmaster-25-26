@@ -3,11 +3,18 @@ body {
     font-family: Arial, sans-serif;
     background: var(--bg-primary, #f7f5ef);
     color: var(--text-primary, #333);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-/* Typography System - Consistent Headings */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Typography System - Responsive Headings */
 h1 {
-    font-size: 48px;
+    font-size: clamp(28px, 5vw, 48px);
     font-weight: 700;
     line-height: 1.2;
     margin: 0;
@@ -15,7 +22,7 @@ h1 {
 }
 
 h2 {
-    font-size: 36px;
+    font-size: clamp(24px, 4vw, 36px);
     font-weight: 700;
     line-height: 1.3;
     margin: 0;
@@ -23,7 +30,7 @@ h2 {
 }
 
 h3 {
-    font-size: 28px;
+    font-size: clamp(20px, 3.5vw, 28px);
     font-weight: 700;
     line-height: 1.4;
     margin: 0;
@@ -31,7 +38,7 @@ h3 {
 }
 
 h4 {
-    font-size: 24px;
+    font-size: clamp(18px, 3vw, 24px);
     font-weight: 600;
     line-height: 1.4;
     margin: 0;
@@ -39,7 +46,7 @@ h4 {
 }
 
 h5 {
-    font-size: 20px;
+    font-size: clamp(16px, 2.5vw, 20px);
     font-weight: 600;
     line-height: 1.5;
     margin: 0;
