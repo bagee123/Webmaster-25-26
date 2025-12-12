@@ -982,3 +982,7 @@
   background-color: #1e293b;
   border-color: #475569;
 }
+
+.dark .remember-me{
+  color: white;
+}
