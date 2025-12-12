@@ -35,8 +35,8 @@ export default function Footer() {
               <li>
                 <a href="#highlights" className="text-gray-400 hover:text-orange-400 transition-colors">Highlights</a>
               </li>
-              <li>
-                <a href="#submit" className="text-gray-400 hover:text-orange-400 transition-colors">Submit a Resource</a>
+              <li><a href="#submit" className="text-gray-400 hover:text-orange-400 transition-col
+                ors">Submit a Resource</a>
               </li>
               <li>
                 <a href="#map" onClick={(e) => { e.preventDefault(); openMap(); }} className="text-gray-400 hover:text-orange-400 transition-colors">Map</a>
