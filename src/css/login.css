@@ -183,6 +183,7 @@
 
 .remember-me input[type='checkbox']:checked {
   background-color: #fb923c;
+  border-color: #fb923c;
   position: relative;
 }
 
@@ -195,6 +196,7 @@
   color: white;
   font-size: 14px;
   font-weight: bold;
+  border: black;
 }
 
 /* Forgot password link styling */
