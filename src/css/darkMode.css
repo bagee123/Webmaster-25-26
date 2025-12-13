@@ -1124,3 +1124,11 @@
 .dark .resource-form__submit:hover {
   box-shadow: 0 8px 20px rgba(255, 107, 74, 0.3) !important;
 }
+
+.dark .resource-form__input:-webkit-autofill,
+.dark .resource-form__textarea:-webkit-autofill,
+.dark .resource-form__select:-webkit-autofill{
+  -webkit-box-shadow: 0 0 0px 1000px #1a2332 inset !important;
+  -webkit-text-fill-color: #f1f5f9 !important;
+  transition: background-color 5000s ease-in-out;
+}
