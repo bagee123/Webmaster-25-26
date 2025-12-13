@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './css/app.css';
 import './css/animations.css';
+import './css/components.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -14,6 +15,7 @@ import Login from './pages/Login';
 import Highlights from './pages/Highlights';
 import References from './pages/References';
 import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
 import { ResourceProvider } from './context/ResourceContext';
 
 export default function App() {
@@ -51,6 +53,7 @@ export default function App() {
         <Route path="/highlights" element={<Highlights />} />
         <Route path="/references" element={<References />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
       </Routes>
       <Footer />
     </ResourceProvider>

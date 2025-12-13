@@ -6,7 +6,7 @@
 /* Events Header Section */
 .events-header-section {
   background: linear-gradient(to bottom right, #ea580c, #ec4899, #9333ea);
-  padding: 5rem 1rem;
+  padding: 4rem 1rem;
   margin-top: 0;
 }
 
@@ -33,34 +33,32 @@
 }
 
 /* Search Bar */
-.events-search-wrapper {
+.search-wrapper {
   display: flex;
   justify-content: center;
   margin-bottom: 32px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
-  padding: 0 1rem;
-  box-sizing: border-box;
+  animation: slideInUp 0.6s ease-out 0.1s backwards;
 }
 
-.events-search-input-container {
+.search-box {
   position: relative;
   width: 100%;
 }
 
-.events-search-icon {
+.search-icon {
   position: absolute;
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-tertiary, #999);
+  color: #999;
   pointer-events: none;
   transition: color 240ms;
 }
 
-.events-search-field {
+.search-input {
   width: 100%;
   padding: 14px 16px 14px 44px;
   border: 1px solid var(--border-color, #ddd);
@@ -73,13 +71,12 @@
   color: var(--text-primary, #333);
 }
 
-.events-search-field:focus {
-  outline: none;
+.search-input:focus {
   border-color: var(--accent-orange, #fb923c);
   box-shadow: 0 4px 12px rgba(251, 146, 60, 0.2);
 }
 
-.events-search-field::placeholder {
+.search-input::placeholder {
   color: var(--text-tertiary, #ccc);
 }
 
@@ -90,56 +87,81 @@
   padding: 4rem 1rem;
 }
 
-/* Filters Wrapper */
-.events-filters-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 32px;
-  width: 100%;
-  flex-wrap: wrap;
-  gap: 16px;
+/* Category Filters */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(8px, 2vw, 10px);
+    justify-content: center;
+    margin-bottom: clamp(24px, 4vw, 32px);
+    animation: slideInUp 0.6s ease-out 0.15s backwards;
+    padding: 0 clamp(16px, 4vw, 20px);
 }
 
-@media (max-width: 768px) {
-  .events-filters-wrapper {
-    flex-direction: column;
+.category-btn {
+    display: flex;
     align-items: center;
-  }
+    gap: 6px;
+    padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2vw, 16px);
+    border: 1px solid var(--border-color, #e0e0e0);
+    background: var(--card-bg, #ffffff);
+    color: var(--text-secondary, #666);
+    border-radius: 24px;
+    font-size: clamp(13px, 1.5vw, 14px);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 200ms ease;
+    outline: none;
+    animation: scaleIn 0.5s ease-out backwards;
+    white-space: nowrap;
 }
 
-/* Category List */
-.events-category-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
+.category-btn:nth-child(1) { animation-delay: 0.2s; }
+.category-btn:nth-child(2) { animation-delay: 0.24s; }
+.category-btn:nth-child(3) { animation-delay: 0.28s; }
+.category-btn:nth-child(4) { animation-delay: 0.32s; }
+.category-btn:nth-child(5) { animation-delay: 0.36s; }
+.category-btn:nth-child(6) { animation-delay: 0.4s; }
+.category-btn:nth-child(7) { animation-delay: 0.44s; }
+.category-btn:nth-child(8) { animation-delay: 0.48s; }
+
+.category-btn:hover {
+    border-color: var(--accent-orange, #fb923c);
+    color: var(--accent-orange, #fb923c);
+    background: var(--bg-tertiary, #fff8f5);
 }
 
-.events-category-item {
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  transition: all 200ms ease;
-  font-size: 0.875rem;
-  border: 1px solid var(--border-color, #e5e7eb);
-  cursor: pointer;
-  background: var(--card-bg, white);
-  color: var(--text-primary, #374151);
+.category-btn.active {
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
 }
 
-.events-category-item:hover {
-  border-color: #fed7aa;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+/* Sort Wrapper */
+.sort-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: clamp(24px, 4vw, 32px);
+    animation: slideInRight 0.6s ease-out 0.2s backwards;
+    padding: 0 clamp(16px, 4vw, 20px);
 }
 
-.events-category-item.active {
-  background: linear-gradient(to right, #ea580c, #ec4899);
-  color: white;
-  box-shadow: 0 4px 6px rgba(234, 88, 12, 0.3);
-  border-color: transparent;
+.sort-select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 8px;
+    background: var(--card-bg, white);
+    font-size: 14px;
+    color: var(--text-primary, #333);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 200ms;
 }
 
-/* More Filters Button */
+.sort-select:focus {
+    border-color: var(--accent-orange, #fb923c);
+}
 .events-more-filters {
   display: flex;
   align-items: center;
@@ -548,4 +570,83 @@
   .events-cta-button {
     padding: 0.625rem 1.5rem;
   }
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Dark Mode - Search & Filters */
+.dark .search-input {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .search-input:focus {
+  border-color: #ff6b4a;
+  box-shadow: 0 4px 12px rgba(255, 107, 74, 0.2);
+}
+
+.dark .search-input::placeholder {
+  color: #64748b;
+}
+
+.dark .category-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.dark .category-btn:hover {
+  border-color: #ff6b4a;
+  color: #ff8c42;
+  background: #334155;
+}
+
+.dark .category-btn.active {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(255, 107, 74, 0.3);
+}
+
+.dark .sort-select {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .sort-select:focus {
+  border-color: #ff6b4a;
 }

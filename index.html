@@ -5,6 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coppell Community Hub</title>
+    <script>
+      // Apply dark mode before React renders to prevent flashing
+      (function() {
+        try {
+          const darkMode = localStorage.getItem('darkMode') === 'true';
+          if (darkMode) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          // Silently fail for localStorage access
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -7,7 +7,7 @@
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #f97316, #ec4899);
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
   color: #999;
   border: none;
   border-radius: 50%;
@@ -22,7 +22,7 @@
 .scroll-to-top-btn:hover {
   box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
   transform: translateY(-4px);
-  background: linear-gradient(135deg, #fb923c, #ec4899);
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
 }
 
 .scroll-to-top-btn:active {

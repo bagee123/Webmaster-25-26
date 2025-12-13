@@ -1,25 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Search, Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MoreHorizontal, MapPin, ChevronDown } from 'lucide-react';
+import { Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MapPin, ChevronDown } from 'lucide-react';
 import DetailModal from './DetailModal';
+import SearchBar from './SearchBar';
+import CategoryFilter from './CategoryFilter';
+import SortDropdown from './SortDropdown';
 import resources from '../data/resources';
 import '../css/directory.css';
 
-const categories = [
-  { id: 'all', label: 'All', icon: MoreHorizontal },
-  { id: 'health', label: 'Health', icon: Heart },
-  { id: 'education', label: 'Education', icon: GraduationCap },
-  { id: 'volunteering', label: 'Volunteering', icon: HandHeart },
-  { id: 'events', label: 'Events', icon: Calendar },
-  { id: 'support', label: 'Support Services', icon: Users },
-  { id: 'recreation', label: 'Recreation', icon: Leaf },
-  { id: 'nonprofits', label: 'Nonprofits', icon: Building2 },
+const categoryOptions = [
+  'All',
+  'Health',
+  'Education',
+  'Volunteering',
+  'Events',
+  'Support Services',
+  'Recreation',
+  'Nonprofits',
 ];
+
+// Map display names to resource category values
+const categoryMap = {
+  'All': 'all',
+  'Health': 'health',
+  'Education': 'education',
+  'Volunteering': 'volunteering',
+  'Events': 'events',
+  'Support Services': 'support',
+  'Recreation': 'recreation',
+  'Nonprofits': 'nonprofits',
+};
+
+// Map category values to icons
+const categoryIcons = {
+  'health': Heart,
+  'education': GraduationCap,
+  'volunteering': HandHeart,
+  'events': Calendar,
+  'support': Users,
+  'recreation': Leaf,
+  'nonprofits': Building2,
+};
 
 
 export default function ResourceDirectory() {
   const location = useLocation();
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('name');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedResource, setSelectedResource] = useState(null);
@@ -48,7 +74,10 @@ export default function ResourceDirectory() {
   }, [displayCount]);
 
   const filteredResources = resources
-    .filter(resource => selectedCategory === 'all' || resource.category === selectedCategory)
+    .filter(resource => {
+      const resourceCategory = categoryMap[selectedCategory];
+      return resourceCategory === 'all' || resource.category === resourceCategory;
+    })
     .filter(resource => 
       searchQuery === '' || 
       resource.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -73,9 +102,8 @@ export default function ResourceDirectory() {
     setDisplayCount(displayCount + 12);
   };
 
-  const getCategoryIcon = (categoryId) => {
-    const category = categories.find(c => c.id === categoryId);
-    return category?.icon || MoreHorizontal;
+  const getCategoryIcon = (categoryValue) => {
+    return categoryIcons[categoryValue] || MapPin;
   };
 
   return (
@@ -83,48 +111,29 @@ export default function ResourceDirectory() {
       <section id="directory" className="directory-section">
         <div className="directory-container">
           {/* Search Bar */}
-          <div className="search-wrapper">
-            <div className="search-box">
-              <Search className="search-icon" size={20} />
-              <input
-                type="text"
-                placeholder="Search resources..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="search-input"
-              />
-            </div>
-          </div>
+          <SearchBar
+            placeholder="Search resources..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
 
           {/* Category Filters */}
-          <div className="category-filters">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
-                >
-                  <Icon size={16} />
-                  {category.label}
-                </button>
-              );
-            })}
-          </div>
+          <CategoryFilter
+            categories={categoryOptions}
+            selected={selectedCategory}
+            onChange={setSelectedCategory}
+          />
 
           {/* Sort Dropdown */}
-          <div className="sort-wrapper">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="sort-select"
-            >
-              <option value="name">Sort by Name</option>
-              <option value="category">Sort by Category</option>
-              <option value="newest">Sort by Newest</option>
-            </select>
-          </div>
+          <SortDropdown
+            options={[
+              { value: 'name', label: 'Sort by Name' },
+              { value: 'category', label: 'Sort by Category' },
+              { value: 'newest', label: 'Sort by Newest' },
+            ]}
+            selected={sortBy}
+            onChange={setSortBy}
+          />
 
           {/* Resource Cards Grid - Scrollable */}
           <div className="resources-grid">

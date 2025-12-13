@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/resourceForm.css';
 export default function ResourceForm(){
   const [formData, setFormData] = useState({firstName: '', lastName: '', resourceName: '', website: '', category: '', description: ''});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -9,6 +10,7 @@ export default function ResourceForm(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       await fetch("https://script.google.com/macros/s/AKfycbwMLj97yo1CJB9If_hLUsTUvrTpadBnDhwjAI51dGsVUiwCGFbNrA23maTF8y9LUy8tSg/exec", {
@@ -20,52 +22,58 @@ export default function ResourceForm(){
         }
       });
 
-      alert("Resource submitted!");
-
-      setFormData({
-        firstName: '',
-        lastName: '',
-        resourceName: '',
-        website: '',
-        category: '',
-        description: '',
-      });
+      // Animation plays, then reset form after 2.5 seconds
+      setTimeout(() => {
+        setFormData({
+          firstName: '',
+          lastName: '',
+          resourceName: '',
+          website: '',
+          category: '',
+          description: '',
+        });
+        setIsSubmitting(false);
+      }, 2500);
 
     } catch (err) {
       console.error("Error submitting form:", err);
-      alert("Something went wrong submitting the form.");
+      setIsSubmitting(false);
     }
   };
 
   return(
     <div className="resource-form-container">
-      <div className="resource-form">
-        <h2 className = "resource-form__title">Submit a Resource</h2>
+      <div className={`resource-form ${isSubmitting ? 'resource-form--submitted' : ''}`}>
+        <h2 className="resource-form__title">Share a Resource</h2>
         <form className="resource-form__form" onSubmit={handleSubmit}>
-          <div className="resource-form__field">
-            <label className="resource-form__label">First Name</label>
-            <input
-              className="resource-form__input"
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder="Enter your first name"
-              required
-            />
-          </div>
+          <div className="resource-form__row">
+            <div className="resource-form__field">
+              <label className="resource-form__label">First Name</label>
+              <input
+                className="resource-form__input"
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="John"
+                required
+                disabled={isSubmitting}
+              />
+            </div>
 
-          <div className="resource-form__field">
-            <label className="resource-form__label">Last Name</label>
-            <input
-              className="resource-form__input"
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="Enter your last name"
-              required
-            />
+            <div className="resource-form__field">
+              <label className="resource-form__label">Last Name</label>
+              <input
+                className="resource-form__input"
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Doe"
+                required
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
 
           <div className="resource-form__field">
@@ -76,8 +84,9 @@ export default function ResourceForm(){
               name="resourceName"
               value={formData.resourceName}
               onChange={handleChange}
-              placeholder="Enter the resource name"
+              placeholder="e.g., Community Garden Initiative"
               required
+              disabled={isSubmitting}
             />
           </div>
 
@@ -89,8 +98,9 @@ export default function ResourceForm(){
               name="website"
               value={formData.website}
               onChange={handleChange}
-              placeholder="Enter the website URL or contact information"
+              placeholder="https://example.com or (555) 000-0000"
               required
+              disabled={isSubmitting}
             />
           </div>
 
@@ -102,6 +112,7 @@ export default function ResourceForm(){
               value={formData.category}
               onChange={handleChange}
               required
+              disabled={isSubmitting}
             >
               <option value="">Select a category</option>
               <option value="Health">Health</option>
@@ -121,11 +132,14 @@ export default function ResourceForm(){
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Enter a brief description"
+              placeholder="Tell us about this resource and how it helps the community..."
               required
+              disabled={isSubmitting}
             ></textarea>
           </div>
-          <button type="submit" className="resource-form__submit">Submit Resource</button>
+          <button type="submit" className="resource-form__submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Submit Resource'}
+          </button>
           </form>
       </div>
     </div>

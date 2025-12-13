@@ -22,7 +22,7 @@
     margin: 0 0 16px 0;
     font-size: 36px;
     font-weight: 700;
-    background: linear-gradient(to right, #f43f5e, #db2777);
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -75,7 +75,7 @@
 }
 
 .highlight-rose-pink svg {
-    background: linear-gradient(135deg, #f43f5e, #ec4899);
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -131,11 +131,55 @@
 }
 
 .highlight-btn-rose-pink {
-    background: linear-gradient(135deg, #f43f5e, #ec4899);
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
 }
 
 .dark .highlight-btn-rose-pink {
     background: linear-gradient(135deg, #ff6b4a, #ff8c42);
+}
+
+.dark .highlight-card {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dark .highlight-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border-color: #ff6b4a;
+}
+
+.dark .highlight-card h3 {
+    color: #f1f5f9;
+}
+
+.dark .highlight-card p {
+    color: #cbd5e1;
+}
+
+.dark .highlights-header p {
+    color: #cbd5e1;
+}
+
+.dark .testimonial-header {
+    color: #f1f5f9;
+}
+
+.dark .testimonial-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark .testimonial-quote {
+    color: #cbd5e1;
+}
+
+.dark .testimonial-author {
+    color: #f1f5f9;
+}
+
+.dark .testimonial-title {
+    color: #cbd5e1;
 }
 
 .highlight-btn-rose-pink:hover {
@@ -272,7 +316,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #f97316, #ec4899);
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
     border: 2px solid white;
     display: flex;
     align-items: center;

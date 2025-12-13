@@ -22,7 +22,7 @@
     margin: 0 0 16px 0;
     font-size: 36px;
     font-weight: 700;
-    background: linear-gradient(to right, #f43f5e, #db2777);
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -87,7 +87,7 @@
 
 /* Category Color Gradients */
 .category-rose-pink .category-icon-wrapper {
-    background: linear-gradient(135deg, #f43f5e, #ec4899);
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
 }
 
 .dark .category-rose-pink .category-icon-wrapper {
@@ -103,7 +103,7 @@
 }
 
 .category-purple-pink .category-icon-wrapper {
-    background: linear-gradient(135deg, #a855f7, #ec4899);
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
 }
 
 .dark .category-purple-pink .category-icon-wrapper {

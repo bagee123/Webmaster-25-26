@@ -21,6 +21,11 @@ html {
   height: 100%;
 }
 
+/* Apply dark background immediately on dark mode without waiting for React */
+html.dark {
+  background-color: #0f172a;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

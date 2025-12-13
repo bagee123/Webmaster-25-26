@@ -70,10 +70,6 @@
   box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
 }
 
-.modal-close:hover {
-  color: var(--text-primary, #333);
-}
-
 /* Modal Header */
 .modal-header {
   display: flex;
