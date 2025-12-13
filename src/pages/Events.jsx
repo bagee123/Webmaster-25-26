@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, Users, Search, Filter, Bookmark } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Filter, Bookmark } from 'lucide-react';
+import PageHero from '../components/PageHero';
+import SearchBar from '../components/SearchBar';
+import CategoryFilter from '../components/CategoryFilter';
+import SortDropdown from '../components/SortDropdown';
 import '../css/eventsPage.css';
 import reactLogo from '../assets/react.svg';
 
@@ -100,50 +104,27 @@ export default function Events() {
   return (
     <div className="events-page-wrapper">
       {/* Header */}
-      <div className="events-header-section">
-        <div className="events-header-container">
-          <h1 className="events-header-title">Community Events</h1>
-          <p className="events-header-subtitle">
-            Discover upcoming events, workshops, and gatherings in Coppell
-          </p>
-        </div>
-      </div>
+      <PageHero
+        title="Community Events"
+        subtitle="Discover upcoming events, workshops, and gatherings in Coppell"
+        className="events-header-section"
+      />
 
       <div className="events-main-container">
         {/* Search Bar */}
-        <div className="events-search-wrapper">
-          <div className="events-search-input-container">
-            <Search className="events-search-icon" size={20} />
-            <input
-              type="text"
-              placeholder="Search events..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="events-search-field"
-            />
-          </div>
-        </div>
+        {/* Search Bar */}
+        <SearchBar
+          placeholder="Search events..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
 
         {/* Filters */}
-        <div className="events-filters-wrapper">
-          <div className="events-category-list">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`events-category-item ${
-                  selectedCategory === category ? 'active' : ''
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          <button className="events-more-filters">
-            <Filter size={16} />
-            <span>More Filters</span>
-          </button>
-        </div>
+        <CategoryFilter
+          categories={categories}
+          selected={selectedCategory}
+          onChange={setSelectedCategory}
+        />
 
         {/* Events Grid */}
         <div className="events-grid-container">

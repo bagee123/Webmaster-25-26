@@ -1,28 +1,43 @@
+.resource-form-container {
+  padding: 60px 20px;
+  background: var(--bg-primary, #ffffff);
+}
+
 .resource-form {
   width: 100%;
-  max-width: 860px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 64px 52px;
-  background: #ffffff;
-  border: 3px solid #f97316;
-  border-radius: 20px;
-  box-shadow: 0 18px 48px rgba(249, 115, 22, 0.16);
-  color-scheme: light;
+  padding: 48px 40px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-left: 4px solid var(--accent-orange, #ea580c);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.08));
+  transition: box-shadow 0.3s ease;
+}
+
+.resource-form:hover {
+  box-shadow: 0 8px 20px var(--shadow, rgba(0, 0, 0, 0.12));
 }
 
 .resource-form__title {
-  margin: 0 0 16px;
-  font-size: 28px;
+  margin: 0 0 32px;
+  font-size: 32px;
   font-weight: 700;
-  color: #f97316;
+  color: var(--text-primary, #1f2937);
   text-align: center;
 }
 
 .resource-form__form {
-  /* background: transparent; */
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
+}
+
+.resource-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .resource-form__field {
@@ -34,99 +49,168 @@
 .resource-form__label {
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-primary, #1f2937);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.resource-form__input {
+.resource-form__input,
+.resource-form__textarea,
+.resource-form__select {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color, #e5e7eb);
   border-radius: 8px;
   font-size: 14px;
-  background: #ffffff;
-  color: #1f2937;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  border-color: #f97316;
-  color-scheme: light;
+  background: var(--input-bg, #ffffff);
+  color: var(--text-primary, #1f2937);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   box-sizing: border-box;
+  font-family: inherit;
 }
 
-.resource-form__input::placeholder {
-  color: #9ca3af;
+.resource-form__input::placeholder,
+.resource-form__textarea::placeholder {
+  color: var(--text-tertiary, #9ca3af);
 }
 
-.resource-form__input:focus {
+.resource-form__input:focus,
+.resource-form__textarea:focus,
+.resource-form__select:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-  background: #ffffff;
+  border-color: var(--accent-orange, #ea580c);
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+  background: var(--input-bg, #ffffff);
 }
 
 .resource-form__textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #ffffff;
-  color: #1f2937;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  border-color: #f97316;
-  color-scheme: light;
   min-height: 120px;
   resize: vertical;
-  box-sizing: border-box;
-}
-
-.resource-form__textarea::placeholder {
-  color: #9ca3af;
-}
-
-.resource-form__textarea:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-  background: #ffffff;
 }
 
 .resource-form__submit {
   align-self: center;
-  padding: 16px 32px;
-  background: linear-gradient(135deg, #f97316 0%, #ec4899 100%); 
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
   color: #ffffff;
   border: none;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: box-shadow 0.3s ease, transform 0.1s ease;
+  margin-top: 12px;
 }
 
 .resource-form__submit:hover {
-  background: #1d4ed8;
+  box-shadow: 0 8px 20px rgba(251, 146, 60, 0.3);
+  transform: translateY(-2px);
 }
 
 .resource-form__submit:active {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 
 .resource-form-wrapper {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 16px 40px;
-  background: #ffffff;
-  color-scheme: light;
+  padding: 60px 20px;
+  background: var(--bg-primary, #ffffff);
 }
 
-/* Match the class used in the JSX so the white background applies in dark mode */
-.resource-form-container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 16px 40px;
-  background: #ffffff;
-  color-scheme: light;
+/* Envelope Fold Animation */
+@keyframes envelopeFold {
+  0% {
+    /* Start: normal form */
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  25% {
+    /* First fold: top half folds down */
+    transform: perspective(1200px) rotateX(45deg) rotateY(0deg) scaleY(0.7) scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    /* Second fold: sides fold in to create envelope width */
+    transform: perspective(1200px) rotateX(60deg) rotateY(0deg) scaleY(0.5) scaleX(0.6);
+    opacity: 1;
+  }
+  75% {
+    /* Envelope formed, starts moving right */
+    transform: perspective(1200px) rotateX(70deg) rotateY(15deg) scaleY(0.4) scaleX(0.5) translateX(100px);
+    opacity: 0.95;
+  }
+  100% {
+    /* Envelope slides off screen to the right */
+    transform: perspective(1200px) rotateX(75deg) rotateY(25deg) scaleY(0.3) scaleX(0.3) translateX(800px);
+    opacity: 0;
+  }
+}
+
+.resource-form--submitted {
+  animation: envelopeFold 2.5s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
+  transform-origin: center center;
+}
+
+.resource-form--submitted .resource-form__input,
+.resource-form--submitted .resource-form__textarea,
+.resource-form--submitted .resource-form__select,
+.resource-form--submitted .resource-form__label,
+.resource-form--submitted .resource-form__title {
+  pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .resource-form {
+    padding: 36px 28px;
+    max-width: 100%;
+  }
+
+  .resource-form__title {
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+
+  .resource-form__form {
+    gap: 20px;
+  }
+
+  .resource-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-form__submit {
+    padding: 12px 32px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .resource-form-container {
+    padding: 40px 16px;
+  }
+
+  .resource-form {
+    padding: 28px 20px;
+  }
+
+  .resource-form__title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .resource-form__label {
+    font-size: 13px;
+  }
+
+  .resource-form__input,
+  .resource-form__textarea,
+  .resource-form__select {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .resource-form__submit {
+    padding: 11px 28px;
+    font-size: 14px;
+  }
 }

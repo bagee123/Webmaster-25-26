@@ -43,7 +43,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f97316, #ec4899);
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,7 +120,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(90deg, #f97316, #ec4899);
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
   color: white;
   padding: 0.625rem 1.5rem;
   border: none;
@@ -231,7 +231,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(90deg, #f97316, #ec4899);
+  background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
   color: white;
   padding: 0.625rem 1.5rem;
   border: none;
