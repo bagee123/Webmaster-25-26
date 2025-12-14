@@ -81,6 +81,11 @@
   color: white;
 }
 
+.dark .nav-signup-btn {
+  background: linear-gradient(to right, #ff6b4a, #ff8c42);
+  color: white;
+}
+
 .dark .event-card-button {
   background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%) !important;
   color: white !important;
@@ -1023,7 +1028,39 @@
   border: 2px solid #334155;
 }
 
+.dark .signup-container {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.dark .signup-box {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+.dark .signup-box .signup-title {
+  color: #f1f5f9;
+}
+
+.dark .signup-box .signup-subtitle {
+  color: #cbd5e1;
+}
+
+.dark .signup-box .form-group label {
+  color: #e2e8f0;
+}
+
+.dark .signup-box .form-input {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 2px solid #334155;
+}
+
 .dark .login-box .form-input:focus {
+  border-color: #fb923c;
+  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
+}
+
+.dark .signup-box .form-input:focus {
   border-color: #fb923c;
   box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
 }
@@ -1044,7 +1081,16 @@
   box-shadow: 0 4px 15px rgba(255, 107, 74, 0.4);
 }
 
+.dark .signup-button {
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 74, 0.4);
+}
+
 .dark .login-button:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(255, 107, 74, 0.6);
+}
+
+.dark .signup-button:hover:not(:disabled) {
   box-shadow: 0 6px 20px rgba(255, 107, 74, 0.6);
 }
 
