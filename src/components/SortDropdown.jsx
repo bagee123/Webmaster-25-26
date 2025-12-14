@@ -3,6 +3,8 @@
  * Accepts options array, selected value, onChange callback, and optional className
  */
 
+import PropTypes from 'prop-types';
+
 const SortDropdown = ({ options, selected, onChange, className = '' }) => {
   return (
     <div className={`sort-wrapper ${className}`}>
@@ -19,6 +21,18 @@ const SortDropdown = ({ options, selected, onChange, className = '' }) => {
       </select>
     </div>
   );
+};
+
+SortDropdown.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  selected: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default SortDropdown;

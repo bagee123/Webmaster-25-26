@@ -12,7 +12,7 @@ export function DarkModeProvider({ children }) {
       } else if (stored === 'false') {
         return false;
       }
-    } catch (error) {
+    } catch {
       // Silently fail for localStorage access
     }
     return false;
@@ -26,7 +26,7 @@ export function DarkModeProvider({ children }) {
     }
     try {
       localStorage.setItem('darkMode', String(isDarkMode));
-    } catch (error) {
+    } catch {
       // Silently fail for localStorage access
     }
   }, [isDarkMode]);

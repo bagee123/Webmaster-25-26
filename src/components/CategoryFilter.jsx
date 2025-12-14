@@ -3,6 +3,8 @@
  * Accepts categories array, selected value, onChange callback, and optional className
  */
 
+import PropTypes from 'prop-types';
+
 const CategoryFilter = ({ categories, selected, onChange, className = '' }) => {
   return (
     <div className={`category-filters ${className}`}>
@@ -17,6 +19,13 @@ const CategoryFilter = ({ categories, selected, onChange, className = '' }) => {
       ))}
     </div>
   );
+};
+
+CategoryFilter.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selected: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default CategoryFilter;

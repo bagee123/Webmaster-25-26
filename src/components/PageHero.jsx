@@ -4,6 +4,8 @@
  * Accepts title, subtitle, and optional className for page-specific styling
  */
 
+import PropTypes from 'prop-types';
+
 const PageHero = ({ title, subtitle, className = '' }) => {
   return (
     <div className={`page-hero ${className}`}>
@@ -13,6 +15,12 @@ const PageHero = ({ title, subtitle, className = '' }) => {
       </div>
     </div>
   );
+};
+
+PageHero.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default PageHero;

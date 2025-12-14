@@ -4,6 +4,7 @@
  */
 
 import { Search } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 const SearchBar = ({ placeholder = 'Search...', value, onChange, className = '' }) => {
   return (
@@ -20,6 +21,13 @@ const SearchBar = ({ placeholder = 'Search...', value, onChange, className = '' 
       </div>
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default SearchBar;

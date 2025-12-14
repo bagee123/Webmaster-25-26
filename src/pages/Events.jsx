@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, Users, Filter, Bookmark } from 'lucide-react';
+import { useState } from 'react';
+import { Calendar, Clock, MapPin, Users, Bookmark } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
-import SortDropdown from '../components/SortDropdown';
 import '../css/eventsPage.css';
 import reactLogo from '../assets/react.svg';
 
