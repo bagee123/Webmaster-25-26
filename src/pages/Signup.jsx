@@ -21,12 +21,8 @@ export default function Signup() {
         e.preventDefault();
         setError('');
         setLoading(true);
-    
-
-        //copied from Login.jsx with a little modification
-        // Simulate API call (replace with real API in production)
-        setTimeout(() => {
-        // Validate that both fields are filled
+        
+        // Validate that all fields are filled
         if (!firstName || !lastName || !email || !password || !confirmPassword) {
             setError('Please fill in all fields');
             setLoading(false);
@@ -47,12 +43,25 @@ export default function Signup() {
             return;
         }
 
-        // Mock login success - in production, verify with backend
-        console.log('Signup successful:', { firstName, lastName, email, password });
-        setLoading(false);
-        // Redirect to home page after successful login
-        navigate('/');
-        }, 1000);
+        // Send to Google Sheets
+        try {
+            await fetch("https://script.google.com/macros/s/AKfycbw3atw4EKsGyXTj43hom58nNZB0Q-WPToBqPQujErduUIF03e8hZ5sGdakWFXbbjGtokg/exec", {
+                method: "POST",
+                body: JSON.stringify({firstName, lastName, email, password}),
+                headers: {
+                    "Content-Type": "text/plain"
+                }
+            });
+
+            console.log('Signup successful:', { firstName, lastName, email });
+            setLoading(false);
+            navigate('/');
+
+        } catch (err) {
+            console.error("Error submitting form:", err);
+            setError('An error occurred during signup');
+            setLoading(false);
+        }
     };
 
     return (
