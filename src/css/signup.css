@@ -187,3 +187,8 @@
 .signup-divider::after {
   right: 0;
 }
+
+.form-row{
+  display:flex;
+  gap: 14px;
+}

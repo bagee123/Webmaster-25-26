@@ -74,38 +74,39 @@ export default function Signup() {
                 {error && <div className="signup-error">{error}</div>}
 
                 <form onSubmit={handleSignup} className="signup-form">
-                    <div className = "form-group">
-                        <label htmlFor="firstName">First Name</label>
-                        <div className ="input-wrapper">
-                            <User className="input-icon" size={20} />
-                            
-                            <input
-                                type="text"
-                                id = "firstName"
-                                placeholder  = "Enter your first name"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                className= "form-input"
-                            />
+                    <div className = "form-row">
+                        <div className = "form-group">
+                            <label htmlFor="firstName">First Name</label>
+                            <div className ="input-wrapper">
+                                <User className="input-icon" size={20} />
+                                
+                                <input
+                                    type="text"
+                                    id = "firstName"
+                                    placeholder  = "Enter your first name"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    className= "form-input"
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    <div className = "form-group">
-                        <label htmlFor="lastName">Last Name</label>
-                        <div className ="input-wrapper">
-                            <User className="input-icon" size={20} />
-                            <input
-                                type="text"
-                                id = "lastName"
-                                placeholder  = "Enter your last name"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                className= "form-input"
-                            />
+                        <div className = "form-group">
+                            <label htmlFor="lastName">Last Name</label>
+                            <div className ="input-wrapper">
+                                <User className="input-icon" size={20} />
+                                <input
+                                    type="text"
+                                    id = "lastName"
+                                    placeholder  = "Enter your last name"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    className= "form-input"
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    
+                    </div>
                     <div className = "form-group">
                         <label htmlFor="email">Email Address</label>
                         <div className ="input-wrapper">
