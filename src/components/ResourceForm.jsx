@@ -122,6 +122,7 @@ export default function ResourceForm(){
               <option value="Support Services">Support Services</option>
               <option value="Recreation">Recreation</option>
               <option value="Nonprofits">Nonprofits</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
