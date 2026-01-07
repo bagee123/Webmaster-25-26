@@ -85,7 +85,7 @@ export default function ResourceDirectory() {
     )
     .sort((a, b) => {
       if (sortBy === 'name') {
-        return a.name.localeCompare(b.name);
+        return a.name.localeCompare(b.name, undefined, {numeric: true});
       }
       if (sortBy === 'category') {
         return a.category.localeCompare(b.category);
