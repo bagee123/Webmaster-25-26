@@ -6,6 +6,8 @@
   box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.08));
   transition: box-shadow 0.3s ease;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -38,6 +40,14 @@
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 8px;
+  flex-grow: 1;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .learn {
@@ -52,8 +62,35 @@
   align-items: center;
   gap: 4px;
   transition: gap 0.2s ease;
+  flex: 1;
 }
 
 .learn:hover {
   gap: 8px;
+}
+
+.save-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary, #999);
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.save-btn:hover {
+  color: var(--accent-pink, #ec4899);
+  background: rgba(236, 72, 153, 0.1);
+}
+
+.save-btn.saved {
+  color: var(--accent-pink, #ec4899);
+}
+
+.dark .save-btn.saved {
+  color: #ec4899;
 }

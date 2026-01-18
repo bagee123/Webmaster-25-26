@@ -118,18 +118,39 @@
     font-weight: 600;
     font-size: 14px;
     transition: box-shadow 300ms ease, transform 300ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.event-card-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.event-card-button.signed-up {
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
 }
 
 .dark .event-card-button {
     background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
 }
 
-.event-card-button:hover {
+.dark .event-card-button.signed-up {
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+}
+
+.event-card-button:hover:not(:disabled) {
     box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
     transform: translateY(-1px);
 }
 
-.event-card-button:active {
+.event-card-button.signed-up:hover {
+    box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+}
+
+.event-card-button:active:not(:disabled) {
     transform: translateY(0);
 }
 

@@ -8,7 +8,9 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import ResourceDirectoryPage from './pages/ResourceDirectoryPage';
+import SavedItems from './pages/SavedItems';
 import Events from './pages/Events';
+import Calendar from './pages/Calendar';
 import Contact from './pages/Contact';
 import SubmitResource from './pages/SubmitResource';
 import Login from './pages/Login';
@@ -49,7 +51,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/resources" element={<ResourceDirectoryPage />} />
+          <Route path="/saved-items" element={<SavedItems />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/calendar" element={<Calendar />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/submit-resource" element={<SubmitResource />} />
           <Route path="/login" element={<Login />} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, LogIn, Moon, Sun, LogOut, Settings } from 'lucide-react';
+import { Menu, X, LogIn, Moon, Sun, LogOut, Settings, Bookmark, Calendar } from 'lucide-react';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useAuth } from '../context/AuthContext';
 import '../css/navbar.css';
@@ -107,6 +107,22 @@ export default function Navbar({ onLoginClick = () => {} }) {
                     <div className="user-menu-header">
                       <span className="user-email-label">{user?.email}</span>
                     </div>
+                    <Link
+                      to="/saved-items"
+                      onClick={() => setShowUserMenu(false)}
+                      className="user-menu-item"
+                    >
+                      <Bookmark size={16} />
+                      <span>My Saved Items</span>
+                    </Link>
+                    <Link
+                      to="/calendar"
+                      onClick={() => setShowUserMenu(false)}
+                      className="user-menu-item"
+                    >
+                      <Calendar size={16} />
+                      <span>My Calendar</span>
+                    </Link>
                     <button
                       onClick={() => {
                         setShowUserMenu(false);
