@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import '../css/login.css';
-import { auth } from '../../build/auth';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth, googleProvider } from '../../build/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 /**
  * Login Page Component
@@ -19,6 +19,37 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+
+  const handleGoogleSignIn = async () => {
+    setError('');
+    setLoading(true);
+    
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log('Google sign-in successful:', result.user.email);
+      
+      // Show success animation
+      setSuccess(true);
+      setLoading(false);
+      
+      // Wait for animation, then redirect to home page
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+      
+      const errorMessages = {
+        'auth/popup-closed-by-user': 'Sign-in was cancelled',
+        'auth/popup-blocked': 'Sign-in popup was blocked. Please enable popups.',
+        'auth/account-exists-with-different-credential': 'An account with this email already exists',
+      };
+      
+      const friendlyError = errorMessages[error.code] || error.message;
+      setError(friendlyError);
+      setLoading(false);
+    }
+  };
 
   /**
    * Handles form submission and login validation
@@ -160,8 +191,13 @@ export default function Login() {
             {/* Divider between traditional and social login */}
             <div className="login-divider">or</div>
 
-            {/* Google OAuth login button (placeholder for future integration) */}
-            <button className="google-login">
+            {/* Google OAuth login button */}
+            <button 
+              type="button"
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+              className="google-login"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-google" viewBox="0 0 16 16">
                 <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
               </svg>
