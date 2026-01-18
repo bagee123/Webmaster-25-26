@@ -2,6 +2,9 @@ import {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import {Mail, Lock, Eye, EyeOff, User} from 'lucide-react';
 import '../css/signup.css';
+import {auth, googleProvider } from "./auth";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 
 
 export default function Signup() {
@@ -43,26 +46,29 @@ export default function Signup() {
             return;
         }
 
-        // Send to Google Sheets
-        try {
-            await fetch("https://script.google.com/macros/s/AKfycbw3atw4EKsGyXTj43hom58nNZB0Q-WPToBqPQujErduUIF03e8hZ5sGdakWFXbbjGtokg/exec", {
-                method: "POST",
-                body: JSON.stringify({firstName, lastName, email, password}),
-                headers: {
-                    "Content-Type": "text/plain"
-                }
-            });
-
-            console.log('Signup successful:', { firstName, lastName, email });
+        try{
+            const user = await createUserWithEmailAndPassword(auth, email, password);
             setLoading(false);
-            navigate('/');
 
-        } catch (err) {
-            console.error("Error submitting form:", err);
-            setError('An error occurred during signup');
+        }
+
+        catch{
+            console.error(error);
+            setError(error.message);
             setLoading(false);
         }
+
     };
+
+    const handleGoogleSignup = async () => {
+        try {
+            const popup = await signInWithPopup(auth, googleProvider)
+
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className = "signup-container">
@@ -179,7 +185,7 @@ export default function Signup() {
                     </button>
                     <div className="signup-divider">or</div>
 
-                    <button className="google-login">
+                    <button className="google-login" onClick={handleGoogleSignup}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-google" viewBox="0 0 16 16">
                             <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
                         </svg>
