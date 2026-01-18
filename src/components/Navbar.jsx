@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, LogIn, Moon, Sun } from 'lucide-react';
+import { Menu, X, LogIn, Moon, Sun, LogOut, User } from 'lucide-react';
 import { useDarkMode } from '../context/DarkModeContext';
+import { useAuth } from '../context/AuthContext';
 import '../css/navbar.css';
 
 const navLinks = [
@@ -18,8 +19,10 @@ const navLinks = [
 export default function Navbar({ onLoginClick = () => {} }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const location = useLocation();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { user, logout, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,17 +112,44 @@ export default function Navbar({ onLoginClick = () => {} }) {
               >
                 {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
               </button>
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onLoginClick();
-                }}
-                className="nav-login-btn-mobile"
-                type="button"
-              >
-                <LogIn size={18} />
-                Login
-              </button>
+              {isAuthenticated ? (
+                <div className="user-menu-container">
+                  <button
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className="user-profile-btn"
+                    type="button"
+                  >
+                    <User size={18} />
+                    <span className="user-email">{user?.email}</span>
+                  </button>
+                  {showUserMenu && (
+                    <button
+                      onClick={async () => {
+                        await logout();
+                        setShowUserMenu(false);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="nav-logout-btn"
+                      type="button"
+                    >
+                      <LogOut size={16} />
+                      Logout
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onLoginClick();
+                  }}
+                  className="nav-login-btn-mobile"
+                  type="button"
+                >
+                  <LogIn size={18} />
+                  Login
+                </button>
+              )}
             </div>
           </div>
         )}

@@ -18,6 +18,7 @@ import References from './pages/References';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import { ResourceProvider } from './context/ResourceContext';
+import { AuthProvider } from './context/AuthContext';
 
 export default function App() {
   const navigate = useNavigate();
@@ -41,23 +42,25 @@ export default function App() {
   };
 
   return (
-    <ResourceProvider>
-      <ScrollToTop />
-      <Navbar onLoginClick={handleLoginClick} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/resources" element={<ResourceDirectoryPage />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/submit-resource" element={<SubmitResource />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/highlights" element={<Highlights />} />
-        <Route path="/references" element={<References />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogDetail />} />
-      </Routes>
-      <Footer />
-    </ResourceProvider>
+    <AuthProvider>
+      <ResourceProvider>
+        <ScrollToTop />
+        <Navbar onLoginClick={handleLoginClick} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/resources" element={<ResourceDirectoryPage />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/submit-resource" element={<SubmitResource />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/highlights" element={<Highlights />} />
+          <Route path="/references" element={<References />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+        </Routes>
+        <Footer />
+      </ResourceProvider>
+    </AuthProvider>
   );
 }
