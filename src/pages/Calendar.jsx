@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, Clock, MapPin, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
-import { events as eventsData } from '../data/events';
+import eventsData from '../data/events';
 import '../css/calendar.css';
 
 export default function Calendar() {
