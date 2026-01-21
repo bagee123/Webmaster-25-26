@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MapPin, ChevronDown } from 'lucide-react';
+import { Heart, GraduationCap, Users, Calendar, HandHeart, Leaf, Building2, MapPin, ChevronDown, Home } from 'lucide-react';
 import DetailModal from './DetailModal';
 import SearchBar from './SearchBar';
 import CategoryFilter from './CategoryFilter';
@@ -17,6 +17,7 @@ const categoryOptions = [
   'Support Services',
   'Recreation',
   'Nonprofits',
+  'Housing'
 ];
 
 // Map display names to resource category values
@@ -29,6 +30,7 @@ const categoryMap = {
   'Support Services': 'support',
   'Recreation': 'recreation',
   'Nonprofits': 'nonprofits',
+  'Housing': 'housing',
 };
 
 // Map category values to icons
@@ -40,6 +42,7 @@ const categoryIcons = {
   'support': Users,
   'recreation': Leaf,
   'nonprofits': Building2,
+  'housing': Home
 };
 
 

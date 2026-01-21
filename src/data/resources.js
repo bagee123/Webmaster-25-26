@@ -1,7 +1,7 @@
 const resources = Array.from({ length: 100 }, (_, i) => ({
   id: i + 1,
   name: `Community Resource ${i + 1}`,
-  category: ['health', 'education', 'volunteering', 'events', 'support', 'recreation', 'nonprofits'][i % 7],
+  category: ['health', 'education', 'volunteering', 'events', 'support', 'recreation', 'nonprofits', 'housing'][i % 8],
   description: 'Comprehensive community resource providing support, services, and opportunities for residents.',
   phone: `(972) 304-${(3500 + (i % 100)).toString().padStart(4, '0')}`,
   email: `resource${i + 1}@coppelltx.gov`,

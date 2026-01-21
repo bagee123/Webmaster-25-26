@@ -8,7 +8,7 @@ const categories = [
   { id: 2, name: 'Education', categoryId: 'Education', icon: GraduationCap, color: 'blue-cyan' },
   { id: 3, name: 'Volunteering', categoryId: 'Volunteering', icon: HandHeart, color: 'orange-amber' },
   { id: 4, name: 'Events', categoryId: 'Events', icon: Calendar, color: 'purple-pink' },
-  { id: 5, name: 'Support', categoryId: 'Support', icon: Users, color: 'green-emerald' },
+  { id: 5, name: 'Support', categoryId: 'Support Services', icon: Users, color: 'green-emerald' },
   { id: 6, name: 'Recreation', categoryId: 'Recreation', icon: Leaf, color: 'teal-cyan' },
   { id: 7, name: 'Nonprofits', categoryId: 'Nonprofits', icon: Building2, color: 'indigo-blue' },
   { id: 8, name: 'Housing', categoryId: 'Housing', icon: Home, color: 'red-orange' },
