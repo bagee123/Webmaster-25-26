@@ -91,6 +91,28 @@
   color: var(--accent-pink, #ec4899);
 }
 
+.dark .badge {
+  background-color: #334155;
+  color: #ff8c42;
+}
+
+.dark .learn {
+  color: #ff8c42;
+}
+
+.dark .learn:hover {
+  color: #ffb366;
+}
+
+.dark .save-btn {
+  color: #94a3b8;
+}
+
+.dark .save-btn:hover {
+  color: #ec4899;
+  background: rgba(236, 72, 153, 0.15);
+}
+
 .dark .save-btn.saved {
   color: #ec4899;
 }

@@ -133,7 +133,6 @@ export default function Navbar({ onLoginClick = () => {} }) {
                       <Settings size={16} />
                       <span>Profile Settings</span>
                     </button>
-                    <hr className="user-menu-divider" />
                     <button
                       onClick={async () => {
                         setIsLoggingOut(true);

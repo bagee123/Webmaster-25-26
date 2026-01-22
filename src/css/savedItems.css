@@ -125,11 +125,12 @@
 
 /* Dark Mode */
 .dark .saved-items-page {
-  background: var(--bg-primary, #0f0f0f);
+  background-color: #0f172a;
+  background: #0f172a;
 }
 
 .dark .saved-items-header {
-  border-bottom-color: var(--border-color, #333);
+  border-bottom-color: #475569;
 }
 
 .dark .header-content h1 {
@@ -142,15 +143,38 @@
 }
 
 .dark .header-content p {
-  color: #999;
+  color: #cbd5e1;
 }
 
 .dark .empty-state {
-  color: #999;
+  color: #cbd5e1;
 }
 
 .dark .empty-state h2 {
+  color: #f1f5f9;
+}
+
+.dark .empty-state svg {
+  opacity: 0.7;
+  color: #cbd5e1;
+}
+
+.dark .cta-button {
+  background: linear-gradient(135deg, #ff6b4a, #ff8c42);
   color: white;
+}
+
+.dark .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 107, 74, 0.3);
+}
+
+.dark .back-button {
+  color: #ff8c42;
+}
+
+.dark .back-button:hover {
+  color: #ffb366;
 }
 
 /* Responsive */
