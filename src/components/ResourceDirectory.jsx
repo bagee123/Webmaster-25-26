@@ -5,7 +5,7 @@ import DetailModal from './DetailModal';
 import SearchBar from './SearchBar';
 import CategoryFilter from './CategoryFilter';
 import SortDropdown from './SortDropdown';
-import resources from '../data/resources';
+import { useResources } from '../context/ResourceContext';
 import '../css/directory.css';
 
 const categoryOptions = [
@@ -48,6 +48,7 @@ const categoryIcons = {
 
 export default function ResourceDirectory() {
   const location = useLocation();
+  const { resources } = useResources();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('name');
   const [searchQuery, setSearchQuery] = useState('');

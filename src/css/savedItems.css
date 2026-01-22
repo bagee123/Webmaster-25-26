@@ -50,9 +50,16 @@
 }
 
 .saved-items-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.saved-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   animation: fadeIn 0.4s ease-out;
 }
 
@@ -136,7 +143,7 @@
 .dark .header-content h1 {
   color: white;
   -webkit-text-fill-color: unset;
-  background: linear-gradient(135deg, #fb923c, #ec4899);
+  background: linear-gradient(135deg, #ff6b4a, #ff8c42);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -3,7 +3,7 @@ import { Bookmark, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
-import ResourceCard from '../components/ResourceCard';
+import SavedResourceItem from '../components/SavedResourceItem';
 import '../css/savedItems.css';
 
 export default function SavedItems() {
@@ -56,9 +56,9 @@ export default function SavedItems() {
             </div>
           </div>
         ) : (
-          <div className="saved-items-grid">
+          <div className="saved-items-list">
             {savedResources.map(resource => (
-              <ResourceCard key={resource.id} item={resource} />
+              <SavedResourceItem key={resource.id} resource={resource} />
             ))}
           </div>
         )}

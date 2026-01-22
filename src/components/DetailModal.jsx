@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { X, Phone, Mail, MapPin, Clock, Globe, Heart } from 'lucide-react';
+import { useResources } from '../context/ResourceContext';
+import { useAuth } from '../context/AuthContext';
 import '../css/modal.css';
 
 export default function DetailModal({ resource, onClose }) {
-  const [isFavorited, setIsFavorited] = useState(false);
+  const { savedItems, toggleSavedItem } = useResources();
+  const { isAuthenticated } = useAuth();
+  const isSaved = savedItems.includes(Number(resource.id));
 
   const handleFavoriteClick = () => {
-    setIsFavorited(!isFavorited);
+    if (isAuthenticated) {
+      toggleSavedItem(Number(resource.id));
+    }
   };
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -91,13 +97,15 @@ export default function DetailModal({ resource, onClose }) {
 
         {/* Action Buttons */}
         <div className="modal-actions">
-          <button 
-            className={`btn-favorite ${isFavorited ? 'active' : ''}`}
-            onClick={handleFavoriteClick}
-          >
-            <Heart size={18} fill={isFavorited ? 'currentColor' : 'none'} />
-            {isFavorited ? 'Saved!' : 'Save to Favorites'}
-          </button>
+          {isAuthenticated && (
+            <button 
+              className={`btn-favorite ${isSaved ? 'active' : ''}`}
+              onClick={handleFavoriteClick}
+            >
+              <Heart size={18} fill={isSaved ? 'currentColor' : 'none'} />
+              {isSaved ? 'Saved!' : 'Save to Favorites'}
+            </button>
+          )}
           <button className="btn-close-modal" onClick={onClose}>
             Close
           </button>

@@ -9,12 +9,12 @@ import '../css/card.css';
 export default function ResourceCard({ item }) {
     const { savedItems, toggleSavedItem } = useResources();
     const { isAuthenticated } = useAuth();
-    const isSaved = savedItems.includes(item.id);
+    const isSaved = savedItems.includes(Number(item.id));
 
     const handleSave = (e) => {
         e.preventDefault();
         if (isAuthenticated) {
-            toggleSavedItem(item.id);
+            toggleSavedItem(Number(item.id));
         }
     };
 
@@ -22,8 +22,8 @@ export default function ResourceCard({ item }) {
     <div className="card">
         {item.icon && <div className="icon">{item.icon}</div>}
         <span className="badge">{item.category}</span>
-        <h4>{item.title}</h4>
-        <p>{item.desc}</p>
+        <h4>{item.title || item.name}</h4>
+        <p>{item.desc || item.description}</p>
         <div className="card-actions">
             <button className="learn">Learn More →</button>
             {isAuthenticated && (
@@ -44,8 +44,10 @@ ResourceCard.propTypes = {
     item: PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         category: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        desc: PropTypes.string.isRequired,
+        title: PropTypes.string,
+        name: PropTypes.string,
+        desc: PropTypes.string,
+        description: PropTypes.string,
         icon: PropTypes.string,
     }).isRequired,
 };
