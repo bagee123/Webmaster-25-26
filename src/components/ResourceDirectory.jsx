@@ -95,6 +95,10 @@ export default function ResourceDirectory() {
         return a.category.localeCompare(b.category);
       }
       if (sortBy === 'newest') {
+        return a.id - b.id;
+      }
+
+      if (sortBy === 'oldest') {
         return b.id - a.id;
       }
       return 0;
@@ -134,6 +138,7 @@ export default function ResourceDirectory() {
               { value: 'name', label: 'Sort by Name' },
               { value: 'category', label: 'Sort by Category' },
               { value: 'newest', label: 'Sort by Newest' },
+              { value: 'oldest', label: 'Sort by Oldest' },
             ]}
             selected={sortBy}
             onChange={setSortBy}

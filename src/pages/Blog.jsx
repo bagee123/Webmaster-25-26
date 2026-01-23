@@ -6,6 +6,21 @@ import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
 import SortDropdown from '../components/SortDropdown';
 import '../css/blog.css';
+const blog_categories = ["Community", "Volunteering", "Health", "Education", "Business", "Events"];
+
+
+const categoryImage  = {
+  'Community': 'https://plus.unsplash.com/premium_photo-1681505195930-388c317b7a76?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29tbXVuaXR5fGVufDB8fDB8fHww',
+  'Volunteering': 'https://images.unsplash.com/photo-1628717341663-0007b0ee2597?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'Health': 'https://plus.unsplash.com/premium_photo-1675808577247-2281dc17147a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aGVhbHRofGVufDB8fDB8fHww',
+  'Education': 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZWR1Y2F0aW9ufGVufDB8fDB8fHww',
+  'Business': 'https://plus.unsplash.com/premium_photo-1661772661721-b16346fe5b0f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8QnVzaW5lc3N8ZW58MHx8MHx8fDA%3D',
+  'Events': 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnRzfGVufDB8fDB8fHww',
+}
+
+const returnCategoryImage = (category) => {
+  return categoryImage[category] || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSIyNSIgeT0iMjUiIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjNjZkOWVmIiBzdHJva2U9IiMwYjdiYzYiIHN0cm9rZS13aWR0aD0iMyIgcng9IjEwIi8+PHRleHQgeD0iMTAwIiB5PSIxMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iQXJpYWwiPlBsYWNlIjwvdGV4dD48L3N2Zz4=';
+}
 
 const blogPosts = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -14,9 +29,9 @@ const blogPosts = Array.from({ length: 20 }, (_, i) => ({
   author: 'Author Name',
   date: 'December 5, 2024',
   readTime: '5 min read',
-  category: 'Community',
-  image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSIyNSIgeT0iMjUiIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjNjZkOWVmIiBzdHJva2U9IiMwYjdiYzYiIHN0cm9rZS13aWR0aD0iMyIgcng9IjEwIi8+PHRleHQgeD0iMTAwIiB5PSIxMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iQXJpYWwiPlBsYWNlIjwvdGV4dD48L3N2Zz4=',
-  featured: false,
+  category: blog_categories[i % blog_categories.length],
+  image: returnCategoryImage(blog_categories[i % blog_categories.length]),
+  featured: [2,5,14].includes(i + 1),
 }));
 
 const categories = ['All', 'Community', 'Volunteering', 'Health', 'Education', 'Business', 'Events'];
@@ -36,13 +51,14 @@ export default function Blog() {
     )
     .sort((a, b) => {
       if (sortBy === 'newest') return new Date(b.date) - new Date(a.date);
+      if (sortBy === 'category') return a.category.localeCompare(b.category);
       if (sortBy === 'oldest') return new Date(a.date) - new Date(b.date);
       if (sortBy === 'title') return a.title.localeCompare(b.title);
       return 0;
     });
 
   const featuredPosts = filteredPosts.filter(post => post.featured);
-  const regularPosts = filteredPosts.filter(post => !post.featured);
+  const regularPosts = filteredPosts;
 
   return (
     <>
@@ -68,16 +84,6 @@ export default function Blog() {
           onChange={setSelectedCategory}
         />
 
-        {/* Sort Dropdown */}
-        <SortDropdown
-          options={[
-            { value: 'newest', label: 'Newest First' },
-            { value: 'oldest', label: 'Oldest First' },
-            { value: 'title', label: 'Sort by Title' },
-          ]}
-          selected={sortBy}
-          onChange={setSortBy}
-        />
 
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
@@ -126,6 +132,17 @@ export default function Blog() {
             </div>
           </div>
         )}
+
+        <SortDropdown
+          options={[
+            { value: 'title', label: 'Sort by Title' },
+            {value: 'category', label: 'Sort by Caterory' },
+            { value: 'newest', label: 'Newest First' },
+            { value: 'oldest', label: 'Oldest First' },
+          ]}
+          selected={sortBy}
+          onChange={setSortBy}
+        />
 
         {/* Regular Posts */}
         {regularPosts.length > 0 && (
