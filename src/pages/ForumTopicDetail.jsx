@@ -215,28 +215,28 @@ export default function ForumTopicDetail() {
       // Try Firebase - load from global collection
       try {
         const topicRef = doc(db, 'forumTopics', id);
-          
-          const unsubscribe = onSnapshot(topicRef, (docSnap) => {
-            if (docSnap.exists()) {
-              const data = docSnap.data();
-              setTopic({
-                id: docSnap.id,
-                ...data,
-                timestamp: data.timestamp?.toDate() || new Date()
-              });
-              setLikesCount(data.likes || 0);
-              setReplies(data.replies || []);
-            }
-            setLoading(false);
-          }, () => {
-            // If Firebase fails, we already have local data
-            setLoading(false);
-          });
-
-          return () => unsubscribe();
-        } catch {
+        
+        const unsubscribe = onSnapshot(topicRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setTopic({
+              id: docSnap.id,
+              ...data,
+              timestamp: data.timestamp?.toDate() || new Date()
+            });
+            setLikesCount(data.likes || 0);
+            setReplies(data.replies || []);
+          }
           setLoading(false);
-        }
+        }, () => {
+          // If Firebase fails, we already have local data
+          setLoading(false);
+        });
+
+        return () => unsubscribe();
+      } catch {
+        setLoading(false);
+      }
     };
 
     loadTopic();
