@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, User, Clock, TrendingUp } from 'lucide-react';
+import { Calendar, User, Clock, TrendingUp, Plus, X, Send, Image } from 'lucide-react';
+import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { db } from '../../build/auth';
+import { useAuth } from '../context/AuthContext';
 import PageHero from '../components/PageHero';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
@@ -22,25 +25,122 @@ const returnCategoryImage = (category) => {
   return categoryImage[category] || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSIyNSIgeT0iMjUiIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjNjZkOWVmIiBzdHJva2U9IiMwYjdiYzYiIHN0cm9rZS13aWR0aD0iMyIgcng9IjEwIi8+PHRleHQgeD0iMTAwIiB5PSIxMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iQXJpYWwiPlBsYWNlIjwvdGV4dD48L3N2Zz4=';
 }
 
-const blogPosts = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  title: `Blog #${i + 1}`,
-  excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  author: 'Author Name',
-  date: 'December 5, 2024',
-  readTime: '5 min read',
+// Local storage key for posts
+const BLOG_STORAGE_KEY = 'coppell_blog_posts';
+
+// Helper to get posts from local storage
+const getLocalPosts = () => {
+  try {
+    const stored = localStorage.getItem(BLOG_STORAGE_KEY);
+    if (stored) {
+      const posts = JSON.parse(stored);
+      return posts.map(p => ({ ...p, date: new Date(p.date) }));
+    }
+  } catch {
+    console.log('Error reading local storage');
+  }
+  return [];
+};
+
+// Helper to save posts to local storage
+const saveLocalPosts = (posts) => {
+  try {
+    localStorage.setItem(BLOG_STORAGE_KEY, JSON.stringify(posts));
+  } catch {
+    console.log('Error saving to local storage');
+  }
+};
+
+const defaultBlogPosts = Array.from({ length: 6 }, (_, i) => ({
+  id: `default-${i + 1}`,
+  title: `Community Spotlight: Local Heroes Making a Difference #${i + 1}`,
+  excerpt: 'Discover the inspiring stories of Coppell residents who are going above and beyond to make our community a better place for everyone.',
+  author: 'Community Team',
+  authorEmail: 'team@coppellhub.com',
+  date: new Date(Date.now() - (i * 7 * 24 * 60 * 60 * 1000)),
+  readTime: `${5 + i} min read`,
   category: blog_categories[i % blog_categories.length],
   image: returnCategoryImage(blog_categories[i % blog_categories.length]),
-  featured: [2,5,14].includes(i + 1),
+  content: `<h3>Making Our Community Stronger</h3>
+<p>Every day, members of our community step up to make Coppell a better place. From organizing neighborhood clean-ups to supporting local food banks, these unsung heroes demonstrate what it means to be a good neighbor.</p>
+
+<h3>How You Can Get Involved</h3>
+<p>There are many ways to contribute to our community. Whether you have an hour a week or a full day to spare, your involvement matters. Check out our resources page to find volunteer opportunities near you.</p>
+
+<p>Remember, small acts of kindness can create ripples of positive change throughout our entire community. Start today and be part of something bigger than yourself.</p>`,
+  featured: i === 0,
+  likes: Math.floor(Math.random() * 50) + 10,
+  comments: [],
 }));
 
 const categories = ['All', 'Community', 'Volunteering', 'Health', 'Education', 'Business', 'Events'];
 
 export default function Blog() {
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('newest');
+  const [blogPosts, setBlogPosts] = useState([...getLocalPosts(), ...defaultBlogPosts]);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newPost, setNewPost] = useState({
+    title: '',
+    excerpt: '',
+    content: '',
+    category: 'Community',
+    imageUrl: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Load blog posts - try Firebase first, fall back to local storage
+  useEffect(() => {
+    let unsubscribe = null;
+    
+    const loadPosts = async () => {
+      // First, load local posts immediately
+      const localPosts = getLocalPosts();
+      setBlogPosts([...localPosts, ...defaultBlogPosts]);
+      
+      // Try Firebase (under user's document to avoid permissions issues)
+      if (user?.uid) {
+        try {
+          const userPostsRef = collection(db, 'users', user.uid, 'blogPosts');
+          const q = query(userPostsRef, orderBy('date', 'desc'));
+          
+          unsubscribe = onSnapshot(q, (snapshot) => {
+            const firebasePosts = snapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data(),
+              date: doc.data().date?.toDate() || new Date(),
+              isUserPost: true
+            }));
+            
+            // Combine: user's Firebase posts + local posts + defaults
+            const allPosts = [...firebasePosts, ...localPosts.filter(p => !firebasePosts.find(fp => fp.id === p.id)), ...defaultBlogPosts];
+            setBlogPosts(allPosts);
+          }, (error) => {
+            console.log('Firebase unavailable, using local storage:', error.code);
+          });
+        } catch (error) {
+          console.log('Firebase setup error:', error);
+        }
+      }
+    };
+
+    loadPosts();
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [user?.uid]);
+
+  const formatDate = (date) => {
+    if (typeof date === 'string') return date;
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   const filteredPosts = blogPosts
     .filter(post => selectedCategory === 'All' || post.category === selectedCategory)
@@ -60,6 +160,77 @@ export default function Blog() {
   const featuredPosts = filteredPosts.filter(post => post.featured);
   const regularPosts = filteredPosts;
 
+  const handleCreatePost = () => {
+    if (!isAuthenticated) {
+      alert('Please log in to create a blog post');
+      return;
+    }
+    setShowCreateModal(true);
+  };
+
+  const handleSubmitPost = async (e) => {
+    e.preventDefault();
+    if (!newPost.title.trim() || !newPost.content.trim()) {
+      alert('Please fill in the title and content');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const wordCount = newPost.content.split(/\s+/).length;
+      const readTime = Math.max(1, Math.ceil(wordCount / 200));
+      const postId = `post-${Date.now()}`;
+
+      const postData = {
+        id: postId,
+        title: newPost.title.trim(),
+        excerpt: newPost.excerpt.trim() || newPost.content.substring(0, 150) + '...',
+        content: `<p>${newPost.content.split('\n\n').join('</p><p>')}</p>`,
+        category: newPost.category,
+        author: user?.email?.split('@')[0] || 'Anonymous',
+        authorEmail: user?.email || '',
+        authorId: user?.uid || '',
+        date: new Date(),
+        readTime: `${readTime} min read`,
+        image: newPost.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSIyNSIgeT0iMjUiIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjNjZkOWVmIiBzdHJva2U9IiMwYjdiYzYiIHN0cm9rZS13aWR0aD0iMyIgcng9IjEwIi8+PHRleHQgeD0iMTAwIiB5PSIxMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iQXJpYWwiPlBsYWNlIjwvdGV4dD48L3N2Zz4=',
+        featured: false,
+        likes: 0,
+        comments: []
+      };
+
+      // Try to save to Firebase under user's document
+      let savedToFirebase = false;
+      if (user?.uid) {
+        try {
+          const userPostsRef = collection(db, 'users', user.uid, 'blogPosts');
+          await addDoc(userPostsRef, {
+            ...postData,
+            date: new Date() // Firestore will convert this
+          });
+          savedToFirebase = true;
+        } catch (firebaseError) {
+          console.log('Firebase save failed, using local storage:', firebaseError.code);
+        }
+      }
+
+      // Always save to local storage as backup
+      const localPosts = getLocalPosts();
+      saveLocalPosts([postData, ...localPosts]);
+
+      // Update UI immediately
+      setBlogPosts(prev => [postData, ...prev]);
+      
+      setNewPost({ title: '', excerpt: '', content: '', category: 'Community', imageUrl: '' });
+      setShowCreateModal(false);
+      alert(savedToFirebase ? 'Blog post published successfully!' : 'Blog post saved locally!');
+    } catch (error) {
+      console.error('Error creating post:', error);
+      alert('Error creating post. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -70,12 +241,21 @@ export default function Blog() {
       />
 
       <div className="blog-container">
-        {/* Search Bar */}
-        <SearchBar
-          placeholder="Search articles..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        {/* Actions Bar */}
+        <div className="blog-actions-bar">
+          {/* Search Bar */}
+          <SearchBar
+            placeholder="Search articles..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          
+          {/* Create Post Button */}
+          <button className="blog-create-btn" onClick={handleCreatePost}>
+            <Plus size={18} />
+            Write a Post
+          </button>
+        </div>
 
         {/* Category Filters */}
         <CategoryFilter
@@ -119,7 +299,7 @@ export default function Blog() {
                       </div>
                       <div className="blog-meta-item">
                         <Calendar size={14} />
-                        <span>{post.date}</span>
+                        <span>{formatDate(post.date)}</span>
                       </div>
                       <div className="blog-meta-item">
                         <Clock size={14} />
@@ -136,7 +316,7 @@ export default function Blog() {
         <SortDropdown
           options={[
             { value: 'title', label: 'Sort by Title' },
-            {value: 'category', label: 'Sort by Caterory' },
+            { value: 'category', label: 'Sort by Category' },
             { value: 'newest', label: 'Newest First' },
             { value: 'oldest', label: 'Oldest First' },
           ]}
@@ -211,6 +391,88 @@ export default function Blog() {
           </div>
         </section>
       </div>
+
+      {/* Create Post Modal */}
+      {showCreateModal && (
+        <div className="blog-modal-overlay" onClick={() => setShowCreateModal(false)}>
+          <div className="blog-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="blog-modal-header">
+              <h2>Write a Blog Post</h2>
+              <button className="blog-modal-close" onClick={() => setShowCreateModal(false)}>
+                <X size={24} />
+              </button>
+            </div>
+            <form onSubmit={handleSubmitPost} className="blog-modal-form">
+              <div className="blog-form-group">
+                <label>Title *</label>
+                <input
+                  type="text"
+                  value={newPost.title}
+                  onChange={(e) => setNewPost(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder="Enter your blog title"
+                  required
+                />
+              </div>
+
+              <div className="blog-form-group">
+                <label>Category *</label>
+                <select
+                  value={newPost.category}
+                  onChange={(e) => setNewPost(prev => ({ ...prev, category: e.target.value }))}
+                >
+                  {categories.filter(c => c !== 'All').map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="blog-form-group">
+                <label>Short Description</label>
+                <input
+                  type="text"
+                  value={newPost.excerpt}
+                  onChange={(e) => setNewPost(prev => ({ ...prev, excerpt: e.target.value }))}
+                  placeholder="Brief description (optional - will be auto-generated)"
+                />
+              </div>
+
+              <div className="blog-form-group">
+                <label>
+                  <Image size={16} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+                  Image URL (optional)
+                </label>
+                <input
+                  type="url"
+                  value={newPost.imageUrl}
+                  onChange={(e) => setNewPost(prev => ({ ...prev, imageUrl: e.target.value }))}
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+
+              <div className="blog-form-group">
+                <label>Content *</label>
+                <textarea
+                  value={newPost.content}
+                  onChange={(e) => setNewPost(prev => ({ ...prev, content: e.target.value }))}
+                  placeholder="Write your blog post content here... Use double line breaks for new paragraphs."
+                  rows={10}
+                  required
+                />
+              </div>
+
+              <div className="blog-modal-actions">
+                <button type="button" className="blog-btn-secondary" onClick={() => setShowCreateModal(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="blog-btn-primary" disabled={isSubmitting}>
+                  <Send size={18} />
+                  {isSubmitting ? 'Publishing...' : 'Publish Post'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }

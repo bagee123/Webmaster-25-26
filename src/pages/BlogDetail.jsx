@@ -1,40 +1,194 @@
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Calendar, User, Clock, ArrowLeft, Share2, Heart, MessageCircle } from 'lucide-react';
+import { Calendar, User, Clock, ArrowLeft, Share2, Heart, MessageCircle, Send } from 'lucide-react';
+import { doc, updateDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
+import { db } from '../../build/auth';
+import { useAuth } from '../context/AuthContext';
 import '../css/blogDetail.css';
 
-const blogPosts = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  title: `Blog #${i + 1}`,
-  author: 'Author Name',
-  date: 'December 5, 2024',
-  readTime: '5 min read',
-  category: 'Community',
+const defaultBlogPosts = Array.from({ length: 6 }, (_, i) => ({
+  id: `default-${i + 1}`,
+  title: `Community Spotlight: Local Heroes Making a Difference #${i + 1}`,
+  excerpt: 'Discover the inspiring stories of Coppell residents who are going above and beyond to make our community a better place for everyone.',
+  author: 'Community Team',
+  authorEmail: 'team@coppellhub.com',
+  date: new Date(Date.now() - (i * 7 * 24 * 60 * 60 * 1000)),
+  readTime: `${5 + i} min read`,
+  category: ['Community', 'Volunteering', 'Health', 'Education', 'Business', 'Events'][i % 6],
   image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSI3MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjNjZkOWVmIiBzdHJva2U9IiMwYjdiYzYiIHN0cm9rZS13aWR0aD0iMyIgcng9IjEwIi8+PHRleHQgeD0iNDAwIiB5PSIyMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iNDgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iQXJpYWwiPlBsYWNlSG9sZGVyIjwvdGV4dD48L3N2Zz4=',
-  content: `
-    <h3>Lorem Ipsum Dolor Sit Amet</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  content: `<h3>Making Our Community Stronger</h3>
+<p>Every day, members of our community step up to make Coppell a better place. From organizing neighborhood clean-ups to supporting local food banks, these unsung heroes demonstrate what it means to be a good neighbor.</p>
 
-    <h3>Duis Aute Irure Dolor</h3>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<h3>How You Can Get Involved</h3>
+<p>There are many ways to contribute to our community. Whether you have an hour a week or a full day to spare, your involvement matters. Check out our resources page to find volunteer opportunities near you.</p>
 
-    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-
-    <h3>Nemo Enim Ipsam Voluptatem</h3>
-    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
-
-    <p>Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
-
-    <h3>Quis Autem Vel Eum</h3>
-    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
-
-    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-  `,
+<p>Remember, small acts of kindness can create ripples of positive change throughout our entire community. Start today and be part of something bigger than yourself.</p>`,
+  featured: i === 0,
+  likes: Math.floor(Math.random() * 50) + 10,
+  comments: [],
 }));
 
 export default function BlogDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = blogPosts.find(p => p.id === Number(id));
+  const { user, isAuthenticated } = useAuth();
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const loadPost = async () => {
+      setLoading(true);
+      
+      // Check if it's a default post
+      if (id.startsWith('default-')) {
+        const defaultPost = defaultBlogPosts.find(p => p.id === id);
+        if (defaultPost) {
+          setPost(defaultPost);
+          setLikesCount(defaultPost.likes || 0);
+          setComments(defaultPost.comments || []);
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Load from Firebase
+      try {
+        const postRef = doc(db, 'blogPosts', id);
+        
+        // Set up real-time listener
+        const unsubscribe = onSnapshot(postRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setPost({
+              id: docSnap.id,
+              ...data,
+              date: data.date?.toDate() || new Date()
+            });
+            setLikesCount(data.likes || 0);
+            setComments(data.comments || []);
+          } else {
+            setPost(null);
+          }
+          setLoading(false);
+        });
+
+        return () => unsubscribe();
+      } catch (error) {
+        console.error('Error loading post:', error);
+        setLoading(false);
+      }
+    };
+
+    loadPost();
+  }, [id]);
+
+  const formatDate = (date) => {
+    if (typeof date === 'string') return date;
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const handleLike = async () => {
+    if (!isAuthenticated) {
+      alert('Please log in to like this post');
+      return;
+    }
+
+    const newLiked = !liked;
+    setLiked(newLiked);
+    setLikesCount(prev => newLiked ? prev + 1 : prev - 1);
+
+    // Update Firebase if not a default post
+    if (!id.startsWith('default-')) {
+      try {
+        const postRef = doc(db, 'blogPosts', id);
+        await updateDoc(postRef, {
+          likes: newLiked ? likesCount + 1 : likesCount - 1
+        });
+      } catch (error) {
+        console.error('Error updating likes:', error);
+        // Revert on error
+        setLiked(!newLiked);
+        setLikesCount(prev => newLiked ? prev - 1 : prev + 1);
+      }
+    }
+  };
+
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
+    
+    if (!isAuthenticated) {
+      alert('Please log in to comment');
+      return;
+    }
+
+    setIsSubmitting(true);
+    const commentData = {
+      id: Date.now().toString(),
+      author: user?.email?.split('@')[0] || 'Anonymous',
+      authorEmail: user?.email || '',
+      content: newComment.trim(),
+      date: new Date().toISOString(),
+      likes: 0
+    };
+
+    // Update local state immediately
+    setComments(prev => [commentData, ...prev]);
+    setNewComment('');
+
+    // Update Firebase if not a default post
+    if (!id.startsWith('default-')) {
+      try {
+        const postRef = doc(db, 'blogPosts', id);
+        await updateDoc(postRef, {
+          comments: arrayUnion(commentData)
+        });
+      } catch (error) {
+        console.error('Error adding comment:', error);
+        // Revert on error
+        setComments(prev => prev.filter(c => c.id !== commentData.id));
+        alert('Error posting comment. Please try again.');
+      }
+    }
+    
+    setIsSubmitting(false);
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: post.title,
+          text: post.excerpt,
+          url: url
+        });
+      } catch {
+        console.log('Share cancelled');
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      alert('Link copied to clipboard!');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="blog-detail-loading">
+        <div className="blog-detail-loading-spinner"></div>
+        <p>Loading article...</p>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -79,7 +233,7 @@ export default function BlogDetail() {
             </div>
             <div className="blog-detail-meta-item">
               <Calendar size={16} />
-              <span>{post.date}</span>
+              <span>{formatDate(post.date)}</span>
             </div>
             <div className="blog-detail-meta-item">
               <Clock size={16} />
@@ -94,16 +248,19 @@ export default function BlogDetail() {
         {/* Action Bar */}
         <div className="blog-detail-actions">
           <div className="blog-detail-actions-left">
-            <button className="blog-detail-action-btn">
-              <Heart size={18} />
-              <span>42</span>
+            <button 
+              className={`blog-detail-action-btn ${liked ? 'liked' : ''}`}
+              onClick={handleLike}
+            >
+              <Heart size={18} fill={liked ? 'currentColor' : 'none'} />
+              <span>{likesCount}</span>
             </button>
             <button className="blog-detail-action-btn">
               <MessageCircle size={18} />
-              <span>8</span>
+              <span>{comments.length}</span>
             </button>
           </div>
-          <button className="blog-detail-share-btn">
+          <button className="blog-detail-share-btn" onClick={handleShare}>
             <Share2 size={18} />
             Share
           </button>
@@ -118,7 +275,7 @@ export default function BlogDetail() {
         {/* Author Bio */}
         <div className="blog-detail-author-bio">
           <div className="blog-detail-author-avatar">
-            {post.author.split(' ').map(n => n[0]).join('')}
+            {post.author?.split(' ').map(n => n[0]).join('').toUpperCase() || 'A'}
           </div>
           <div className="blog-detail-author-info">
             <h3>About {post.author}</h3>
@@ -129,11 +286,74 @@ export default function BlogDetail() {
           </div>
         </div>
 
+        {/* Comments Section */}
+        <div className="blog-detail-comments">
+          <h3>
+            <MessageCircle size={24} />
+            Comments ({comments.length})
+          </h3>
+
+          {/* Comment Form */}
+          <form onSubmit={handleSubmitComment} className="blog-comment-form">
+            <div className="blog-comment-input-wrapper">
+              <div className="blog-comment-avatar">
+                {isAuthenticated ? (user?.email?.[0]?.toUpperCase() || 'U') : '?'}
+              </div>
+              <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder={isAuthenticated ? "Share your thoughts..." : "Log in to comment..."}
+                disabled={!isAuthenticated}
+                rows={3}
+              />
+            </div>
+            <button 
+              type="submit" 
+              className="blog-comment-submit"
+              disabled={!isAuthenticated || isSubmitting || !newComment.trim()}
+            >
+              <Send size={18} />
+              {isSubmitting ? 'Posting...' : 'Post Comment'}
+            </button>
+          </form>
+
+          {/* Comments List */}
+          <div className="blog-comments-list">
+            {comments.length === 0 ? (
+              <div className="blog-no-comments">
+                <MessageCircle size={48} />
+                <p>No comments yet. Be the first to share your thoughts!</p>
+              </div>
+            ) : (
+              comments.map((comment) => (
+                <div key={comment.id} className="blog-comment">
+                  <div className="blog-comment-header">
+                    <div className="blog-comment-author-avatar">
+                      {comment.author?.[0]?.toUpperCase() || 'A'}
+                    </div>
+                    <div className="blog-comment-meta">
+                      <span className="blog-comment-author">{comment.author}</span>
+                      <span className="blog-comment-date">
+                        {new Date(comment.date).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="blog-comment-content">{comment.content}</p>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
         {/* Related Articles */}
         <div className="blog-detail-related">
           <h3>Related Articles</h3>
           <div className="blog-detail-related-grid">
-            {blogPosts.filter(p => p.id !== post.id).slice(0, 2).map((relatedPost) => (
+            {defaultBlogPosts.filter(p => p.id !== post.id && p.category === post.category).slice(0, 2).map((relatedPost) => (
               <div
                 key={relatedPost.id}
                 onClick={() => navigate(`/blog/${relatedPost.id}`)}

@@ -117,7 +117,7 @@ export default function About() {
           <div className="story-content">
             <p>
               The Coppell Community Resource Hub began in 2019 when a group of concerned residents realized 
-              that many valuable community services were going underutilized simply because people didn't know 
+              that many valuable community services were going underutilized simply because people did not know 
               they existed. A family struggling to find mental health resources, a senior citizen unaware of 
               available transportation services, a parent looking for after-school programs—these stories were 
               too common.
@@ -129,8 +129,8 @@ export default function About() {
               available.
             </p>
             <p>
-              But we're more than just a database. We're a bridge connecting people in need with those who can help, 
-              and we're constantly working to make that connection easier, faster, and more effective. Every resource 
+              But we are more than just a database. We are a bridge connecting people in need with those who can help, 
+              and we are constantly working to make that connection easier, faster, and more effective. Every resource 
               added, every search performed, every connection made brings us closer to our vision of a community where 
               no one has to struggle alone.
             </p>
@@ -164,7 +164,7 @@ export default function About() {
       <section className="about-section about-cta">
         <div className="about-container about-cta-content">
           <h2>Join Our Community</h2>
-          <p>Whether you need help, want to volunteer, or have resources to share, we're here to connect you</p>
+          <p>Whether you need help, want to volunteer, or have resources to share, we are here to connect you</p>
           <div className="cta-buttons">
             <button className="cta-btn cta-btn-primary" onClick={handleBrowseClick}>
               Browse Resources

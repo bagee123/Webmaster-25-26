@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './css/app.css';
 import './css/animations.css';
@@ -6,22 +6,39 @@ import './css/components.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import Home from './pages/Home';
-import ResourceDirectoryPage from './pages/ResourceDirectoryPage';
-import SavedItems from './pages/SavedItems';
-import Events from './pages/Events';
-import Calendar from './pages/Calendar';
-import Contact from './pages/Contact';
-import SubmitResource from './pages/SubmitResource';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Highlights from './pages/Highlights';
-import References from './pages/References';
-import Blog from './pages/Blog';
-import BlogDetail from './pages/BlogDetail';
-import About from './pages/About';
 import { ResourceProvider } from './context/ResourceContext';
 import { AuthProvider } from './context/AuthContext';
+
+// Lazy load pages for better performance
+const Home = lazy(() => import('./pages/Home'));
+const ResourceDirectoryPage = lazy(() => import('./pages/ResourceDirectoryPage'));
+const SavedItems = lazy(() => import('./pages/SavedItems'));
+const Events = lazy(() => import('./pages/Events'));
+const Calendar = lazy(() => import('./pages/Calendar'));
+const Contact = lazy(() => import('./pages/Contact'));
+const SubmitResource = lazy(() => import('./pages/SubmitResource'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
+const References = lazy(() => import('./pages/References'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const About = lazy(() => import('./pages/About'));
+const Forum = lazy(() => import('./pages/Forum'));
+const ForumTopicDetail = lazy(() => import('./pages/ForumTopicDetail'));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    minHeight: '50vh',
+    fontSize: '1.1rem',
+    color: '#64748b'
+  }}>
+    Loading...
+  </div>
+);
 
 export default function App() {
   const navigate = useNavigate();
@@ -50,22 +67,25 @@ export default function App() {
         <ScrollToTop />
         <Navbar onLoginClick={handleLoginClick} />
         <main style={{ flex: 1 }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/resources" element={<ResourceDirectoryPage />} />
-            <Route path="/saved-items" element={<SavedItems />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/submit-resource" element={<SubmitResource />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/highlights" element={<Highlights />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/references" element={<References />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogDetail />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/resources" element={<ResourceDirectoryPage />} />
+              <Route path="/saved-items" element={<SavedItems />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/submit-resource" element={<SubmitResource />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/forum" element={<Forum />} />
+              <Route path="/forum/:id" element={<ForumTopicDetail />} />
+              <Route path="/references" element={<References />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogDetail />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </ResourceProvider>

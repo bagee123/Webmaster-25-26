@@ -8,13 +8,13 @@ import '../css/navbar.css';
 
 const navLinks = [
   { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
   { label: 'Resources', href: '/resources' },
   { label: 'Events', href: '/events' },
-  { label: 'About', href: '/about' },
-  { label: 'Highlights', href: '/highlights' },
   { label: 'Blog', href: '/blog' },
-  { label: 'References', href: '/references' },
+  { label: 'Forum', href: '/forum' },
   { label: 'Contact', href: '/contact' },
+  { label: 'References', href: '/references' },
 ];
 
 export default function Navbar({ onLoginClick = () => {} }) {
