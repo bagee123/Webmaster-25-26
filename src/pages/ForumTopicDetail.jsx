@@ -183,6 +183,7 @@ export default function ForumTopicDetail() {
   useEffect(() => {
     const loadTopic = async () => {
       setLoading(true);
+      let firebaseLoaded = false;
       
       // Check bookmarks
       const bookmarks = getBookmarks();
@@ -197,9 +198,9 @@ export default function ForumTopicDetail() {
           const topicReplies = defaultReplies[id] || [];
           const localReplies = getLocalReplies(id);
           setReplies([...localReplies, ...topicReplies]);
+          setLoading(false);
+          return;
         }
-        setLoading(false);
-        return;
       }
 
       // Try to load from local storage first
@@ -209,7 +210,6 @@ export default function ForumTopicDetail() {
         setTopic(localTopic);
         setLikesCount(localTopic.likes || 0);
         setReplies(getLocalReplies(id));
-        setLoading(false);
       }
 
       // Try Firebase - load from global collection
@@ -217,6 +217,7 @@ export default function ForumTopicDetail() {
         const topicRef = doc(db, 'forumTopics', id);
         
         const unsubscribe = onSnapshot(topicRef, (docSnap) => {
+          firebaseLoaded = true;
           if (docSnap.exists()) {
             const data = docSnap.data();
             setTopic({
@@ -226,14 +227,32 @@ export default function ForumTopicDetail() {
             });
             setLikesCount(data.likes || 0);
             setReplies(data.replies || []);
+          } else if (!localTopic) {
+            // Only show "not found" if it's not in Firebase AND not in local storage
+            setTopic(null);
           }
           setLoading(false);
         }, () => {
-          // If Firebase fails, we already have local data
+          // Firebase error - use local data if available
+          firebaseLoaded = true;
+          if (!localTopic) {
+            setTopic(null);
+          }
           setLoading(false);
         });
 
-        return () => unsubscribe();
+        // Set a timeout to stop loading after 5 seconds if Firebase hasn't responded
+        const timeout = setTimeout(() => {
+          if (!firebaseLoaded && !localTopic) {
+            setTopic(null);
+            setLoading(false);
+          }
+        }, 5000);
+
+        return () => {
+          clearTimeout(timeout);
+          unsubscribe();
+        };
       } catch {
         setLoading(false);
       }
