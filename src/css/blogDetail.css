@@ -137,13 +137,13 @@
 }
 
 .blog-detail-share-btn {
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   border: none;
 }
 
 .blog-detail-share-btn:hover {
-  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 4px 16px var(--btn-shadow);
   transform: translateY(-2px);
 }
 
@@ -171,13 +171,13 @@
 }
 
 .blog-detail-article a {
-  color: #ea580c;
+  color: var(--accent-orange);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .blog-detail-article a:hover {
-  color: #ec4899;
+  color: var(--accent-pink);
   text-decoration: underline;
 }
 
@@ -201,7 +201,7 @@
   width: clamp(56px, 8vw, 80px);
   height: clamp(56px, 8vw, 80px);
   border-radius: 50%;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   display: flex;
   align-items: center;
@@ -293,7 +293,7 @@
   display: inline-block;
   padding: 4px 8px;
   background: #fef3f2;
-  color: #ea580c;
+  color: var(--accent-orange);
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;
@@ -315,7 +315,7 @@
 }
 
 .blog-detail-related-card:hover h4 {
-  color: #ea580c;
+  color: var(--accent-orange);
 }
 
 .blog-detail-related-meta {
@@ -347,7 +347,7 @@
 
 .blog-detail-back-btn {
   padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   border: none;
   border-radius: clamp(6px, 1vw, 10px);
@@ -358,7 +358,7 @@
 }
 
 .blog-detail-back-btn:hover {
-  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 4px 16px var(--btn-shadow);
   transform: translateY(-2px);
 }
 
@@ -639,7 +639,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   display: flex;
   align-items: center;
@@ -692,7 +692,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   border: none;
   border-radius: 10px;
@@ -704,7 +704,7 @@
 
 .blog-comment-submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+  box-shadow: 0 6px 20px var(--btn-shadow);
 }
 
 .blog-comment-submit:disabled {
@@ -757,7 +757,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   display: flex;
   align-items: center;

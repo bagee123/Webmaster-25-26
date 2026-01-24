@@ -14,6 +14,9 @@
   max-width: 1200px;
   margin: 0 auto 3rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .calendar-header h1 {
@@ -37,6 +40,9 @@
 .calendar-header p {
   font-size: 1.1rem;
   color: var(--text-secondary, #666);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .dark .calendar-header p {
@@ -223,7 +229,7 @@
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-orange, #ea580c), var(--accent-pink, #ec4899));
+  background: var(--btn-gradient);
 }
 
 .calendar-legend {
@@ -254,7 +260,7 @@
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-orange, #ea580c), var(--accent-pink, #ec4899));
+  background: var(--btn-gradient);
 }
 
 .upcoming-events {
@@ -295,7 +301,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.875rem 1.75rem;
-  background: linear-gradient(135deg, var(--accent-orange, #ea580c), var(--accent-pink, #ec4899));
+  background: var(--btn-gradient);
   color: white;
   text-decoration: none;
   border-radius: 0.5rem;
@@ -307,15 +313,7 @@
 
 .calendar-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(234, 88, 12, 0.3);
-}
-
-.dark .calendar-cta {
-  background: linear-gradient(135deg, #ff6b4a, #ff8c42);
-}
-
-.dark .calendar-cta:hover {
-  box-shadow: 0 10px 20px rgba(255, 107, 74, 0.3);
+  box-shadow: 0 10px 20px var(--btn-shadow);
 }
 
 .events-list {

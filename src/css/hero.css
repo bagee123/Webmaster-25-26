@@ -125,6 +125,7 @@
     gap: 32px;
     max-width: 768px;
     margin: 0 auto;
+    justify-items: center;
 }
 
 @media (max-width: 640px) {
@@ -140,6 +141,8 @@
     border-radius: 16px;
     padding: 24px;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 100%;
 }
 
 .stat-number {
@@ -147,11 +150,13 @@
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 8px;
+    text-align: center;
 }
 
 .stat-label {
     color: rgba(255, 255, 255, 0.9);
     font-size: 14px;
+    text-align: center;
 }
 
 .scroll-indicator {

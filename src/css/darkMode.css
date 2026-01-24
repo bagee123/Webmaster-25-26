@@ -1,20 +1,3 @@
-/* Dark Mode Color Scheme */
-.dark {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-tertiary: #94a3b8;
-  --border-color: #475569;
-  --shadow: rgba(0, 0, 0, 0.5);
-  --accent-orange: #ff8c42;
-  --accent-pink: #ec4899;
-  --accent-purple: #a855f7;
-  --card-bg: #1e293b;
-  --input-bg: #0f172a;
-}
-
 /* Light Mode (Default) */
 :root {
   --bg-primary: #ffffff;
@@ -26,10 +9,37 @@
   --border-color: #e5e7eb;
   --shadow: rgba(0, 0, 0, 0.1);
   --accent-orange: #ea580c;
+  --accent-orange-light: #fb923c;
   --accent-pink: #ec4899;
   --accent-purple: #9333ea;
   --card-bg: #ffffff;
   --input-bg: #ffffff;
+  /* Light mode: orange-to-pink gradient for buttons (original) */
+  --btn-gradient: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  --btn-gradient-hover: linear-gradient(135deg, #dc4c06 0%, #db2777 100%);
+  --btn-shadow: rgba(234, 88, 12, 0.4);
+}
+
+/* Dark Mode Color Scheme - :root.dark has higher specificity */
+:root.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --border-color: #475569;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --accent-orange: #ff8c42;
+  --accent-orange-light: #ffb347;
+  --accent-pink: #ec4899;
+  --accent-purple: #a855f7;
+  --card-bg: #1e293b;
+  --input-bg: #0f172a;
+  /* Dark mode: orange gradient for buttons */
+  --btn-gradient: linear-gradient(135deg, #ff8c42 0%, #ff6b4a 100%);
+  --btn-gradient-hover: linear-gradient(135deg, #ff7a2e 0%, #ff5733 100%);
+  --btn-shadow: rgba(255, 140, 66, 0.4);
 }
 
 /* General Dark Mode Styles */

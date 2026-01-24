@@ -50,6 +50,7 @@
     color: var(--text-secondary, #666);
     max-width: 600px;
     margin: 0 auto;
+    text-align: center;
 }
 
 /* Search Wrapper */

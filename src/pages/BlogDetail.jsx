@@ -40,6 +40,16 @@ export default function BlogDetail() {
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Helper function to get posts from local storage
+  const getLocalPosts = () => {
+    try {
+      const stored = localStorage.getItem('blogPosts');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  };
+
   useEffect(() => {
     const loadPost = async () => {
       setLoading(true);
@@ -56,7 +66,27 @@ export default function BlogDetail() {
         return;
       }
 
-      // Load from Firebase
+      // For post-* IDs (local-only posts), check local storage first
+      if (id.startsWith('post-')) {
+        const localPosts = getLocalPosts();
+        const localPost = localPosts.find(p => p.id === id);
+        if (localPost) {
+          setPost({
+            ...localPost,
+            date: localPost.date ? new Date(localPost.date) : new Date()
+          });
+          setLikesCount(localPost.likes || 0);
+          setComments(localPost.comments || []);
+          setLoading(false);
+          return;
+        }
+        // If not found locally, show not found (post-* IDs are local-only)
+        setPost(null);
+        setLoading(false);
+        return;
+      }
+
+      // For Firebase document IDs, try Firebase first then local storage fallback
       try {
         const postRef = doc(db, 'blogPosts', id);
         
@@ -72,6 +102,34 @@ export default function BlogDetail() {
             setLikesCount(data.likes || 0);
             setComments(data.comments || []);
           } else {
+            // Also check local storage as fallback
+            const localPosts = getLocalPosts();
+            const localPost = localPosts.find(p => p.id === id);
+            if (localPost) {
+              setPost({
+                ...localPost,
+                date: localPost.date ? new Date(localPost.date) : new Date()
+              });
+              setLikesCount(localPost.likes || 0);
+              setComments(localPost.comments || []);
+            } else {
+              setPost(null);
+            }
+          }
+          setLoading(false);
+        }, (error) => {
+          console.log('Firebase unavailable, checking local storage:', error.code);
+          // Try local storage as fallback
+          const localPosts = getLocalPosts();
+          const localPost = localPosts.find(p => p.id === id);
+          if (localPost) {
+            setPost({
+              ...localPost,
+              date: localPost.date ? new Date(localPost.date) : new Date()
+            });
+            setLikesCount(localPost.likes || 0);
+            setComments(localPost.comments || []);
+          } else {
             setPost(null);
           }
           setLoading(false);
@@ -80,6 +138,17 @@ export default function BlogDetail() {
         return () => unsubscribe();
       } catch (error) {
         console.error('Error loading post:', error);
+        // Final fallback to local storage
+        const localPosts = getLocalPosts();
+        const localPost = localPosts.find(p => p.id === id);
+        if (localPost) {
+          setPost({
+            ...localPost,
+            date: localPost.date ? new Date(localPost.date) : new Date()
+          });
+          setLikesCount(localPost.likes || 0);
+          setComments(localPost.comments || []);
+        }
         setLoading(false);
       }
     };

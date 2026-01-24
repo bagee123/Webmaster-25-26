@@ -29,9 +29,14 @@
 }
 
 .categories-header p {
-    margin: 0;
+    margin: 0 auto;
     font-size: 16px;
     color: #4b5563;
+    max-width: 600px;
+}
+
+.dark .categories-header p {
+    color: #cbd5e1;
 }
 
 .categories-grid {
@@ -56,6 +61,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     padding: 16px;
     border-radius: 16px;
@@ -63,10 +69,15 @@
     background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 .category-button:hover {
     background: #f9fafb;
+}
+
+.dark .category-button:hover {
+    background: #1e293b;
 }
 
 .category-icon-wrapper {
@@ -131,8 +142,17 @@
     color: #374151;
     font-weight: 500;
     transition: color 0.3s ease;
+    text-align: center;
+}
+
+.dark .category-name {
+    color: #cbd5e1;
 }
 
 .category-button:hover .category-name {
     color: #111827;
+}
+
+.dark .category-button:hover .category-name {
+    color: #f1f5f9;
 }

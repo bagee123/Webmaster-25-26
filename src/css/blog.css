@@ -32,6 +32,7 @@
   max-width: 42rem;
   margin: 0 auto;
   line-height: 1.6;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -189,7 +190,7 @@
 }
 
 .blog-section-icon {
-  color: #ea580c;
+  color: var(--accent-orange);
   flex-shrink: 0;
 }
 
@@ -272,7 +273,7 @@
   border-radius: clamp(12px, 2vw, 16px);
   font-size: 12px;
   font-weight: 600;
-  color: #ea580c;
+  color: var(--accent-orange);
   backdrop-filter: blur(10px);
 }
 
@@ -292,7 +293,7 @@
 
 .blog-featured-card:hover .blog-card-title,
 .blog-regular-card:hover .blog-card-title {
-  color: #ea580c;
+  color: var(--accent-orange);
 }
 
 .blog-card-excerpt {
@@ -349,7 +350,7 @@
   font-size: clamp(24px, 4vw, 32px);
   font-weight: 700;
   margin: 0 0 clamp(12px, 2vw, 16px) 0;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -396,7 +397,7 @@
 
 .blog-newsletter-btn {
   padding: clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 32px);
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   border: none;
   border-radius: clamp(8px, 1vw, 12px);
@@ -408,7 +409,7 @@
 }
 
 .blog-newsletter-btn:hover {
-  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 4px 16px var(--btn-shadow);
   transform: translateY(-2px);
 }
 
@@ -640,7 +641,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   border: none;
   border-radius: 12px;
@@ -653,7 +654,7 @@
 
 .blog-create-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+  box-shadow: 0 6px 20px var(--btn-shadow);
 }
 
 @media (max-width: 640px) {
@@ -844,7 +845,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   color: white;
   border: none;
   border-radius: 10px;
@@ -855,7 +856,7 @@
 
 .blog-btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+  box-shadow: 0 6px 20px var(--btn-shadow);
 }
 
 .blog-btn-primary:disabled {

@@ -3,6 +3,10 @@
     background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
 }
 
+.dark .events-section {
+    background: #0f172a;
+}
+
 .events-container {
     max-width: 1280px;
     margin: 0 auto;
@@ -11,15 +15,16 @@
 
 .events-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     text-align: center;
     margin-bottom: 64px;
-    gap: 24px;
+    gap: 16px;
+    position: relative;
 }
 
 .events-header > div {
-    flex: 1;
+    width: 100%;
 }
 
 .events-header h3 {
@@ -32,10 +37,22 @@
     background-clip: text;
 }
 
+.dark .events-header h3 {
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .events-header p {
-    margin: 0;
+    margin: 0 auto;
     font-size: 16px;
     color: #4b5563;
+    max-width: 600px;
+}
+
+.dark .events-header p {
+    color: #cbd5e1;
 }
 
 .view-all-btn {
@@ -47,10 +64,21 @@
     font-weight: 500;
     cursor: pointer;
     transition: box-shadow 0.3s ease;
+    margin-top: 8px;
+}
+
+.dark .view-all-btn {
+    background: #1e293b;
+    border-color: #ff8c42;
+    color: #ff8c42;
 }
 
 .view-all-btn:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark .view-all-btn:hover {
+    box-shadow: 0 4px 6px rgba(255, 140, 66, 0.2);
 }
 
 @media (max-width: 640px) {
@@ -143,6 +171,10 @@
     text-overflow: ellipsis;
 }
 
+.dark .event-details h4 {
+    color: #f1f5f9;
+}
+
 .event-info {
     display: flex;
     flex-direction: column;
@@ -157,8 +189,17 @@
     color: #4b5563;
 }
 
+.dark .info-item {
+    color: #cbd5e1;
+}
+
 .info-item svg {
     flex-shrink: 0;
+}
+
+.dark .event-card {
+    background: #1e293b;
+    border-color: #334155;
 }
 
 .events-fade-gradient {
@@ -169,4 +210,8 @@
     width: 80px;
     background: linear-gradient(to left, #faf5ff, transparent);
     pointer-events: none;
+}
+
+.dark .events-fade-gradient {
+    background: linear-gradient(to left, #0f172a, transparent);
 }

@@ -10,6 +10,7 @@
   margin: 0 auto 3rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--border-color, #e5e7eb);
+  text-align: center;
 }
 
 .back-button {
@@ -21,6 +22,7 @@
   font-weight: 500;
   transition: all 0.2s ease;
   margin-bottom: 1rem;
+  justify-content: center;
 }
 
 .back-button:hover {
@@ -32,16 +34,19 @@
   font-weight: 800;
   color: var(--text-primary, #1a1a1a);
   margin: 0.5rem 0 0.5rem 0;
-  background: linear-gradient(135deg, var(--accent-orange, #ea580c), var(--accent-pink, #ec4899));
+  background: var(--btn-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-align: center;
 }
 
 .header-content p {
   font-size: 1rem;
   color: var(--text-secondary, #666);
-  margin: 0;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 600px;
 }
 
 .saved-items-container {
@@ -98,7 +103,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.875rem 1.75rem;
-  background: linear-gradient(135deg, var(--accent-orange, #ea580c), var(--accent-pink, #ec4899));
+  background: var(--btn-gradient);
   color: white;
   text-decoration: none;
   border-radius: 0.5rem;
@@ -110,7 +115,7 @@
 
 .cta-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 10px 20px var(--btn-shadow);
 }
 
 .loading {

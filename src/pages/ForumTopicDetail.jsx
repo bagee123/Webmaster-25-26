@@ -203,7 +203,24 @@ export default function ForumTopicDetail() {
         }
       }
 
-      // Try to load from local storage first
+      // For topic-* IDs (local-only topics), check local storage
+      if (id.startsWith('topic-')) {
+        const localTopics = getLocalTopics();
+        const localTopic = localTopics.find(t => t.id === id);
+        if (localTopic) {
+          setTopic(localTopic);
+          setLikesCount(localTopic.likes || 0);
+          setReplies(getLocalReplies(id));
+          setLoading(false);
+          return;
+        }
+        // If not found locally, show not found (topic-* IDs are local-only)
+        setTopic(null);
+        setLoading(false);
+        return;
+      }
+
+      // For Firebase document IDs, try local storage first as cache
       const localTopics = getLocalTopics();
       const localTopic = localTopics.find(t => t.id === id);
       if (localTopic) {
@@ -259,7 +276,7 @@ export default function ForumTopicDetail() {
     };
 
     loadTopic();
-  }, [id, user?.uid]);
+  }, [id]); // Only depend on id - data should load for everyone, not just logged in users
 
   const formatTimestamp = (date) => {
     const now = new Date();

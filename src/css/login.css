@@ -45,7 +45,7 @@
 .login-title {
   font-size: 28px;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin: 0 0 8px 0;
   text-align: center;
 }
@@ -53,7 +53,7 @@
 /* Subtitle text */
 .login-subtitle {
   font-size: 14px;
-  color: #4b5563;
+  color: var(--text-secondary);
   text-align: center;
   margin: 0 0 30px 0;
 }
@@ -88,7 +88,7 @@
 .form-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-primary);
 }
 
 /* Wrapper for input field and icon */
@@ -110,13 +110,13 @@
 .form-input {
   width: 100%;
   padding: 12px 12px 12px 40px;
-  border: 2px solid #d1d5db;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
   box-sizing: border-box;
-  background: #ffffff;
-  color: #1f2937;
+  background: var(--input-bg);
+  color: var(--text-primary);
 }
 
 /* Focus state - highlight border and add subtle shadow */
@@ -279,9 +279,9 @@
 .google-login {
   width: 100%;
   padding: 12px;
-  background-color: white;
-  color: #1f2937;
-  border: 2px solid #d1d5db;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -426,4 +426,61 @@
   margin: 0;
 }
 
+/* Dark Mode Support */
+.dark .login-container {
+  background: linear-gradient(135deg, #1a2a4e 0%, #0f172a 100%);
+}
 
+.dark .login-box {
+  background: var(--bg-secondary);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.dark .login-title {
+  color: var(--text-primary);
+}
+
+.dark .login-subtitle {
+  color: var(--text-secondary);
+}
+
+.dark .login-error {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-left-color: #ef4444;
+  color: #f87171;
+}
+
+.dark .form-group label {
+  color: var(--text-primary);
+}
+
+.dark .form-input {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark .form-input:focus {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.2);
+}
+
+.dark .form-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.dark .input-icon {
+  color: var(--text-tertiary);
+}
+
+.dark .form-link {
+  color: var(--accent-orange);
+}
+
+.dark .login-footer {
+  color: var(--text-secondary);
+}
+
+.dark .login-footer a {
+  color: var(--accent-orange);
+}

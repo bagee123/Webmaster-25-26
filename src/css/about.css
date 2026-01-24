@@ -32,18 +32,11 @@
   font-size: clamp(28px, 5vw, 40px);
   font-weight: 700;
   margin-bottom: 30px;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-align: center;
-}
-
-.dark .about-section h2 {
-  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 /* Section Header (with subtitle) */
@@ -107,18 +100,11 @@
 .about-page .stat-number {
   font-size: clamp(28px, 5vw, 36px);
   font-weight: 700;
-  background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);
+  background: var(--btn-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 8px;
-}
-
-.dark .about-page .stat-number {
-  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .stat-label {
@@ -341,12 +327,7 @@
 
 .cta-btn-primary {
   background: white;
-  color: #ea580c;
-}
-
-.dark .cta-btn-primary {
-  background: white;
-  color: #ff6b4a;
+  color: var(--accent-orange);
 }
 
 .cta-btn-primary:hover {

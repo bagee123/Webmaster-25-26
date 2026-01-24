@@ -22,9 +22,11 @@ const Signup = lazy(() => import('./pages/Signup'));
 const References = lazy(() => import('./pages/References'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const WriteBlog = lazy(() => import('./pages/WriteBlog'));
 const About = lazy(() => import('./pages/About'));
 const Forum = lazy(() => import('./pages/Forum'));
 const ForumTopicDetail = lazy(() => import('./pages/ForumTopicDetail'));
+const NewForumTopic = lazy(() => import('./pages/NewForumTopic'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -80,9 +82,11 @@ export default function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/about" element={<About />} />
               <Route path="/forum" element={<Forum />} />
+              <Route path="/forum/new-topic" element={<NewForumTopic />} />
               <Route path="/forum/:id" element={<ForumTopicDetail />} />
               <Route path="/references" element={<References />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/write" element={<WriteBlog />} />
               <Route path="/blog/:id" element={<BlogDetail />} />
             </Routes>
           </Suspense>

@@ -192,3 +192,67 @@
   display:flex;
   gap: 14px;
 }
+
+/* Dark Mode Support */
+.dark .signup-container {
+  background: linear-gradient(135deg, #1a2a4e 0%, #0f172a 100%);
+}
+
+.dark .signup-box {
+  background: var(--bg-secondary);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.dark .signup-title {
+  color: var(--text-primary);
+}
+
+.dark .signup-subtitle {
+  color: var(--text-secondary);
+}
+
+.dark .signup-error {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-left-color: #ef4444;
+  color: #f87171;
+}
+
+.dark .form-group label {
+  color: var(--text-primary);
+}
+
+.dark .form-input {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark .form-input:focus {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.2);
+}
+
+.dark .form-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.dark .input-icon {
+  color: var(--text-tertiary);
+}
+
+.dark .password-toggle {
+  color: var(--text-tertiary);
+}
+
+.dark .password-toggle:hover {
+  color: var(--accent-orange);
+}
+
+.dark .signup-divider {
+  color: var(--text-tertiary);
+}
+
+.dark .signup-divider::before,
+.dark .signup-divider::after {
+  background-color: var(--border-color);
+}

@@ -31,10 +31,11 @@
 .highlights-header p {
     margin: 0;
     font-size: 16px;
-    color: #4b5563;
+    color: var(--text-secondary);
     max-width: 768px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .highlights-grid {
@@ -209,13 +210,17 @@
 .testimonial-section {
     padding: 48px 32px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .testimonial-header {
     font-size: 24px;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--text-primary);
     margin-bottom: 32px;
+    text-align: center;
 }
 
 .testimonial-carousel {

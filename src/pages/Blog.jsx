@@ -99,9 +99,19 @@ export default function Blog() {
     const loadPosts = async () => {
       // First, load local posts immediately
       const localPosts = getLocalPosts();
-      setBlogPosts([...localPosts, ...defaultBlogPosts]);
       
-      // Try Firebase - load from global collection
+      // Create a Map to ensure unique posts by ID
+      const postsMap = new Map();
+      
+      // Add defaults first (lowest priority)
+      defaultBlogPosts.forEach(p => postsMap.set(p.id, p));
+      
+      // Add local posts (higher priority - overwrites defaults)
+      localPosts.forEach(p => postsMap.set(p.id, p));
+      
+      setBlogPosts(Array.from(postsMap.values()));
+      
+      // Try Firebase - load from global collection (accessible to all users)
       try {
         const postsRef = collection(db, 'blogPosts');
         const q = query(postsRef, orderBy('date', 'desc'));
@@ -111,12 +121,22 @@ export default function Blog() {
             id: doc.id,
             ...doc.data(),
             date: doc.data().date?.toDate() || new Date(),
-            isUserPost: true
+            isFirebasePost: true
           }));
           
-          // Combine: user's Firebase posts + local posts + defaults
-          const allPosts = [...firebasePosts, ...localPosts.filter(p => !firebasePosts.find(fp => fp.id === p.id)), ...defaultBlogPosts];
-          setBlogPosts(allPosts);
+          // Create fresh Map for combining
+          const allPostsMap = new Map();
+          
+          // Add defaults first (lowest priority)
+          defaultBlogPosts.forEach(p => allPostsMap.set(p.id, p));
+          
+          // Add local posts (medium priority)
+          localPosts.forEach(p => allPostsMap.set(p.id, p));
+          
+          // Add Firebase posts (highest priority - overwrites others)
+          firebasePosts.forEach(p => allPostsMap.set(p.id, p));
+          
+          setBlogPosts(Array.from(allPostsMap.values()));
         }, (error) => {
           console.log('Firebase unavailable, using local storage:', error.code);
         });
@@ -129,7 +149,7 @@ export default function Blog() {
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, [user?.uid]);
+  }, []); // No dependency on user - data should load for everyone
 
   const formatDate = (date) => {
     if (typeof date === 'string') return date;
@@ -163,7 +183,7 @@ export default function Blog() {
       alert('Please log in to create a blog post');
       return;
     }
-    setShowCreateModal(true);
+    navigate('/blog/write');
   };
 
   const handleSubmitPost = async (e) => {

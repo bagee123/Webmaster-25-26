@@ -232,9 +232,19 @@ export default function Forum() {
     const loadTopics = async () => {
       // First load local topics
       const localTopics = getLocalTopics();
-      setTopics([...localTopics, ...defaultTopics]);
       
-      // Try Firebase - load from global collection
+      // Create a Map to ensure unique topics by ID
+      const topicsMap = new Map();
+      
+      // Add defaults first (lowest priority)
+      defaultTopics.forEach(t => topicsMap.set(t.id, t));
+      
+      // Add local topics (higher priority - overwrites defaults)
+      localTopics.forEach(t => topicsMap.set(t.id, t));
+      
+      setTopics(Array.from(topicsMap.values()));
+      
+      // Try Firebase - load from global collection (accessible to all users)
       try {
         const topicsRef = collection(db, 'forumTopics');
         const q = query(topicsRef, orderBy('timestamp', 'desc'));
@@ -243,16 +253,23 @@ export default function Forum() {
           const firebaseTopics = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
-            timestamp: doc.data().timestamp?.toDate() || new Date()
+            timestamp: doc.data().timestamp?.toDate() || new Date(),
+            isFirebaseTopic: true
           }));
           
-          // Combine: Firebase topics + local topics (avoiding duplicates) + defaults
-          const allTopics = [
-            ...firebaseTopics, 
-            ...localTopics.filter(lt => !firebaseTopics.find(ft => ft.id === lt.id)),
-            ...defaultTopics
-          ];
-          setTopics(allTopics);
+          // Create fresh Map for combining
+          const allTopicsMap = new Map();
+          
+          // Add defaults first (lowest priority)
+          defaultTopics.forEach(t => allTopicsMap.set(t.id, t));
+          
+          // Add local topics (medium priority)
+          localTopics.forEach(t => allTopicsMap.set(t.id, t));
+          
+          // Add Firebase topics (highest priority - overwrites others)
+          firebaseTopics.forEach(t => allTopicsMap.set(t.id, t));
+          
+          setTopics(Array.from(allTopicsMap.values()));
         }, (error) => {
           console.log('Firebase unavailable, using local storage:', error.code);
         });
@@ -265,7 +282,7 @@ export default function Forum() {
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, [user?.uid]);
+  }, []); // No dependency on user - data should load for everyone
 
   const formatTimestamp = (date) => {
     const now = new Date();
@@ -307,7 +324,7 @@ export default function Forum() {
       alert('Please log in to create a new topic');
       return;
     }
-    setShowNewTopicModal(true);
+    navigate('/forum/new-topic');
   };
 
   const handleSubmitTopic = async (e) => {
