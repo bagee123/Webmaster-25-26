@@ -6,6 +6,7 @@ import './css/components.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { ResourceProvider } from './context/ResourceContext';
 import { AuthProvider } from './context/AuthContext';
 
@@ -73,20 +74,20 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/resources" element={<ResourceDirectoryPage />} />
-              <Route path="/saved-items" element={<SavedItems />} />
+              <Route path="/saved-items" element={<ProtectedRoute><SavedItems /></ProtectedRoute>} />
               <Route path="/events" element={<Events />} />
-              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/submit-resource" element={<SubmitResource />} />
+              <Route path="/submit-resource" element={<ProtectedRoute><SubmitResource /></ProtectedRoute>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/about" element={<About />} />
               <Route path="/forum" element={<Forum />} />
-              <Route path="/forum/new-topic" element={<NewForumTopic />} />
+              <Route path="/forum/new-topic" element={<ProtectedRoute><NewForumTopic /></ProtectedRoute>} />
               <Route path="/forum/:id" element={<ForumTopicDetail />} />
               <Route path="/references" element={<References />} />
               <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/write" element={<WriteBlog />} />
+              <Route path="/blog/write" element={<ProtectedRoute><WriteBlog /></ProtectedRoute>} />
               <Route path="/blog/:id" element={<BlogDetail />} />
             </Routes>
           </Suspense>

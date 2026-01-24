@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Calendar, User, Clock, ArrowLeft, Share2, Heart, MessageCircle, Send } from 'lucide-react';
 import { doc, updateDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
+import DOMPurify from 'dompurify';
 import { db } from '../../build/auth';
 import { useAuth } from '../context/AuthContext';
 import '../css/blogDetail.css';
@@ -338,7 +339,7 @@ export default function BlogDetail() {
         {/* Article Content */}
         <article 
           className="blog-detail-article"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
         />
 
         {/* Author Bio */}

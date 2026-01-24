@@ -16,6 +16,7 @@ dist-ssr
 .env
 .env.local
 .env.production
+.env.production.local
 api_keys.env
 
 # Editor directories and files

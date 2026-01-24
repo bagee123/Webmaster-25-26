@@ -976,7 +976,7 @@
 }
 
 .dark .card-icon-box {
-  background: linear-gradient(135deg, rgba(255, 107, 74, 0.15) 0%, rgba(255, 140, 66, 0.15) 100%);
+  background: linear-gradient(135deg, rgba(255, 140, 66, 0.25) 0%, rgba(255, 107, 74, 0.25) 100%);
 }
 
 .dark .card-icon {

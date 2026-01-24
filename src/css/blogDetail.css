@@ -28,7 +28,7 @@
 .blog-detail-header-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.4));
 }
 
 .blog-detail-header-content {
@@ -39,6 +39,9 @@
   padding: clamp(24px, 4vw, 48px);
   color: white;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .blog-detail-back-link {
@@ -63,7 +66,7 @@
 .blog-detail-category {
   display: inline-block;
   padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 16px);
-  background: #ea580c;
+  background: var(--btn-gradient);
   color: white;
   border-radius: clamp(8px, 1vw, 12px);
   font-size: 12px;
@@ -77,6 +80,7 @@
   margin: 0 0 clamp(16px, 2vw, 24px) 0;
   line-height: 1.3;
   letter-spacing: -0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .blog-detail-meta {
@@ -425,7 +429,7 @@
 }
 
 .dark .blog-detail-header-overlay {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.6));
 }
 
 .dark .blog-detail-title {
