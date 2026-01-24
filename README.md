@@ -2,7 +2,7 @@
 
 A comprehensive community platform for the City of Coppell, connecting residents with local events, resources, and community information.
 
-> **Note:** This project was created for the TSA Webmaster Competition by the Coppell Team 1086-10.
+> **Note:** This project was created for the TSA Webmaster Competition by the Coppell Team 2003-1.
 
 ## Overview
 
