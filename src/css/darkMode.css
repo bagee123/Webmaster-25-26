@@ -1179,3 +1179,26 @@
   -webkit-text-fill-color: #f1f5f9 !important;
   transition: background-color 5000s ease-in-out;
 }
+
+.dark  .blog-create-btn{
+  background: linear-gradient(to right, #ff6b4a, #ff8c42);
+}
+
+.dark .cta-btn-primary{
+  background: linear-gradient(to right, #ff6b4a, #ff8c42) !important;
+  color: white !important;
+}
+
+.dark .cta-btn-secondary{
+  background: linear-gradient(to right, #ff6b4a, #ff8c42) !important;
+  color: white !important;
+}
+
+.dark .blog-newsletter-title{
+  background: linear-gradient(to right, #ff6b4a, #ff8c42) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+
