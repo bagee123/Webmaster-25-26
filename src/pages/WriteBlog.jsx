@@ -21,8 +21,8 @@ const getLocalPosts = () => {
 const saveLocalPosts = (posts) => {
   try {
     localStorage.setItem('blogPosts', JSON.stringify(posts));
-  } catch (error) {
-    console.error('Error saving to local storage:', error);
+  } catch {
+    // Error saving to local storage
   }
 };
 
@@ -102,8 +102,8 @@ export default function WriteBlog() {
           });
           savedToFirebase = true;
           firebaseDocId = docRef.id; // Use Firebase-generated document ID
-        } catch (firebaseError) {
-          console.log('Firebase save failed, using local storage:', firebaseError.code);
+        } catch {
+          // Firebase save failed, using local storage
         }
       }
 
@@ -116,8 +116,8 @@ export default function WriteBlog() {
       
       // Navigate using Firebase doc ID if available, otherwise use local ID
       navigate(`/blog/${firebaseDocId || localPostId}`);
-    } catch (error) {
-      console.error('Error creating post:', error);
+    } catch {
+      // Error creating post
       alert('Error creating post. Please try again.');
     } finally {
       setIsSubmitting(false);

@@ -34,7 +34,7 @@ const saveLocalTopics = (topics) => {
   try {
     localStorage.setItem(TOPICS_STORAGE_KEY, JSON.stringify(topics));
   } catch {
-    console.log('Error saving topics');
+    // Error saving topics
   }
 };
 
@@ -112,8 +112,8 @@ export default function NewForumTopic() {
         });
         savedToFirebase = true;
         firebaseDocId = docRef.id; // Use Firebase-generated document ID
-      } catch (firebaseError) {
-        console.log('Firebase save failed, using local storage:', firebaseError.code);
+      } catch {
+        // Firebase save failed, using local storage
       }
     }
 
