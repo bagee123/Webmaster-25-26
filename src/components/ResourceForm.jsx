@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../css/resourceForm.css';
-import {db} from "../../build/auth";
+import { db } from '../config/firebase';
 import{collection, addDoc, serverTimestamp} from "firebase/firestore";
 
 // Validation helper functions
@@ -76,7 +76,7 @@ export default function ResourceForm(){
     setIsSubmitting(true);
 
     try {
-      await addDoc(collection(db, "resources"), {
+      await addDoc(collection(db, "submissions"), {
         firstName: sanitizeInput(formData.firstName),
         lastName: sanitizeInput(formData.lastName),
         resourceName: sanitizeInput(formData.resourceName),

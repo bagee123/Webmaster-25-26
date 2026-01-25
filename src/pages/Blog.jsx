@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, User, Clock, TrendingUp, Plus, X, Send, Image, FileText } from 'lucide-react';
 import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { db } from '../../build/auth';
+import { db } from '../config/firebase';
 import { useAuth } from '../context/AuthContext';
 import PageHero from '../components/PageHero';
 import SearchBar from '../components/SearchBar';

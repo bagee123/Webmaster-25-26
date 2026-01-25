@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, CheckCircle, AlertCircle, X } from 'lucide-react';
 import '../css/login.css';
-import { auth, googleProvider } from '../../build/auth';
+import { auth, googleProvider } from '../config/firebase';
 import { signInWithEmailAndPassword, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
 
 /**

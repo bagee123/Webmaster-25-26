@@ -29,3 +29,13 @@ api_keys.env
 *.njsproj
 *.sln
 *.sw?
+
+# Firebase
+serviceAccountKey.json
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Build outputs
+build/

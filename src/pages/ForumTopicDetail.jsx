@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from '../../build/auth';
+import { db } from '../config/firebase';
 import '../css/forumTopicDetail.css';
 
 // Local storage keys

@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { db } from '../../build/auth';
+import { db } from '../config/firebase';
 import PageHero from '../components/PageHero';
 import '../css/forum.css';
 

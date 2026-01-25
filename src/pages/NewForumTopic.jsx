@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Send, Tag, MessageSquare } from 'lucide-react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../build/auth';
+import { db } from '../config/firebase';
 import { useAuth } from '../context/AuthContext';
 import '../css/newForumTopic.css';
 

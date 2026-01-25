@@ -22,6 +22,6 @@ export default defineConfig([
     rules: {
       "react/react-in-jsx-scope": "off",
     },
-    ignores: ["node_modules/**", "build/**", "dist/**"],
+    ignores: ["node_modules/**", "build/**", "dist/**", "scripts/**"],
   },
 ]);

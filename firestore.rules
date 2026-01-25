@@ -13,33 +13,29 @@ service cloud.firestore {
       return request.auth.uid == userId;
     }
     
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+    
     // Users collection - only authenticated users can read/write their own data
     match /users/{userId} {
       allow read, write: if isAuthenticated() && isOwner(userId);
-      
-      // Allow creation of user document on signup
       allow create: if isAuthenticated() && isOwner(userId);
     }
     
-    // Resources collection - anyone can read, only authenticated users can create
+    // Resources collection - anyone can read, only admins can write
     match /resources/{resourceId} {
       allow read: if true;
-      allow create: if isAuthenticated() && 
-                       request.resource.data.firstName is string &&
-                       request.resource.data.lastName is string &&
-                       request.resource.data.resourceName is string &&
-                       request.resource.data.website is string &&
-                       request.resource.data.category is string &&
-                       request.resource.data.description is string &&
-                       request.resource.data.timestamp is timestamp &&
-                       request.resource.data.firstName.size() > 0 &&
-                       request.resource.data.firstName.size() < 100 &&
-                       request.resource.data.lastName.size() > 0 &&
-                       request.resource.data.lastName.size() < 100 &&
-                       request.resource.data.resourceName.size() < 200 &&
-                       request.resource.data.description.size() >= 10 &&
-                       request.resource.data.description.size() <= 5000;
-      allow update, delete: if false; // Prevent modification/deletion
+      allow write: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+    
+    // Submissions collection - authenticated users can create, admins can read/manage
+    match /submissions/{submissionId} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
     }
     
     // Blog posts collection - anyone can read, only authenticated users can create
@@ -56,10 +52,18 @@ service cloud.firestore {
                        request.resource.data.content.size() > 10 &&
                        request.resource.data.content.size() <= 50000;
       allow update: if isAuthenticated() && 
-                       resource.data.uid == request.auth.uid &&
-                       request.resource.data.title == resource.data.title &&
-                       request.resource.data.content == resource.data.content; // Only allow like/comment updates
+                       resource.data.uid == request.auth.uid;
       allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuthenticated() &&
+                         request.resource.data.content is string &&
+                         request.resource.data.timestamp is timestamp &&
+                         request.resource.data.content.size() > 0 &&
+                         request.resource.data.content.size() <= 2000;
+        allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      }
     }
     
     // Forum topics collection - anyone can read, only authenticated users can create
@@ -77,7 +81,6 @@ service cloud.firestore {
       allow update: if isAuthenticated() && resource.data.uid == request.auth.uid;
       allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
       
-      // Replies subcollection
       match /replies/{replyId} {
         allow read: if true;
         allow create: if isAuthenticated() &&
@@ -87,17 +90,6 @@ service cloud.firestore {
                          request.resource.data.content.size() <= 5000;
         allow update, delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
       }
-    }
-    
-    // Comments subcollection on blog posts
-    match /blogPosts/{postId}/comments/{commentId} {
-      allow read: if true;
-      allow create: if isAuthenticated() &&
-                       request.resource.data.content is string &&
-                       request.resource.data.timestamp is timestamp &&
-                       request.resource.data.content.size() > 0 &&
-                       request.resource.data.content.size() <= 2000;
-      allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
     }
     
     // Contact submissions collection - anyone can create, only read protected
@@ -115,8 +107,8 @@ service cloud.firestore {
                        request.resource.data.subject.size() <= 100 &&
                        request.resource.data.message.size() >= 10 &&
                        request.resource.data.message.size() <= 5000;
-      allow read: if false; // Admin only
-      allow update, delete: if false; // Prevent modification after submission
+      allow read: if false;
+      allow update, delete: if false;
     }
     
     // Deny access to everything else by default
@@ -125,3 +117,4 @@ service cloud.firestore {
     }
   }
 }
+

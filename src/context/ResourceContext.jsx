@@ -2,19 +2,20 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import resourcesData from '../data/resources';
 import { useAuth } from './AuthContext';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '../../build/auth';
+import { doc, getDoc, setDoc, collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
 export const ResourceContext = createContext();
 
 export function ResourceProvider({ children }) {
-  const [resources] = useState(resourcesData);
+  const [resources, setResources] = useState(resourcesData);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('name');
   const [savedItems, setSavedItems] = useState([]);
   const [userEvents, setUserEvents] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const [resourcesLoading, setResourcesLoading] = useState(true);
+  const { user, authInitialized } = useAuth();
 
   const loadUserData = async (uid) => {
     try {
@@ -43,6 +44,44 @@ export function ResourceProvider({ children }) {
       setLoading(false);
     }
   };
+
+  // Load resources from Firestore on mount, with local data fallback
+  useEffect(() => {
+    if (!authInitialized) return; // Wait for auth to initialize
+
+    setResourcesLoading(true);
+    try {
+      const resourcesCollection = collection(db, 'resources');
+      const q = query(resourcesCollection, orderBy('id', 'asc'));
+      
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        if (snapshot.docs.length > 0) {
+          // Firestore has data
+          const firebaseResources = snapshot.docs.map(doc => ({
+            id: doc.data().id,
+            ...doc.data(),
+          }));
+          setResources(firebaseResources);
+        } else {
+          // Fall back to local data if Firestore is empty
+          setResources(resourcesData);
+        }
+        setResourcesLoading(false);
+      }, (error) => {
+        // If Firestore fails, use local data
+        console.warn('Failed to load from Firestore, using local data:', error);
+        setResources(resourcesData);
+        setResourcesLoading(false);
+      });
+
+      return () => unsubscribe();
+    } catch (error) {
+      // Fall back to local data on error
+      console.warn('Error setting up Firestore listener:', error);
+      setResources(resourcesData);
+      setResourcesLoading(false);
+    }
+  }, [authInitialized]);
 
   // Load saved items and user events from Firestore
   useEffect(() => {
@@ -119,6 +158,7 @@ export function ResourceProvider({ children }) {
       userEvents,
       toggleUserEvent,
       loading,
+      resourcesLoading,
     }}>
       {children}
     </ResourceContext.Provider>

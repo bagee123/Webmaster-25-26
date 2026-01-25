@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Calendar, User, Clock, ArrowLeft, Share2, Heart, MessageCircle, Send } from 'lucide-react';
 import { doc, updateDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
 import DOMPurify from 'dompurify';
-import { db } from '../../build/auth';
+import { db } from '../config/firebase';
 import { useAuth } from '../context/AuthContext';
 import '../css/blogDetail.css';
 
