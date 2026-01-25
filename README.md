@@ -104,7 +104,10 @@ Security - Firebase security rules, email verification, input sanitization, pass
 
 [ARCHITECTURE.md](./docs/ARCHITECTURE.md) - System design, data models, component structure
 [COMPONENTS.md](./docs/COMPONENTS.md) - Component usage, hooks, validation utilities
-[SETUP.md](./docs/SETUP.md) - Development setup, Firebase config, deployment
+[SETUP.md](./docs/SETUP.md) - Development setup, Firebase config
+[DEPLOYMENT.md](./docs/DEPLOYMENT.md) - Production deployment guide
+[SECURITY.md](./docs/SECURITY.md) - Security features and validation
+[FIRESTORE_INDEXES.md](./docs/FIRESTORE_INDEXES.md) - Database performance indexes
 
 ---
 

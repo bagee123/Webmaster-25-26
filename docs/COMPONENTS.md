@@ -1,481 +1,306 @@
-# Components Documentation
+# Components
 
-## Core System Components
+Reusable UI components and utilities documentation.
 
-### ToastContext & ToastContainer
+---
 
-**Purpose:** Global toast notification system for user feedback (success, error, info, warning messages)
+## Toast System
 
-**Location:** 
-- Context: `src/context/ToastContext.jsx`
-- Container: `src/components/ToastContainer.jsx`
-- Styles: `src/css/toast.css`
+Global notification system for user feedback.
 
-**Setup in App.jsx:**
+**Setup:**
 ```jsx
-import { ToastProvider } from './context/ToastContext';
-import ToastContainer from './components/ToastContainer';
-
-export default function App() {
-  return (
-    <ToastProvider>
-      <YourApp />
-      <ToastContainer />
-    </ToastProvider>
-  );
-}
+// App.jsx
+<ToastProvider>
+  <YourApp />
+  <ToastContainer />
+</ToastProvider>
 ```
 
 **Usage:**
 ```jsx
 import { useToast } from '../context/ToastContext';
 
-function MyComponent() {
-  const { showSuccess, showError, showInfo, showWarning } = useToast();
+const { showSuccess, showError, showInfo, showWarning } = useToast();
 
-  const handleSubmit = async () => {
-    try {
-      // Do something
-      showSuccess('Operation completed successfully!');
-    } catch (error) {
-      showError('Something went wrong. Please try again.');
-    }
-  };
-
-  return <button onClick={handleSubmit}>Submit</button>;
-}
+showSuccess('Saved successfully!');
+showError('Something went wrong');
+showInfo('Check your email');
+showWarning('Session expiring soon');
 ```
 
-**Available Methods:**
-- `showSuccess(message, duration)` - Green toast with check icon
-- `showError(message, duration)` - Red toast with X icon
-- `showInfo(message, duration)` - Blue toast with info icon
-- `showWarning(message, duration)` - Orange toast with alert icon
+**Options:**
+- `message` (string) - Notification text
+- `duration` (number) - Auto-dismiss ms (default: 4000)
 
-**Parameters:**
-- `message` (string) - Toast notification text
-- `duration` (number, optional) - Auto-dismiss time in ms (default: 4000)
-
-**Features:**
-- Auto-dismisses after 4 seconds
-- Manual close button on each toast
-- Slide-in animation from top-right
-- Stack multiple toasts
-- Dark mode support
-- Mobile responsive
+Features: Auto-dismiss, manual close, stacking, dark mode, mobile responsive.
 
 ---
 
-### ErrorBoundary
+## ErrorBoundary
 
-**Purpose:** Catches React component errors and prevents full app crashes
+Catches React errors and displays fallback UI.
 
-**Location:** `src/components/ErrorBoundary.jsx`
-
-**Usage in App.jsx:**
 ```jsx
 <ErrorBoundary>
   <YourApp />
 </ErrorBoundary>
 ```
 
-**Features:**
-- Displays error fallback UI instead of blank page
-- Logs errors to console
-- Allow users to refresh or go home
-- Wraps entire app at root level
+Prevents blank pages on errors, logs to console, provides refresh/home options.
 
 ---
 
-### ProtectedRoute
+## ProtectedRoute
 
-**Purpose:** Wrapper component that restricts access to authenticated users only
+Restricts access to authenticated users.
 
-**Location:** `src/components/ProtectedRoute.jsx`
-
-**Usage:**
 ```jsx
-<Route 
-  path="/saved-items" 
-  element={<ProtectedRoute><SavedItems /></ProtectedRoute>} 
+<Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+```
+
+Behavior: Authenticated → renders children, Not authenticated → redirects to `/login`.
+
+---
+
+## SearchBar
+
+Reusable search input component.
+
+```jsx
+<SearchBar
+  placeholder="Search resources..."
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
 />
 ```
 
-**Behavior:**
-- If user is authenticated: renders child component
-- If user is not authenticated: redirects to `/login`
-- Uses `useAuth()` hook to check authentication state
+Features: Clear button, search icon, focus states, dark mode.
 
 ---
 
-## Form Components
+## Navbar
 
-### Contact Form (`src/pages/Contact.jsx`)
+Main navigation with mobile responsive menu.
 
-**Features:**
-- Name validation (2-50 chars)
-- Email validation (RFC 5322 compliant)
-- Phone validation (optional, US format)
-- Subject validation (3+ chars)
-- Message validation (10-5000 chars)
-- Field-level error messages
-- Loading state during submission
-- Success message display
-- Firestore integration
+Features:
+- Desktop/mobile layouts
+- User menu dropdown
+- Dark mode toggle
+- Keyboard accessible (ARIA labels)
+- Admin link for admin users
 
-**Validation Flow:**
-1. Real-time error clearing on input change
-2. Form-level validation on submit
-3. Field-specific error messages displayed below each input
-4. Loading state prevents multiple submissions
-5. Success confirmation after submission
+Breakpoints: Mobile < 1024px, Desktop ≥ 1024px
 
 ---
 
-### Signup Form (`src/pages/Signup.jsx`)
+## PasswordStrengthMeter
 
-**Features:**
-- Email validation with RFC 5322 compliance
-- Password strength meter with visual requirements
-- Real-time password validation feedback
-- Firebase email verification
-- Auto-login after signup (no redirect to login)
-- Loading state with "Creating Account..." text
-- Field-level error messages
+Visual password strength indicator.
 
-**Password Requirements:**
-- Minimum 8 characters
-- At least 1 uppercase letter
-- At least 1 lowercase letter
-- At least 1 number
-- At least 1 special character (!@#$%^&*)
+```jsx
+<PasswordStrengthMeter password={password} />
+```
 
-**Validation Process:**
-1. Email format check (RFC 5322)
-2. Password strength meter updates in real-time
-3. Confirm password matches
-4. Form submit creates Firebase user
-5. Email verification sent to user's email
-6. User logged in and redirected to home page
+Shows: Strength bar (weak→strong), requirements checklist, color-coded feedback.
+
+Requirements: 8+ chars, uppercase, lowercase, number, special char.
 
 ---
 
-### Resource Form (`src/components/ResourceForm.jsx`)
+## PageHero
 
-**Features:**
-- First/last name validation
-- Resource name validation
-- URL or phone number validation
-- Category selection (8 categories)
-- Description with character count (10-5000 chars)
-- Loading state prevents duplicate submissions
-- Success message confirmation
-- Firestore integration
-- All fields disabled during submission
+Consistent hero section for pages.
 
-**Categories:**
-- Health
-- Education
-- Volunteering
-- Events
-- Support Services
-- Recreation
-- Nonprofits
-- Other
+```jsx
+<PageHero
+  title="Resources"
+  subtitle="Find community resources"
+  backgroundImage="/images/hero.jpg"
+/>
+```
+
+---
+
+## CategoryFilter
+
+Category selection with counts.
+
+```jsx
+<CategoryFilter
+  categories={['All', 'Health', 'Education']}
+  selected={selectedCategory}
+  onChange={setSelectedCategory}
+  counts={{ All: 50, Health: 20, Education: 30 }}
+/>
+```
+
+---
+
+## SortDropdown
+
+Sorting options dropdown.
+
+```jsx
+<SortDropdown
+  value={sortBy}
+  onChange={setSortBy}
+  options={[
+    { value: 'newest', label: 'Newest First' },
+    { value: 'name', label: 'Name A-Z' }
+  ]}
+/>
+```
 
 ---
 
 ## Validation Utilities
 
-**Location:** `src/utils/validation.js`
+Location: `src/utils/validation.js`
 
-### Available Functions
-
-#### `validatePassword(password)`
-Returns object with:
-- `isValid` (boolean) - Meets all requirements
-- `strength` (string) - 'weak', 'fair', 'good', 'strong'
-- `requirements` (object) - Status of each requirement
-- `message` (string) - User-friendly message
-
+### Email
 ```javascript
-const { isValid, strength, requirements } = validatePassword('MyPass123!');
+isValidEmail(email)       // Basic format check
+isValidEmailStrict(email) // RFC 5322 compliant
+sanitizeEmail(email)      // Trim + lowercase
 ```
 
-#### `isValidEmailStrict(email)`
-RFC 5322 compliant email validation
+### Password
 ```javascript
-if (isValidEmailStrict('user@example.com')) {
-  // Valid email
-}
+validatePassword(password)
+// Returns: { isValid, strength, requirements, message }
+// strength: 'weak' | 'fair' | 'good' | 'strong'
 ```
 
-#### `validatePhoneNumberSimple(phone)`
-Returns object with:
-- `isValid` (boolean)
-- `formatted` (string) - Formatted phone number
-- `message` (string) - Error message if invalid
-
+### Phone
 ```javascript
-const { isValid, formatted } = validatePhoneNumberSimple('(555) 123-4567');
+validatePhoneNumber(phone)
+// Returns: { isValid, formatted, error }
+// Formats: (972) 962-4311
 ```
 
-#### `validateName(name)`
-Returns object with:
-- `isValid` (boolean) - 2-50 chars, no special chars except -/'
-- `message` (string) - Error description
-
+### Name
 ```javascript
-const { isValid, message } = validateName('John Doe');
+validateName(name)
+// Returns: { isValid, error }
+// Rules: 2-50 chars, letters/spaces/hyphens/apostrophes
 ```
-
-#### `validateSignupForm(formData)`
-Validates entire signup form:
-```javascript
-const errors = validateSignupForm({
-  email: 'user@example.com',
-  password: 'MyPass123!',
-  confirmPassword: 'MyPass123!'
-});
-
-if (Object.keys(errors).length > 0) {
-  // Show errors
-}
-```
-
-#### Sanitization Functions
-- `sanitizeEmail(email)` - Trim and lowercase
-- `sanitizeName(name)` - Trim, limit to 100 chars
-- `sanitizeInput(str)` - Trim, limit to 500 chars
 
 ---
 
-## ID Generation
+## Search Utilities
 
-**Location:** `src/utils/idGenerator.js`
+Location: `src/utils/searchUtils.js`
 
-### Available Functions
-
-#### `generateUUID()`
-Generates RFC 4122 v4 UUID string
 ```javascript
-const id = generateUUID();
-// Returns: "550e8400-e29b-41d4-a716-446655440000"
+// Normalize text for search
+normalizeSearchText(text)
+
+// Check if item matches query
+matchesSearch(item, query, fields)
+
+// Filter array by search + category
+filterBySearch(items, query, category, categoryField, searchFields)
+
+// Sort by relevance
+sortByRelevance(items, query, searchFields)
+
+// Get auto-complete suggestions
+getSearchSuggestions(items, query, searchFields, maxSuggestions)
 ```
 
-#### `generateFirestoreID()`
-Generates Firestore-style 20-character ID
+**Example:**
 ```javascript
-const id = generateFirestoreID();
-// Returns: "AbCdEfGhIjKlMnOpQrSt"
+const filtered = filterBySearch(
+  resources,
+  'health clinic',
+  'Health',
+  'category',
+  ['name', 'description']
+);
 ```
-
-#### `generateResourceID()`
-Intelligent ID generator (uses UUID by default)
-```javascript
-const id = generateResourceID();
-```
-
-**Use Cases:**
-- Events: Use `generateUUID()` for collision-free IDs
-- Resources: Use `generateResourceID()` for consistency
-- Mock data: Use `generateFirestoreID()` for realistic test IDs
 
 ---
 
-## Page Components
+## ID Utilities
 
-### NotFound Page (`src/pages/NotFound.jsx`)
+Location: `src/utils/idGenerator.js`
 
-**Purpose:** 404 error page for invalid routes
-
-**Features:**
-- Large 404 title with animation
-- Helpful error message
-- Home button (primary action)
-- Back button (secondary action)
-- Quick navigation links to main sections:
-  - Home
-  - Resources
-  - Events
-  - Forum
-  - Blog
-  - Contact
-- Dark mode support
-- Mobile responsive
-
-**Styling:** `src/css/notFound.css`
+```javascript
+generateUUID()        // Standard UUID v4
+generateFirestoreID() // 20-char alphanumeric
+generateResourceID()  // Context-appropriate
+```
 
 ---
 
-## Hooks
+## Custom Hooks
 
-### useAuth()
-**Location:** `src/context/AuthContext.jsx`
+### useScrollAnimation
 ```javascript
-const { user, loading, login, signup, logout } = useAuth();
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
+
+useScrollAnimation(); // Activates scroll animations
 ```
 
-### useDarkMode()
-**Location:** `src/context/DarkModeContext.jsx`
+### useAuth
+```javascript
+const { user, isAuthenticated, login, logout, signup } = useAuth();
+```
+
+### useDarkMode
 ```javascript
 const { isDarkMode, toggleDarkMode } = useDarkMode();
 ```
 
-### useToast()
-**Location:** `src/context/ToastContext.jsx`
+### useResources
+```javascript
+const { resources, userEvents, toggleUserEvent, addResource } = useResources();
+```
+
+### useToast
 ```javascript
 const { showSuccess, showError, showInfo, showWarning } = useToast();
 ```
 
-### useScrollAnimation()
-**Location:** `src/hooks/useScrollAnimation.js`
-```javascript
-const ref = useScrollAnimation();
-// Returns ref object for intersection observer
-```
-
 ---
 
-## Props Reference
+## PropTypes Pattern
 
-### ProtectedRoute
+All components use PropTypes for type checking:
+
 ```jsx
-<ProtectedRoute>
-  <ComponentToProtect />
-</ProtectedRoute>
-```
-- Accepts single child component
-- Returns child if authenticated, redirects to /login if not
+import PropTypes from 'prop-types';
 
-### ToastContainer
-```jsx
-<ToastContainer />
-```
-- No props required
-- Reads from ToastContext automatically
-
-### ErrorBoundary
-```jsx
-<ErrorBoundary>
-  <App />
-</ErrorBoundary>
-```
-- Wraps components to catch errors
-- Displays fallback UI on error
-
----
-
-## Best Practices
-
-1. **Always wrap app with ToastProvider and ErrorBoundary** at the root level
-
-2. **Use useToast() for user feedback instead of alerts:**
-   ```javascript
-   // Good
-   showSuccess('Changes saved!');
-   
-   // Avoid
-   alert('Changes saved!');
-   ```
-
-3. **Validate inputs before submission:**
-   ```javascript
-   if (!validateEmail(email)) {
-     showError('Invalid email address');
-     return;
-   }
-   ```
-
-4. **Show loading states during async operations:**
-   ```javascript
-   <button disabled={loading}>
-     {loading ? 'Saving...' : 'Save'}
-   </button>
-   ```
-
-5. **Use field-level error messages for forms:**
-   ```jsx
-   {fieldErrors.email && (
-     <span className="field-error">{fieldErrors.email}</span>
-   )}
-   ```
-
-6. **Sanitize user inputs before storing:**
-   ```javascript
-   const cleanName = sanitizeName(userInput);
-   ```
-
-7. **Use ProtectedRoute for authenticated pages:**
-   ```jsx
-   <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-   ```
-
----
-
-## Common Patterns
-
-### Form Submission with Validation
-```jsx
-const [loading, setLoading] = useState(false);
-const [fieldErrors, setFieldErrors] = useState({});
-const { showSuccess, showError } = useToast();
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setFieldErrors({});
-  
-  if (!validateForm()) return;
-  
-  setLoading(true);
-  try {
-    await submitData();
-    showSuccess('Submitted successfully!');
-  } catch (error) {
-    showError('Submission failed');
-  } finally {
-    setLoading(false);
-  }
-};
-```
-
-### Real-time Field Validation
-```jsx
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData(prev => ({ ...prev, [name]: value }));
-  
-  // Clear error on input
-  if (fieldErrors[name]) {
-    setFieldErrors(prev => {
-      const newErrors = { ...prev };
-      delete newErrors[name];
-      return newErrors;
-    });
-  }
+MyComponent.propTypes = {
+  title: PropTypes.string.isRequired,
+  count: PropTypes.number,
+  items: PropTypes.arrayOf(PropTypes.object),
+  onClick: PropTypes.func
 };
 ```
 
 ---
 
-## Troubleshooting
+## CSS Organization
 
-**Toast not appearing?**
-- Ensure `<ToastProvider>` wraps your app
-- Ensure `<ToastContainer />` is rendered in the app
-- Check `useToast()` is called within a component inside ToastProvider
+Each component/page has dedicated CSS file:
 
-**Protected route redirecting?**
-- Verify user is authenticated via `useAuth()`
-- Check Firebase authentication is properly configured
-- Ensure route is wrapped with `<ProtectedRoute>`
+```
+src/css/
+├── navbar.css
+├── footer.css
+├── toast.css
+├── modal.css
+├── card.css
+└── [page].css
+```
 
-**Validation not working?**
-- Ensure validation function is called before form submission
-- Check field names match validation function parameters
-- Verify error messages are displayed in JSX
+Dark mode: Use `.dark` class prefix or CSS variables.
 
-**Dark mode flashing?**
-- Ensure DarkModeContext reads from sessionStorage first
-- Check dark class is applied to documentElement
-- Verify CSS dark mode selectors use `.dark` prefix
+---
+
+## Related Docs
+
+[ARCHITECTURE.md](./ARCHITECTURE.md) - System design
+[SETUP.md](./SETUP.md) - Development setup

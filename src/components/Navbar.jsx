@@ -95,13 +95,14 @@ export default function Navbar({ onLoginClick = () => {} }) {
             <span className="logo-text">Coppell Community Resource Hub</span>
           </Link>
 
-          <div className="navbar-desktop">
+          <div className="navbar-desktop" role="navigation" aria-label="Main navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 to={link.href}
                 onClick={handleNavClick}
                 className={`nav-link ${isActive(link.href) ? 'nav-link-active' : ''}`}
+                aria-current={isActive(link.href) ? 'page' : undefined}
               >
                 {link.label}
                 <span className="nav-underline"></span>
@@ -122,11 +123,14 @@ export default function Navbar({ onLoginClick = () => {} }) {
                   className={`user-initials-btn ${isLoggingOut ? 'logging-out' : ''}`}
                   type="button"
                   title={user?.email}
+                  aria-expanded={showUserMenu}
+                  aria-haspopup="menu"
+                  aria-controls="user-dropdown-menu"
                 >
                   {getUserInitials()}
                 </button>
                 {showUserMenu && (
-                  <div className="user-dropdown-menu">
+                  <div className="user-dropdown-menu" id="user-dropdown-menu" role="menu">
                     <div className="user-menu-header">
                       <span className="user-email-label">{user?.email}</span>
                     </div>
@@ -134,6 +138,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                       to="/profile"
                       onClick={() => setShowUserMenu(false)}
                       className="user-menu-item"
+                      role="menuitem"
                     >
                       <Settings size={16} />
                       <span>My Profile</span>
@@ -142,6 +147,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                       to="/saved-items"
                       onClick={() => setShowUserMenu(false)}
                       className="user-menu-item"
+                      role="menuitem"
                     >
                       <Bookmark size={16} />
                       <span>My Saved Items</span>
@@ -150,6 +156,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                       to="/calendar"
                       onClick={() => setShowUserMenu(false)}
                       className="user-menu-item"
+                      role="menuitem"
                     >
                       <Calendar size={16} />
                       <span>My Calendar</span>
@@ -159,6 +166,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                         to="/admin/resources"
                         onClick={() => setShowUserMenu(false)}
                         className="user-menu-item admin-link"
+                        role="menuitem"
                       >
                         <Shield size={16} />
                         <span>Admin Dashboard</span>
@@ -171,6 +179,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                       }}
                       className="user-menu-item logout"
                       type="button"
+                      role="menuitem"
                     >
                       <LogOut size={16} />
                       <span>Logout</span>
@@ -194,19 +203,23 @@ export default function Navbar({ onLoginClick = () => {} }) {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="navbar-toggle"
             type="button"
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="navbar-mobile-menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {isMobileMenuOpen && (
-          <div className="navbar-mobile" ref={mobileMenuRef}>
+          <div className="navbar-mobile" ref={mobileMenuRef} id="navbar-mobile-menu" role="navigation" aria-label="Mobile navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 to={link.href}
                 onClick={handleNavClick}
                 className={`nav-link-mobile ${isActive(link.href) ? 'nav-link-mobile-active' : ''}`}
+                aria-current={isActive(link.href) ? 'page' : undefined}
               >
                 {link.label}
               </Link>
@@ -227,11 +240,14 @@ export default function Navbar({ onLoginClick = () => {} }) {
                     className={`user-initials-btn-mobile ${isLoggingOut ? 'logging-out' : ''}`}
                     type="button"
                     title={user?.email}
+                    aria-expanded={showUserMenu}
+                    aria-haspopup="menu"
+                    aria-controls="user-dropdown-menu-mobile"
                   >
                     {getUserInitials()}
                   </button>
                   {showUserMenu && (
-                    <div className="user-dropdown-menu-mobile">
+                    <div className="user-dropdown-menu-mobile" id="user-dropdown-menu-mobile" role="menu">
                       <div className="user-menu-header">
                         <span className="user-email-label">{user?.email}</span>
                       </div>
@@ -242,6 +258,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                           setIsMobileMenuOpen(false);
                         }}
                         className="user-menu-item"
+                        role="menuitem"
                       >
                         <Settings size={16} />
                         <span>My Profile</span>
@@ -253,6 +270,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                           setIsMobileMenuOpen(false);
                         }}
                         className="user-menu-item"
+                        role="menuitem"
                       >
                         <Bookmark size={16} />
                         <span>My Saved Items</span>
@@ -264,6 +282,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                           setIsMobileMenuOpen(false);
                         }}
                         className="user-menu-item"
+                        role="menuitem"
                       >
                         <Calendar size={16} />
                         <span>My Calendar</span>
@@ -276,6 +295,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                             setIsMobileMenuOpen(false);
                           }}
                           className="user-menu-item admin-link"
+                          role="menuitem"
                         >
                           <Shield size={16} />
                           <span>Admin Dashboard</span>
@@ -290,6 +310,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
                         }}
                         className="user-menu-item logout"
                         type="button"
+                        role="menuitem"
                       >
                         <LogOut size={16} />
                         <span>Logout</span>
@@ -316,12 +337,12 @@ export default function Navbar({ onLoginClick = () => {} }) {
 
         {/* Logout Confirmation Modal */}
         {showLogoutConfirm && (
-          <div className="navbar-logout-modal-overlay">
-            <div className="navbar-logout-modal">
+          <div className="navbar-logout-modal-overlay" role="presentation">
+            <div className="navbar-logout-modal" role="alertdialog" aria-labelledby="logout-modal-title" aria-describedby="logout-modal-description">
               <div className="modal-header">
-                <h3>Confirm Logout</h3>
+                <h3 id="logout-modal-title">Confirm Logout</h3>
               </div>
-              <div className="modal-body">
+              <div className="modal-body" id="logout-modal-description">
                 <p>Are you sure you want to logout?</p>
                 <p className="modal-subtext">You will need to log in again to access your personalized features.</p>
               </div>
