@@ -101,15 +101,18 @@
 /* Icon inside input field */
 .input-icon {
   position: absolute;
-  left: 12px;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #94a3b8;
   pointer-events: none;
+  flex-shrink: 0;
 }
 
 /* Input field styling - with left padding for icon */
 .form-input {
   width: 100%;
-  padding: 12px 12px 12px 40px;
+  padding: 12px 12px 12px 48px;
   border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 14px;

@@ -4,6 +4,13 @@ import '../css/pages.css';
 import '../css/contact.css';
 import { db } from '../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { 
+  validateName, 
+  isValidEmailStrict, 
+  validatePhoneNumberSimple,
+  sanitizeEmail,
+  sanitizeName 
+} from '../utils/validation';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -16,6 +23,7 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,45 +33,71 @@ export default function Contact() {
     }));
     // Clear error when user starts typing
     if (error) setError('');
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const validateForm = () => {
-    if (!formData.name.trim()) {
-      setError('Please enter your name');
-      return false;
+    const errors = {};
+
+    // Validate name
+    const nameValidation = validateName(formData.name);
+    if (!nameValidation.isValid) {
+      errors.name = nameValidation.message;
     }
+
+    // Validate email
     if (!formData.email.trim()) {
-      setError('Please enter your email');
-      return false;
+      errors.email = 'Email is required';
+    } else if (!isValidEmailStrict(formData.email)) {
+      errors.email = 'Please enter a valid email address';
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError('Please enter a valid email address');
-      return false;
+
+    // Validate phone (optional but if provided, must be valid)
+    if (formData.phone.trim()) {
+      const phoneValidation = validatePhoneNumberSimple(formData.phone);
+      if (!phoneValidation.isValid) {
+        errors.phone = phoneValidation.message;
+      }
     }
+
+    // Validate subject
     if (!formData.subject.trim()) {
-      setError('Please enter a subject');
-      return false;
+      errors.subject = 'Subject is required';
+    } else if (formData.subject.trim().length < 3) {
+      errors.subject = 'Subject must be at least 3 characters';
     }
+
+    // Validate message
     if (!formData.message.trim()) {
-      setError('Please enter a message');
+      errors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Message must be at least 10 characters long';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
       return false;
     }
-    if (formData.message.trim().length < 10) {
-      setError('Message must be at least 10 characters long');
-      return false;
-    }
+
     return true;
   };
 
   // Allow user to send another message
   const handleSendAnother = () => {
     setSuccess(false);
+    setFieldErrors({});
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setFieldErrors({});
 
     if (!validateForm()) {
       return;
@@ -72,12 +106,19 @@ export default function Contact() {
     setLoading(true);
 
     try {
-      // Save to Firestore
+      // Format phone if provided
+      let formattedPhone = 'Not provided';
+      if (formData.phone.trim()) {
+        const phoneValidation = validatePhoneNumberSimple(formData.phone);
+        formattedPhone = phoneValidation.formatted || formData.phone.trim();
+      }
+
+      // Save to Firestore with sanitized data
       const contactsRef = collection(db, 'contactSubmissions');
       await addDoc(contactsRef, {
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim() || 'Not provided',
+        name: sanitizeName(formData.name),
+        email: sanitizeEmail(formData.email),
+        phone: formattedPhone,
         subject: formData.subject.trim(),
         message: formData.message.trim(),
         timestamp: serverTimestamp(),
@@ -166,7 +207,9 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Your name"
                     maxLength="100"
+                    className={fieldErrors.name ? 'error' : ''}
                   />
+                  {fieldErrors.name && <span className="field-error">{fieldErrors.name}</span>}
                 </div>
 
                 <div className="form-group">
@@ -179,22 +222,29 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="your.email@example.com"
                     maxLength="100"
+                    className={fieldErrors.email ? 'error' : ''}
                   />
+                  {fieldErrors.email && <span className="field-error">{fieldErrors.email}</span>}
                 </div>
               </div>
 
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="phone">Phone</label>
+                  <label htmlFor="phone">Phone (Optional)</label>
                   <input
                     type="tel"
                     id="phone"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="(123) 456-7890"
+                    placeholder="(XXX) XXX-XXXX"
                     maxLength="20"
+                    className={fieldErrors.phone ? 'error' : ''}
                   />
+                  {fieldErrors.phone && <span className="field-error">{fieldErrors.phone}</span>}
+                  {formData.phone && !fieldErrors.phone && (
+                    <span className="field-help">Phone format: (123) 456-7890</span>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -207,7 +257,9 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="How can we help?"
                     maxLength="100"
+                    className={fieldErrors.subject ? 'error' : ''}
                   />
+                  {fieldErrors.subject && <span className="field-error">{fieldErrors.subject}</span>}
                 </div>
               </div>
 
@@ -221,7 +273,9 @@ export default function Contact() {
                   placeholder="Please tell us more about your inquiry..."
                   rows="6"
                   maxLength="5000"
+                  className={fieldErrors.message ? 'error' : ''}
                 />
+                {fieldErrors.message && <span className="field-error">{fieldErrors.message}</span>}
                 <div className="char-count">
                   {formData.message.length}/5000
                 </div>

@@ -372,7 +372,7 @@
 .events-save-button.saved {
   background: var(--btn-gradient);
   color: white;
-  border-color: transparent;
+  border: 2px solid transparent;
   box-shadow: 0 4px 12px var(--btn-shadow);
 }
 

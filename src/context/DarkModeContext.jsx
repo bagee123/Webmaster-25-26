@@ -6,6 +6,15 @@ const DarkModeContext = createContext(undefined);
 export function DarkModeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     try {
+      // First check sessionStorage for instant initialization (avoids flash)
+      const session = sessionStorage.getItem('darkMode');
+      if (session === 'true') {
+        return true;
+      } else if (session === 'false') {
+        return false;
+      }
+      
+      // Fall back to localStorage for persistence across sessions
       const stored = localStorage.getItem('darkMode');
       if (stored === 'true') {
         return true;
@@ -13,21 +22,33 @@ export function DarkModeProvider({ children }) {
         return false;
       }
     } catch {
-      // Silently fail for localStorage access
+      // Silently fail for storage access
     }
     return false;
   });
 
+  // Apply dark mode class immediately on initialization to prevent flash
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+  }, []);
+
+  // Save to both sessionStorage (for instant next load) and localStorage (for persistence)
+  useEffect(() => {
     try {
+      sessionStorage.setItem('darkMode', String(isDarkMode));
       localStorage.setItem('darkMode', String(isDarkMode));
     } catch {
-      // Silently fail for localStorage access
+      // Silently fail for storage access
+    }
+    
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
   }, [isDarkMode]);
 

@@ -194,6 +194,28 @@
   flex-shrink: 0;
 }
 
+.field-error {
+  display: block;
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.field-help {
+  display: block;
+  color: #22c55e;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.contact-form input.error,
+.contact-form textarea.error {
+  border-color: #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
 .contact-submit-btn {
   padding: 14px 32px;
   background: linear-gradient(135deg, #ea580c 0%, #ec4899 100%);

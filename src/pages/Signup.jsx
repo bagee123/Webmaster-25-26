@@ -1,33 +1,17 @@
 import {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
-import {Mail, Lock, Eye, EyeOff, User, Check, X as XIcon} from 'lucide-react';
+import {Mail, Lock, Eye, EyeOff, User} from 'lucide-react';
 import '../css/signup.css';
 import { auth, googleProvider } from '../config/firebase';
-import {createUserWithEmailAndPassword} from "firebase/auth";
+import {createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
-
-// Password strength checker
-const getPasswordStrength = (password) => {
-    if (!password) return { score: 0, label: '', color: '' };
-    
-    let score = 0;
-    const checks = {
-        length: password.length >= 8,
-        lowercase: /[a-z]/.test(password),
-        uppercase: /[A-Z]/.test(password),
-        number: /[0-9]/.test(password),
-        special: /[^A-Za-z0-9]/.test(password),
-    };
-    
-    score = Object.values(checks).filter(Boolean).length;
-    
-    if (score <= 1) return { score, label: 'Weak', color: '#ef4444', checks };
-    if (score <= 2) return { score, label: 'Fair', color: '#f59e0b', checks };
-    if (score <= 3) return { score, label: 'Good', color: '#eab308', checks };
-    if (score <= 4) return { score, label: 'Strong', color: '#22c55e', checks };
-    return { score, label: 'Very Strong', color: '#10b981', checks };
-};
-
+import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
+import { 
+  validateSignupForm, 
+  validatePassword,
+  sanitizeEmail, 
+  sanitizeName 
+} from '../utils/validation';
 
 export default function Signup() {
     //form inputs
@@ -39,53 +23,71 @@ export default function Signup() {
     const[showPassword, setShowPassword] = useState(false);
     const[showConfirmPassword, setShowConfirmPassword] = useState(false);
     const[error, setError] = useState('');
+    const[fieldErrors, setFieldErrors] = useState({});
     const[loading, setLoading] = useState(false);
+    const[emailSent, setEmailSent] = useState(false);
     const navigate = useNavigate();
+
+    // Handle field change and clear field-specific errors
+    const handleFieldChange = (field, value, setter) => {
+      setter(value);
+      if (fieldErrors[field]) {
+        setFieldErrors(prev => {
+          const newErrors = { ...prev };
+          delete newErrors[field];
+          return newErrors;
+        });
+      }
+      setError('');
+    };
 
     const handleSignup = async (e) => {
         e.preventDefault();
         setError('');
+        setFieldErrors({});
         setLoading(true);
         
-        // Validate that all fields are filled
-        if (!firstName || !lastName || !email || !password || !confirmPassword) {
-            setError('Please fill in all fields');
-            setLoading(false);
-            return;
-        }
+        // Comprehensive form validation
+        const validation = validateSignupForm({
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword
+        });
 
-        // Basic email format validation
-        let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!re.test(email)) {
-            setError('Please enter a valid email');
-            setLoading(false);
-            return;
-        }
-
-        if(password !== confirmPassword){
-            setError('Passwords do not match');
-            setLoading(false);
-            return;
+        if (!validation.isValid) {
+          setFieldErrors(validation.errors);
+          setLoading(false);
+          return;
         }
 
         try{
-            await createUserWithEmailAndPassword(auth, email, password);
+            // Create user with sanitized email
+            const sanitizedEmail = sanitizeEmail(email);
+            const userCredential = await createUserWithEmailAndPassword(auth, sanitizedEmail, password);
+            const user = userCredential.user;
+
+            // Send email verification
+            await sendEmailVerification(user);
+            setEmailSent(true);
             setLoading(false);
-            // Redirect to login after successful signup
+
+            // Redirect to home page - user is automatically logged in
             setTimeout(() => {
-                navigate('/login');
-            }, 1000);
+              navigate('/');
+            }, 1500);
 
         }
         catch(error){
-
             // Map Firebase error codes to friendly messages
             const errorMessages = {
                 'auth/email-already-in-use': 'This email is already registered. Please login or use a different email',
-                'auth/weak-password': 'Password must be at least 6 characters long',
-                'auth/invalid-email': 'Invalid email address',
-                'auth/operation-not-allowed': 'Email/password signup is not available',
+                'auth/weak-password': 'Password is too weak. Follow the password requirements shown above',
+                'auth/invalid-email': 'Invalid email address. Please check and try again',
+                'auth/operation-not-allowed': 'Email/password signup is not available. Please use Google Sign-up',
                 'auth/too-many-requests': 'Too many signup attempts. Please try again later',
+                'auth/network-request-failed': 'Network error. Please check your connection and try again',
             };
             
             const friendlyError = errorMessages[error.code] || error.message;
@@ -96,10 +98,19 @@ export default function Signup() {
 
     const handleGoogleSignup = async () => {
         setError('');
+        setFieldErrors({});
         setLoading(true);
         
         try {
-            await signInWithPopup(auth, googleProvider);
+            const userCredential = await signInWithPopup(auth, googleProvider);
+            const user = userCredential.user;
+
+            // For Google sign-in, email is already verified by Google
+            // But we can still send verification email if needed
+            if (!user.emailVerified) {
+              await sendEmailVerification(user);
+            }
+
             setLoading(false);
             
             // Redirect to home after successful Google signup
@@ -112,6 +123,7 @@ export default function Signup() {
                 'auth/popup-closed-by-user': 'Sign-up was cancelled',
                 'auth/popup-blocked': 'Sign-up popup was blocked. Please enable popups.',
                 'auth/account-exists-with-different-credential': 'An account with this email already exists',
+                'auth/network-request-failed': 'Network error. Please check your connection and try again',
             };
             
             const friendlyError = errorMessages[error.code] || error.message;
@@ -120,31 +132,33 @@ export default function Signup() {
         }
     };
 
+    const passwordValidation = validatePassword(password);
+
     return (
         <div className = "signup-container">
             <div className="signup-box">
                 <h1 className="signup-title">Create Account</h1>
                 <p className="signup-subtitle">Sign up to get started</p>
 
-                {/* Error message display - only shows if there's an error */}
-                {error && <div className="signup-error">{error}</div>}
+                {/* Error message display */}
+                {error && <div className={`signup-${emailSent ? 'success' : 'error'}`}>{error}</div>}
 
                 <form onSubmit={handleSignup} className="signup-form">
                     <div className = "form-row">
                         <div className = "form-group">
                             <label htmlFor="firstName">First Name</label>
-                            <div className ="input-wrapper">
+                            <div className="input-wrapper">
                                 <User className="input-icon" size={20} />
-                                
                                 <input
                                     type="text"
                                     id = "firstName"
                                     placeholder  = "Enter your first name"
                                     value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                    className= "form-input"
+                                    onChange={(e) => handleFieldChange('firstName', e.target.value, setFirstName)}
+                                    className={`form-input ${fieldErrors.firstName ? 'error' : ''}`}
                                 />
                             </div>
+                            {fieldErrors.firstName && <span className="field-error">{fieldErrors.firstName}</span>}
                         </div>
 
                         <div className = "form-group">
@@ -156,10 +170,11 @@ export default function Signup() {
                                     id = "lastName"
                                     placeholder  = "Enter your last name"
                                     value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                    className= "form-input"
+                                    onChange={(e) => handleFieldChange('lastName', e.target.value, setLastName)}
+                                    className={`form-input ${fieldErrors.lastName ? 'error' : ''}`}
                                 />
                             </div>
+                            {fieldErrors.lastName && <span className="field-error">{fieldErrors.lastName}</span>}
                         </div>
 
                     </div>
@@ -172,10 +187,11 @@ export default function Signup() {
                                 id = "email"
                                 placeholder  = "Enter your email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className= "form-input"
+                                onChange={(e) => handleFieldChange('email', e.target.value, setEmail)}
+                                className={`form-input ${fieldErrors.email ? 'error' : ''}`}
                             />
                         </div>
+                        {fieldErrors.email && <span className="field-error">{fieldErrors.email}</span>}
                     </div>
 
                     <div className = "form-group">
@@ -187,8 +203,8 @@ export default function Signup() {
                                 id = "password"
                                 placeholder  = "Enter your password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className= "form-input"
+                                onChange={(e) => handleFieldChange('password', e.target.value, setPassword)}
+                                className={`form-input ${fieldErrors.password ? 'error' : ''}`}
                             />
                             {/* Button to toggle password visibility */}
                             <button
@@ -199,41 +215,10 @@ export default function Signup() {
                                 {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                             </button>
                         </div>
-                        {/* Password strength indicator */}
-                        {password && (
-                            <div className="password-strength">
-                                <div className="strength-bar-container">
-                                    <div 
-                                        className="strength-bar" 
-                                        style={{ 
-                                            width: `${(getPasswordStrength(password).score / 5) * 100}%`,
-                                            backgroundColor: getPasswordStrength(password).color 
-                                        }}
-                                    />
-                                </div>
-                                <span className="strength-label" style={{ color: getPasswordStrength(password).color }}>
-                                    {getPasswordStrength(password).label}
-                                </span>
-                                <div className="password-requirements">
-                                    <div className={`requirement ${getPasswordStrength(password).checks?.length ? 'met' : ''}`}>
-                                        {getPasswordStrength(password).checks?.length ? <Check size={12} /> : <XIcon size={12} />}
-                                        <span>8+ characters</span>
-                                    </div>
-                                    <div className={`requirement ${getPasswordStrength(password).checks?.uppercase ? 'met' : ''}`}>
-                                        {getPasswordStrength(password).checks?.uppercase ? <Check size={12} /> : <XIcon size={12} />}
-                                        <span>Uppercase</span>
-                                    </div>
-                                    <div className={`requirement ${getPasswordStrength(password).checks?.number ? 'met' : ''}`}>
-                                        {getPasswordStrength(password).checks?.number ? <Check size={12} /> : <XIcon size={12} />}
-                                        <span>Number</span>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                        {fieldErrors.password && <span className="field-error">{fieldErrors.password}</span>}
+                        <PasswordStrengthMeter password={password} showRequirements={true} />
                     </div>
 
-
-                    
                     <div className = "form-group">
                         <label htmlFor="confirmPassword">Confirm Password</label>
                         <div className ="input-wrapper">
@@ -243,8 +228,8 @@ export default function Signup() {
                                 id = "confirmPassword"
                                 placeholder  = "Confirm your password"
                                 value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                className= "form-input"
+                                onChange={(e) => handleFieldChange('confirmPassword', e.target.value, setConfirmPassword)}
+                                className={`form-input ${fieldErrors.confirmPassword ? 'error' : ''}`}
                             />
                             {/* Button to toggle password visibility */}
                             <button
@@ -255,14 +240,15 @@ export default function Signup() {
                                 {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                             </button>
                         </div>
+                        {fieldErrors.confirmPassword && <span className="field-error">{fieldErrors.confirmPassword}</span>}
                     </div>
 
                     <button
                         type="submit"
-                        disabled={loading}
+                        disabled={loading || !passwordValidation.isValid}
                         className="signup-button"
                     >
-                        {loading ? 'Signing Up...' : 'Sign Up'}
+                        {loading ? 'Creating Account...' : 'Sign Up'}
                     </button>
                     <div className="signup-divider">or</div>
 

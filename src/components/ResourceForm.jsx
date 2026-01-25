@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/resourceForm.css';
 import { db } from '../config/firebase';
-import{collection, addDoc, serverTimestamp} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 
 // Validation helper functions
