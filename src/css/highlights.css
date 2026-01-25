@@ -67,7 +67,9 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
+    color: black;
 }
+
 
 /* Color variants for icons */
 .highlight-rose-pink .highlight-icon-wrapper,
