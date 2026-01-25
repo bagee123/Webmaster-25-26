@@ -34,6 +34,8 @@
   gap: 24px;
 }
 
+
+
 .resource-form__row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -236,3 +238,4 @@
   -webkit-text-fill-color: var(--text-primary, #1f2937);
   transition: background-color 5000s ease-in-out;
 }
+

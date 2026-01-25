@@ -19,6 +19,7 @@ html {
   scrollbar-gutter: stable;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 /* Apply dark background immediately on dark mode without waiting for React */

@@ -14,9 +14,7 @@ export default function Home() {
       <PopularCategories />
       <EventsStrip />
       <HighlightSpotlight />
-      <section id="submit-resource">
-        <ResourceForm />
-      </section>
+      <ResourceForm />
     </>
   );
 }
