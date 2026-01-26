@@ -1,0 +1,50 @@
+/* References Page Styles */
+.references-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 60vh;
+    text-align: center;
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #1f2937);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.references-hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: var(--bg-primary);
+}
+
+.references-hero h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    background: var(--btn-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.references-hero p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.references-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    background: var(--bg-primary);
+}
+
+.dark .references-page,
+.dark .references-hero,
+.dark .references-content {
+    background: var(--bg-primary);
+}

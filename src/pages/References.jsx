@@ -1,6 +1,7 @@
 import React from 'react';
 import { ExternalLink, FileText, Link as LinkIcon } from 'lucide-react';
 import '../css/pages.css';
+import '../css/references.css';
 
 export default function References() {
   const sources = [
@@ -59,13 +60,13 @@ export default function References() {
   ];
 
   return (
-    <div className="page-container">
-      <section className="page-hero">
+    <div className="references-page">
+      <div className="references-hero">
         <h1>References</h1>
         <p>Sources and documentation for the Coppell Community Hub project.</p>
-      </section>
+      </div>
       
-      <section className="page-content">
+      <div className="references-content">
         <div className="content-wrapper">
           
           <div style={{ marginBottom: '48px' }}>
@@ -237,7 +238,7 @@ export default function References() {
           </div>
 
         </div>
-      </section>
+      </div>
     </div>
   );
 }
