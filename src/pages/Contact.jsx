@@ -170,19 +170,19 @@ export default function Contact() {
 
 
       <div className = "contact-stats">
-        <div className="stat-card">
+        <div className="stat-card2">
           <Mail size={32} className="stat-icon" />
           <h3>1250+ Messages Received</h3>
           <p>Our community trusts us with their inquiries and feedvback.</p>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card2">
           <Clock size={32} className="stat-icon" />
           <h3>24-Hour Response</h3>
           <p>We respond within 48 hours of getting your message.</p>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card2">
           <Users size={32} className="stat-icon" />
           <h3>Friendly Support Team</h3>
           <p>Our team is approachable, helpful, and ready to assist you.</p>

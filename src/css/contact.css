@@ -366,7 +366,7 @@
   justify-content: center;
 }
 
-.stat-card {
+.stat-card2 {
   flex: 1 1 200px;
   background: #fff;
   border-radius: 12px;
@@ -378,7 +378,7 @@
   border-width: 2px
 }
 
-.stat-card:hover {
+.stat-card2:hover {
   transform: translateY(-5px);
 }
 
