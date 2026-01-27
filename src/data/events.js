@@ -1,7 +1,7 @@
 const events = [
   {
     id: 1,
-    name: 'Kaleidoscope: Cultures Celebration',
+    name: 'Kaleidoscope Cultures Festival',
     date: 'April 4, 2025',
     time: '3:00 PM - 7:00 PM',
     location: 'Old Town Coppell Square',
@@ -131,7 +131,7 @@ const events = [
   },
   {
     id: 11,
-    name: 'Coppell Senior Center Crafts Fair',
+    name: 'Coppell Senior Center Crafts',
     date: 'November 8, 2025',
     time: '9:00 AM - 12:00 PM',
     location: 'Coppell Senior & Community Center',
@@ -140,7 +140,7 @@ const events = [
     attendees: 250,
     description: 'Free event featuring handmade treasures and one-of-a-kind art from local artisans and crafters.',
     website: 'coppelltx.gov/calendar',
-    image: '/events-images/arts-center.jpg',
+    image: '/events-images/seniors.jpg',
   },
   {
     id: 12,
