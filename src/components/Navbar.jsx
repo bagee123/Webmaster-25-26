@@ -81,8 +81,13 @@ export default function Navbar({ onLoginClick = () => {} }) {
     return false;
   };
 
-  const handleNavClick = () => {
-    window.scrollTo(0, 0);
+  const handleNavClick = (href) => {
+    // If clicking logo while on home page, scroll to top smoothly
+    if (href === '/' && location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo(0, 0);
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -90,7 +95,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-inner">
-          <Link to="/" className="navbar-logo" onClick={handleNavClick}>
+          <Link to="/" className="navbar-logo" onClick={() => handleNavClick('/')}>
             <div className="logo-badge">C</div>
             <span className="logo-text">Coppell Community Resource Hub</span>
           </Link>
@@ -100,7 +105,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
               <Link
                 key={link.label}
                 to={link.href}
-                onClick={handleNavClick}
+                onClick={() => handleNavClick(link.href)}
                 className={`nav-link ${isActive(link.href) ? 'nav-link-active' : ''}`}
                 aria-current={isActive(link.href) ? 'page' : undefined}
               >
@@ -217,7 +222,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
               <Link
                 key={link.label}
                 to={link.href}
-                onClick={handleNavClick}
+                onClick={() => handleNavClick(link.href)}
                 className={`nav-link-mobile ${isActive(link.href) ? 'nav-link-mobile-active' : ''}`}
                 aria-current={isActive(link.href) ? 'page' : undefined}
               >
@@ -361,7 +366,8 @@ export default function Navbar({ onLoginClick = () => {} }) {
                       await logout();
                       setShowLogoutConfirm(false);
                       setShowUserMenu(false);
-                      navigate('/');
+                      // Reload page to ensure clean state
+                      window.location.href = '/';
                     } catch {
                       setIsLoggingOut(false);
                     }

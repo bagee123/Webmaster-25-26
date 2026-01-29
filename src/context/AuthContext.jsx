@@ -44,12 +44,9 @@ export function AuthProvider({ children }) {
         displayName,
         photoURL,
       });
-      // Update local state
-      setUser({
-        ...user,
-        displayName,
-        photoURL,
-      });
+      // Force reload user to get updated profile with all Firebase methods intact
+      await user.reload();
+      setUser(auth.currentUser);
     } catch (error) {
       console.error('Profile update error:', error);
       throw error;

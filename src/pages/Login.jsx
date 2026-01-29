@@ -141,9 +141,9 @@ export default function Login() {
       setSuccess(true);
       setLoading(false);
       
-      // Wait for animation, then redirect to home
+      // Wait for animation, then reload page
       setTimeout(() => {
-        navigate('/');
+        window.location.href = '/';
       }, 1500);
     } catch (error) {
       
