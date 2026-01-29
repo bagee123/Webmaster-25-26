@@ -117,7 +117,7 @@
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 24px !important;
 }
 
 @media (max-width: 600px) {
