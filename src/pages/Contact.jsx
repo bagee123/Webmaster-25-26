@@ -236,7 +236,7 @@ export default function Contact() {
                 </div>
               )}
 
-              <div className="form-row">
+              <div className="form-row-contact">
                 <div className="form-group">
                   <label htmlFor="name">Name *</label>
                   <input
@@ -268,7 +268,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="form-row">
+              <div className="form-row-contact">
                 <div className="form-group">
                   <label htmlFor="phone">Phone (Optional)</label>
                   <input

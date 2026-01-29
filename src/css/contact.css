@@ -114,14 +114,14 @@
   text-align: center;
 }
 
-.form-row {
+.form-row-contact {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px !important;
 }
 
 @media (max-width: 600px) {
-  .form-row {
+  .form-row-contact {
     grid-template-columns: 1fr;
   }
 }
