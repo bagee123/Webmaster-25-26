@@ -48,3 +48,15 @@
 .dark .references-content {
     background: var(--bg-primary);
 }
+
+.team-number h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.team-number h3 {
+    font-size: 3.5em;
+    font-weight: 700;
+    margin: 0;
+}
