@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EventCard from './EventCard';
-import { SkeletonGrid } from './SkeletonLoaders';
+import { EventCardSkeleton } from './CardSkeletons';
 import '../css/eventsGrid.css';
 
 export default function EventsGrid({ events, isLoading = false }) {
   if (isLoading) {
-    return <SkeletonGrid count={6} />;
+    return (
+      <div className="events-grid">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <EventCardSkeleton key={`skeleton-${i}`} />
+        ))}
+      </div>
+    );
   }
 
   if (events.length === 0) {

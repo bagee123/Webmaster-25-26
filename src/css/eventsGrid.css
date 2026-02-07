@@ -1,7 +1,7 @@
 .events-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: clamp(16px, 3vw, 24px);
   margin-top: 2rem;
   max-width: 1000px;
   margin-left: auto;
@@ -30,13 +30,13 @@
 @media (max-width: 768px) {
   .events-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: clamp(14px, 2vw, 18px);
   }
 }
 
 @media (max-width: 480px) {
   .events-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: clamp(12px, 2vw, 16px);
   }
 }

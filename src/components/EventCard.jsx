@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Calendar, Clock, MapPin, Users, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, CheckCircle, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
@@ -12,6 +12,11 @@ export default function EventCard({ event }) {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const isSignedUp = userEvents.includes(event.id);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
+  // Event rating (default to 4 if not provided)
+  const rating = event.rating || 4;
+  const stars = Array.from({ length: 5 }, (_, i) => i < rating);
 
   const handleSignup = () => {
     if (!isAuthenticated) {
@@ -24,12 +29,31 @@ export default function EventCard({ event }) {
   return (
     <div className="event-card">
       <div className="event-card-image">
-        <img src={reactLogo} alt={event.name} />
+        <img 
+          src={reactLogo} 
+          alt={event.name}
+          onLoad={() => setImageLoaded(true)}
+          style={{ opacity: imageLoaded ? 1 : 0.5 }}
+        />
         <span className="event-category-badge">{event.category}</span>
       </div>
       
       <div className="event-card-content">
         <h3 className="event-card-title">{event.name}</h3>
+        
+        {/* Event Rating */}
+        <div style={{ display: 'flex', gap: '2px', marginBottom: '8px' }}>
+          {stars.map((filled, idx) => (
+            <Star
+              key={idx}
+              size={14}
+              style={{
+                fill: filled ? '#ea580c' : '#d1d5db',
+                color: filled ? '#ea580c' : '#d1d5db'
+              }}
+            />
+          ))}
+        </div>
         
         <div className="event-card-details">
           <div className="event-detail">
@@ -81,5 +105,6 @@ EventCard.propTypes = {
     location: PropTypes.string.isRequired,
     attendees: PropTypes.number,
     description: PropTypes.string,
+    rating: PropTypes.number,
   }).isRequired,
 };

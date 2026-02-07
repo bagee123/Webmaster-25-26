@@ -2,24 +2,29 @@
   background: var(--card-bg, white);
   padding: 20px;
   border-radius: 12px;
+  border: 1px solid var(--border-color, #e5e7eb);
   border-left: 4px solid var(--accent-orange, #ea580c);
   box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.08));
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   text-align: left;
   display: flex;
   flex-direction: column;
   min-height: 240px;
   height: 100%;
+  overflow: hidden;
 }
 
 .card:hover {
-  box-shadow: 0 8px 20px var(--shadow, rgba(0, 0, 0, 0.12));
+  box-shadow: 0 16px 32px var(--shadow, rgba(234, 88, 12, 0.15));
+  transform: translateY(-6px) scale(1.02);
+  border-left-width: 6px;
+  border-color: var(--border-color, #d1d5db);
 }
 
 .badge {
   display: inline-block;
-  background: var(--bg-tertiary, #fff3e0);
-  color: var(--accent-orange, #ea580c);
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+  color: white;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 11px;
@@ -28,11 +33,30 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   align-self: flex-start;
+  transition: all 0.3s ease;
+}
+
+.card:hover .badge {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
 }
 
 .dark .badge {
-  background-color: #334155;
-  color: #ff8c42;
+  background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+  color: white;
+}
+
+/* Star Rating */
+.card-rating {
+  margin-bottom: 8px !important;
+}
+
+.card-rating svg {
+  transition: all 0.2s ease;
+}
+
+.card:hover .card-rating svg {
+  transform: scale(1.1);
 }
 
 .card h4 {

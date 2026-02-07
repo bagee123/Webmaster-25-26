@@ -11,6 +11,7 @@ const events = [
     description: 'Experience cultural performances, demonstrations, unique vendors, and diverse food trucks.',
     website: 'coppelltx.gov/events',
     image: '/events-images/kaleidoscope.jpg',
+    rating: 5,
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const events = [
     description: 'Celebrate Independence Day with live music, food vendors, family activities, and spectacular fireworks.',
     website: 'coppelltx.gov/events',
     image: '/events-images/fourth.png',
+    rating: 5,
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ const events = [
     description: 'Watch the lighted parade, then enjoy the 65-foot tree lighting, drone show, and photos with Santa.',
     website: 'coppelltx.gov/holidays',
     image: '/events-images/holiday.jpg',
+    rating: 5,
   },
   {
     id: 4,
@@ -50,6 +53,7 @@ const events = [
     description: 'Shop fresh, local produce and handmade goods from area vendors. All vendors grow or make what they sell.',
     website: 'coppellfarmersmarket.org',
     image: '/events-images/market.png',
+    rating: 4,
   },
   {
     id: 5,
@@ -63,6 +67,7 @@ const events = [
     description: 'Free outdoor concerts with food trucks and lawn games celebrating local and regional musical talent.',
     website: 'coppelltx.gov/sunset-socials',
     image: '/events-images/old-town.jpg',
+    rating: 4,
   },
   {
     id: 6,
@@ -76,6 +81,7 @@ const events = [
     description: 'Free outdoor movie screening with food trucks and lawn games for family entertainment.',
     website: 'coppelltx.gov/sunset-socials',
     image: '/events-images/socials.png',
+    rating: 4,
   },
   {
     id: 7,
@@ -89,6 +95,7 @@ const events = [
     description: 'Seasonal choral performances including children\'s chorus, featuring diverse musical programs.',
     website: 'coppellartscenter.org',
     image: '/events-images/chorale.jpg',
+    rating: 5,
   },
   {
     id: 8,
@@ -102,6 +109,7 @@ const events = [
     description: 'Free craft workshops for children ages 3-12. Drop in anytime to create and take home your craft project.',
     website: 'coppellartscenter.org',
     image: '/events-images/make-take.png',
+    rating: 4,
   },
   {
     id: 9,
@@ -115,6 +123,7 @@ const events = [
     description: 'Free health screenings, wellness vendor booths, and information from local providers.',
     website: 'coppelltx.gov/events',
     image: '/events-images/wellness.png',
+    rating: 4,
   },
   {
     id: 10,
@@ -128,6 +137,7 @@ const events = [
     description: 'School supply distributions and information booths to help students prepare for the new school year.',
     website: 'coppellisd.com',
     image: '/events-images/school.png',
+    rating: 4,
   },
   {
     id: 11,
@@ -141,6 +151,7 @@ const events = [
     description: 'Free event featuring handmade treasures and one-of-a-kind art from local artisans and crafters.',
     website: 'coppelltx.gov/calendar',
     image: '/events-images/seniors.jpg',
+    rating: 5,
   },
   {
     id: 12,
@@ -154,6 +165,7 @@ const events = [
     description: 'Professional performances featuring orchestral, choral, and touring artists throughout the summer season.',
     website: 'coppellartscenter.org',
     image: '/events-images/arts-center.jpg',
+    rating: 5,
   },
 ];
 

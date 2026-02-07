@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Heart, X, ExternalLink, MapPin, Phone, Globe } from 'lucide-react';
+import { Heart, X, ExternalLink, MapPin, Phone, Globe, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
@@ -13,6 +13,10 @@ export default function ResourceCard({ item }) {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const isSaved = savedItems.includes(Number(item.id));
+    
+    // Star rating (default to 4 if not provided)
+    const rating = item.rating || 4;
+    const stars = Array.from({ length: 5 }, (_, i) => i < rating);
 
     const handleSave = (e) => {
         e.preventDefault();
@@ -33,6 +37,21 @@ export default function ResourceCard({ item }) {
     <div className="card">
         {item.icon && <div className="icon">{item.icon}</div>}
         <span className="badge">{item.category}</span>
+        
+        {/* Star Rating */}
+        <div className="card-rating" style={{ display: 'flex', gap: '2px', marginBottom: '8px' }}>
+          {stars.map((filled, idx) => (
+            <Star
+              key={idx}
+              size={14}
+              style={{
+                fill: filled ? '#ea580c' : '#d1d5db',
+                color: filled ? '#ea580c' : '#d1d5db'
+              }}
+            />
+          ))}
+        </div>
+        
         <h4>{item.title || item.name}</h4>
         <p>{item.desc || item.description}</p>
         <div className="card-actions">
@@ -59,6 +78,21 @@ export default function ResourceCard({ item }) {
                     <span className="resource-modal-category">{item.category}</span>
                 </div>
                 <h2 className="resource-modal-title">{item.title || item.name}</h2>
+                
+                {/* Star Rating in Modal */}
+                <div className="resource-modal-rating" style={{ display: 'flex', gap: '4px', marginBottom: '16px', justifyContent: 'center' }}>
+                  {stars.map((filled, idx) => (
+                    <Star
+                      key={idx}
+                      size={18}
+                      style={{
+                        fill: filled ? '#ea580c' : '#d1d5db',
+                        color: filled ? '#ea580c' : '#d1d5db'
+                      }}
+                    />
+                  ))}
+                </div>
+                
                 <p className="resource-modal-description">{item.desc || item.description}</p>
                 
                 <div className="resource-modal-details">
@@ -122,5 +156,6 @@ ResourceCard.propTypes = {
         address: PropTypes.string,
         phone: PropTypes.string,
         website: PropTypes.string,
+        rating: PropTypes.number,
     }).isRequired,
 };

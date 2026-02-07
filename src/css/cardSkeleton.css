@@ -1,0 +1,172 @@
+/* Card Skeleton Loader with Shimmer Animation */
+
+.card-skeleton {
+  background: var(--card-bg, white);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-left: 4px solid var(--accent-orange, #ea580c);
+  box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.08));
+  min-height: 240px;
+}
+
+.skeleton-badge {
+  height: 20px;
+  width: 80px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 90%;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.skeleton-text:last-of-type {
+  width: 85%;
+  margin-bottom: 16px;
+}
+
+.skeleton-button {
+  height: 36px;
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Event Card Skeleton */
+.event-card-skeleton {
+  background: var(--card-bg, white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.08));
+  border: 1px solid var(--border-color, #e5e7eb);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 192px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.skeleton-content {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-badge-small {
+  height: 18px;
+  width: 70px;
+  border-radius: 18px;
+  margin-bottom: 12px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+  align-self: flex-start;
+}
+
+.skeleton-lines {
+  flex: 1;
+}
+
+.skeleton-line {
+  height: 14px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.skeleton-line:last-of-type {
+  width: 90%;
+  margin-bottom: 16px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Dark Mode Skeleton */
+.dark .skeleton-badge,
+.dark .skeleton-title,
+.dark .skeleton-text,
+.dark .skeleton-button,
+.dark .skeleton-image,
+.dark .skeleton-badge-small,
+.dark .skeleton-line {
+  background: linear-gradient(
+    90deg,
+    #334155 0%,
+    #475569 50%,
+    #334155 100%
+  );
+  background-size: 200% 100%;
+}

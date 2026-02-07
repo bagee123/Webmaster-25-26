@@ -176,7 +176,7 @@
 .resources-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: clamp(16px, 3vw, 24px);
+    gap: clamp(20px, 3vw, 28px);
     margin-bottom: clamp(32px, 5vw, 48px);
     max-width: 1400px;
     margin-left: auto;
@@ -187,18 +187,21 @@
 @media (max-width: 1280px) {
     .resources-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: clamp(18px, 3vw, 24px);
     }
 }
 
 @media (max-width: 1024px) {
     .resources-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: clamp(16px, 2.5vw, 22px);
     }
 }
 
 @media (max-width: 640px) {
     .resources-grid {
         grid-template-columns: 1fr;
+        gap: clamp(14px, 2vw, 18px);
     }
 }
 

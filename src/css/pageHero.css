@@ -168,7 +168,15 @@
 
 /* Dark mode */
 .dark .page-hero {
-  background: linear-gradient(to bottom right, #1a2a4e, #16213e, #0f3460) !important;
+  background: linear-gradient(to bottom right, #0f172a, #1e293b) !important;
+}
+
+.dark .page-bg-layer-1 {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(15, 23, 42, 0.2) 100%);
+}
+
+.dark .page-bg-layer-2 {
+  background: linear-gradient(45deg, rgba(15, 23, 42, 0.15) 0%, rgba(30, 58, 138, 0.15) 100%);
 }
 
 .dark .page-hero-subtitle {

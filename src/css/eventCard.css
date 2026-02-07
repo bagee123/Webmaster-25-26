@@ -4,16 +4,17 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.08));
-    border: 1px solid var(--border-color, #f3f4f6);
-    transition: box-shadow 300ms ease, transform 300ms ease;
+    border: 1px solid var(--border-color, #e5e7eb);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
 .event-card:hover {
-    box-shadow: 0 8px 20px var(--shadow, rgba(0, 0, 0, 0.12));
-    transform: translateY(-2px);
+    box-shadow: 0 16px 32px var(--shadow, rgba(234, 88, 12, 0.15));
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent-orange, #ea580c);
 }
 
 /* Event Card Image Container */
@@ -29,7 +30,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 300ms ease;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .event-card:hover .event-card-image img {
@@ -45,10 +52,16 @@
     border-radius: 9999px;
     font-size: 12px;
     font-weight: 600;
-    background-color: rgba(255, 255, 255, 0.95);
-    color: var(--accent-orange, #ea580c);
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+    color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+}
+
+.event-card:hover .event-category-badge {
+    transform: scale(1.05);
 }
 
 /* Event Card Content */
