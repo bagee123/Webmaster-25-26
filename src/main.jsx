@@ -22,3 +22,8 @@ createRoot(document.getElementById('root')).render(
 if (import.meta.env.PROD) {
   registerServiceWorker();
 }
+
+// Welcome alert on page load
+window.onload = function () {
+  alert("Welcome to my website!\n\nGuest Login Credentials:\nEmail: guestemail@gmail.com\nPassword: Ardvark#1234\n\nNote: You may use your personal email to sign up");
+};
