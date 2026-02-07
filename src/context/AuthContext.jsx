@@ -7,12 +7,25 @@ const AuthContext = createContext(undefined);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [authInitialized, setAuthInitialized] = useState(false);
 
   useEffect(() => {
     // Listen to auth state changes - this persists across page refreshes
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        // Get ID token result to retrieve custom claims (including admin)
+        try {
+          const idTokenResult = await currentUser.getIdTokenResult();
+          setIsAdmin(idTokenResult.claims.admin === true);
+        } catch (error) {
+          console.error('Error getting ID token:', error);
+          setIsAdmin(false);
+        }
+      } else {
+        setIsAdmin(false);
+      }
       setUser(currentUser);
       setLoading(false);
       setAuthInitialized(true);
@@ -55,6 +68,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     user,
+    isAdmin,
     loading,
     authInitialized,
     isAuthenticated: !!user,

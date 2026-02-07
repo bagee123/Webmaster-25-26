@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Calendar, Clock, MapPin, Users, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
 import reactLogo from '../assets/react.svg';
@@ -9,10 +10,13 @@ import '../css/eventCard.css';
 export default function EventCard({ event }) {
   const { userEvents, toggleUserEvent } = useResources();
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const isSignedUp = userEvents.includes(event.id);
 
   const handleSignup = () => {
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
       toggleUserEvent(event.id);
     }
   };
@@ -45,28 +49,23 @@ export default function EventCard({ event }) {
             <span>{event.attendees} expected attendees</span>
           </div>
         </div>
-        
         <p className="event-card-description">{event.description}</p>
         
-        {isAuthenticated ? (
-          <button 
-            onClick={handleSignup}
-            className={`event-card-button ${isSignedUp ? 'signed-up' : ''}`}
-          >
-            {isSignedUp ? (
-              <>
-                <CheckCircle size={18} />
-                Signed Up
-              </>
-            ) : (
-              'Register Now'
-            )}
-          </button>
-        ) : (
-          <button className="event-card-button" disabled>
-            Sign In to Register
-          </button>
-        )}
+        <button 
+          onClick={handleSignup}
+          className={`event-card-button ${isSignedUp ? 'signed-up' : ''}`}
+        >
+          {isSignedUp ? (
+            <>
+              <CheckCircle size={18} />
+              Signed Up
+            </>
+          ) : isAuthenticated ? (
+            'Register Now'
+          ) : (
+            'Sign In to Register'
+          )}
+        </button>
       </div>
     </div>
   );

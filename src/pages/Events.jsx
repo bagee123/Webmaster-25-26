@@ -44,7 +44,9 @@ export default function Events() {
     );
 
   const handleSaveEvent = (eventId) => {
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
       toggleUserEvent(eventId);
     }
   };
@@ -139,18 +141,16 @@ export default function Events() {
                   >
                     More Info
                   </button>
-                  {isAuthenticated && (
-                    <button
-                      className={`events-save-button ${
-                        userEvents.includes(event.id) ? 'saved' : ''
-                      }`}
-                      onClick={() => handleSaveEvent(event.id)}
-                      title={userEvents.includes(event.id) ? 'Remove from saved' : 'Save event'}
-                    >
-                      <Heart size={16} fill={userEvents.includes(event.id) ? 'currentColor' : 'none'} />
-                      {userEvents.includes(event.id) ? 'Saved' : 'Save Event'}
-                    </button>
-                  )}
+                  <button
+                    className={`events-save-button ${
+                      userEvents.includes(event.id) ? 'saved' : ''
+                    }`}
+                    onClick={() => handleSaveEvent(event.id)}
+                    title={userEvents.includes(event.id) ? 'Remove from saved' : isAuthenticated ? 'Save event' : 'Sign in to save'}
+                  >
+                    <Heart size={16} fill={userEvents.includes(event.id) ? 'currentColor' : 'none'} />
+                    {userEvents.includes(event.id) ? 'Saved' : isAuthenticated ? 'Save Event' : 'Sign in'}
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { X, Phone, Mail, MapPin, Clock, Globe, Heart } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
 import '../css/modal.css';
 
 export default function DetailModal({ resource, onClose }) {
+  const navigate = useNavigate();
   const { savedItems, toggleSavedItem } = useResources();
   const { isAuthenticated } = useAuth();
   const isSaved = savedItems.includes(Number(resource.id));
 
   const handleFavoriteClick = () => {
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
       toggleSavedItem(Number(resource.id));
     }
   };
@@ -97,15 +101,13 @@ export default function DetailModal({ resource, onClose }) {
 
         {/* Action Buttons */}
         <div className="modal-actions">
-          {isAuthenticated && (
-            <button 
-              className={`btn-favorite ${isSaved ? 'active' : ''}`}
-              onClick={handleFavoriteClick}
-            >
-              <Heart size={18} fill={isSaved ? 'currentColor' : 'none'} />
-              {isSaved ? 'Saved!' : 'Save to Favorites'}
-            </button>
-          )}
+          <button 
+            className={`btn-favorite ${isSaved ? 'active' : ''}`}
+            onClick={handleFavoriteClick}
+          >
+            <Heart size={18} fill={isSaved ? 'currentColor' : 'none'} />
+            {isSaved ? 'Saved!' : isAuthenticated ? 'Save to Favorites' : 'Sign in to save'}
+          </button>
           <button className="btn-close-modal" onClick={onClose}>
             Close
           </button>

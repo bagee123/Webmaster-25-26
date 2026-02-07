@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Heart, X, ExternalLink, MapPin, Phone, Globe } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
 import '../css/card.css';
@@ -9,12 +10,15 @@ import '../css/card.css';
 export default function ResourceCard({ item }) {
     const { savedItems, toggleSavedItem } = useResources();
     const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const isSaved = savedItems.includes(Number(item.id));
 
     const handleSave = (e) => {
         e.preventDefault();
-        if (isAuthenticated) {
+        if (!isAuthenticated) {
+            navigate('/login');
+        } else {
             toggleSavedItem(Number(item.id));
         }
     };
@@ -33,15 +37,13 @@ export default function ResourceCard({ item }) {
         <p>{item.desc || item.description}</p>
         <div className="card-actions">
             <button className="learn" onClick={handleLearnMore}>Learn More →</button>
-            {isAuthenticated && (
-                <button 
-                    onClick={handleSave}
-                    className={`save-btn ${isSaved ? 'saved' : ''}`}
-                    title={isSaved ? 'Remove from saved' : 'Save item'}
-                >
-                    <Heart size={18} fill={isSaved ? 'currentColor' : 'none'} />
-                </button>
-            )}
+            <button 
+                onClick={handleSave}
+                className={`save-btn ${isSaved ? 'saved' : ''}`}
+                title={isSaved ? 'Remove from saved' : isAuthenticated ? 'Save item' : 'Sign in to save'}
+            >
+                <Heart size={18} fill={isSaved ? 'currentColor' : 'none'} />
+            </button>
         </div>
     </div>
 
@@ -93,15 +95,13 @@ export default function ResourceCard({ item }) {
                             Visit Website <ExternalLink size={14} />
                         </a>
                     )}
-                    {isAuthenticated && (
-                        <button 
-                            onClick={handleSave}
-                            className={`resource-modal-btn ${isSaved ? 'saved' : 'secondary'}`}
-                        >
-                            <Heart size={16} fill={isSaved ? 'currentColor' : 'none'} />
-                            {isSaved ? 'Saved' : 'Save Resource'}
-                        </button>
-                    )}
+                    <button 
+                        onClick={handleSave}
+                        className={`resource-modal-btn ${isSaved ? 'saved' : 'secondary'}`}
+                    >
+                        <Heart size={16} fill={isSaved ? 'currentColor' : 'none'} />
+                        {isSaved ? 'Saved' : isAuthenticated ? 'Save Resource' : 'Sign in to save'}
+                    </button>
                 </div>
             </div>
         </div>
