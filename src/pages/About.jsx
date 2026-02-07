@@ -28,12 +28,12 @@ const values = [
 ];
 
 const team = [
-  { name: 'Bageerathan Saravankumar', role: 'Executive Director', initials: 'BS' },
-  { name: 'Arnav Thotakura', role: 'Technology Lead', initials: 'AT' },
-  { name: 'Aditya Nair', role: 'Community Outreach', initials: 'AN' },
-  { name: 'Sharvesh Ramakrishnan', role: 'Resource Coordinator', initials: 'SR' },
-  { name: 'Yug Sharma', role: 'Volunteer Manager', initials: 'YS' },
-  { name: 'Ashwin Mohan', role: 'Communications', initials: 'AM' },
+  { name: 'Emily Rodriguez', role: 'Executive Director', initials: 'ER' },
+  { name: 'Michael Chen', role: 'Technology Lead', initials: 'MC' },
+  { name: 'Sarah Mitchell', role: 'Community Outreach', initials: 'SM' },
+  { name: 'James Patterson', role: 'Resource Coordinator', initials: 'JP' },
+  { name: 'Linda Martinez', role: 'Volunteer Manager', initials: 'LM' },
+  { name: 'Robert Kim', role: 'Communications', initials: 'RK' },
 ];
 
 export default function About() {
