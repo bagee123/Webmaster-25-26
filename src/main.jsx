@@ -25,5 +25,5 @@ if (import.meta.env.PROD) {
 
 // Welcome alert on page load
 window.onload = function () {
-  alert("Guest Login Credentials:\nEmail: guestemail@gmail.com\nPassword: Ardvark#1234\n\nNote: You may use your personal email to sign up");
+  alert("Guest Login Credentials:\nEmail: guestemail@gmail.com\nPassword: Ardvark#1234\n\nNote: You may use your personal email to sign up and login");
 };
