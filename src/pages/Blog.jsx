@@ -341,7 +341,7 @@ export default function Blog() {
           </div>
         )}
 
-        <SortDropdown
+        <SortDropdown className="blog-sort-dropdown"
           options={[
             { value: 'title', label: 'Sort by Title' },
             { value: 'category', label: 'Sort by Category' },

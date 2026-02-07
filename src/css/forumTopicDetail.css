@@ -238,7 +238,7 @@
 }
 
 .forum-topic-body {
-  color: #4b5563;
+  color: #000000;
   font-size: 1.05rem;
   line-height: 1.7;
   margin-bottom: 1.5rem;
@@ -480,6 +480,7 @@
   border-radius: 0.5rem;
   font-size: 0.9rem;
   background: white;
+  color: #000000;
   cursor: pointer;
 }
 
@@ -655,7 +656,7 @@
   padding: 0.5rem 0.75rem;
   background: none;
   border: none;
-  color: #4b5563;
+  color: #000000;
   cursor: pointer;
   font-size: 0.875rem;
   border-radius: 0.25rem;
@@ -683,7 +684,7 @@
 }
 
 .forum-reply-content {
-  color: #4b5563;
+  color: #000000;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
