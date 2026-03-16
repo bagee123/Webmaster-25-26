@@ -4,16 +4,15 @@ import "../css/moving_home_strip.css";
 
 export default function MovingHomeStrip() {
   const resources = [
-    "Resource 1",
-    "Resource 2",
-    "Resource 3",
-    "Resource 4",
-    "Resource 5",
-    "Resource 6",
-    "Resource 7",
-    "Resource 8",
-    "Resource 9",
-    "Resource 10"
+    "Health",
+    "Food",
+    "Education",
+    "Youth Services",
+    "Legal Aid",
+    "Employment",
+    "Mental Health",
+    "Senior Services",
+    "Community Events",
   ];
 
   return (
