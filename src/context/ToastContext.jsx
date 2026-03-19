@@ -1,16 +1,30 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const ToastContext = createContext(undefined);
 
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
+  const hasActiveToastRef = useRef(false);
+
+  const removeToast = useCallback((id) => {
+    setToasts((prev) => {
+      const nextToasts = prev.filter((toast) => toast.id !== id);
+      hasActiveToastRef.current = nextToasts.length > 0;
+      return nextToasts;
+    });
+  }, []);
 
   const addToast = useCallback((message, type = 'info', duration = 3000) => {
+    if (hasActiveToastRef.current) {
+      return null;
+    }
+
     const id = Date.now();
     const toast = { id, message, type, duration };
+    hasActiveToastRef.current = true;
     
-    setToasts(prev => [...prev, toast]);
+    setToasts([toast]);
 
     if (duration > 0) {
       setTimeout(() => {
@@ -19,11 +33,7 @@ export function ToastProvider({ children }) {
     }
 
     return id;
-  }, []);
-
-  const removeToast = useCallback((id) => {
-    setToasts(prev => prev.filter(toast => toast.id !== id));
-  }, []);
+  }, [removeToast]);
 
   const showSuccess = useCallback((message, duration) => {
     return addToast(message, 'success', duration);
