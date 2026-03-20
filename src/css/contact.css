@@ -233,7 +233,7 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: var(--text-tertiary);
+  color: var(--text-primary, #2e7d32);
 }
 
 .form-group input:focus,
