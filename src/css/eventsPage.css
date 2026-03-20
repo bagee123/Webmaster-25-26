@@ -433,7 +433,7 @@
 /* Calendar CTA Section */
 .events-calendar-cta {
   padding: 4rem 1rem;
-  background: linear-gradient(to bottom right, #fef2f2, #fdf2f8, #faf5ff);
+  background: #fafbfc;
 }
 
 .events-cta-container {
