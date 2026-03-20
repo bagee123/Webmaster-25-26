@@ -117,9 +117,9 @@
     font-size: clamp(13px, 1.5vw, 14px);
     font-weight: 500;
       cursor: pointer;
-      background: #e8f5e9;
+      background: white;
       border-color: #c8e6c9;
-      color: #2e7d32;
+      color: black;
     transition: all 200ms ease;
     outline: none;
     animation: scaleIn 0.5s ease-out backwards;
