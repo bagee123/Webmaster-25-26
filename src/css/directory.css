@@ -116,7 +116,10 @@
     border-radius: 24px;
     font-size: clamp(13px, 1.5vw, 14px);
     font-weight: 500;
-    cursor: pointer;
+      cursor: pointer;
+      background: #e8f5e9;
+      border-color: #c8e6c9;
+      color: #2e7d32;
     transition: all 200ms ease;
     outline: none;
     animation: scaleIn 0.5s ease-out backwards;
@@ -136,6 +139,9 @@
     border-color: var(--accent-orange, #7fc9a8);
     color: var(--accent-orange, #7fc9a8);
     background: var(--bg-tertiary, #fff8f5);
+      background: #c8e6c9;
+      border-color: #a5d6a7;
+      color: #2e7d32;
 }
 
 .category-btn.active {

@@ -582,12 +582,18 @@
   background: var(--card-bg);
   color: var(--text-secondary);
   border-color: var(--border-color);
+    background: #2d5016;
+    border-color: #3d6b1f;
+    color: #c8e6c9;
 }
 
 .dark .category-btn:hover {
   border-color: var(--accent-orange);
   color: var(--accent-orange);
   background: var(--bg-tertiary);
+    background: #3d6b1f;
+    border-color: #5a8c3a;
+    color: #e8f5e9;
 }
 
 .dark .category-btn.active {
@@ -1152,7 +1158,7 @@
 
 .dark .resource-form__input::placeholder,
 .dark .resource-form__textarea::placeholder {
-  color: #e0e0e0 !important;
+  color: #81c784 !important;
 }
 
 .dark .resource-form__input:focus,

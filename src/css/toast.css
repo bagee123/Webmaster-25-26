@@ -2,8 +2,8 @@
 
 .toast-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 16px;
+  left: 16px;
   z-index: 9999;
   pointer-events: none;
   display: flex;
@@ -60,15 +60,15 @@
 
 /* Success Toast */
 .toast-success {
-  background: #ecfdf5;
+  background: rgba(240, 250, 245, 0.82);
   border: 1px solid #d1fae5;
-  color: #065f46;
+  color: #2e7d32;
 }
 
 .dark .toast-success {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(127, 201, 168, 0.2);
   border-color: rgba(16, 185, 129, 0.3);
-  color: #a7f3d0;
+  color: #81c784;
 }
 
 .toast-success .toast-icon {
@@ -89,15 +89,15 @@
 
 /* Error Toast */
 .toast-error {
-  background: #fef2f2;
+  background: rgba(254, 242, 242, 0.82);
   border: 1px solid #fee2e2;
   color: #7f1d1d;
 }
 
 .dark .toast-error {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.2);
   border-color: rgba(239, 68, 68, 0.3);
-  color: #fecaca;
+  color: #fca5a5;
 }
 
 .toast-error .toast-icon {
@@ -118,15 +118,15 @@
 
 /* Warning Toast */
 .toast-warning {
-  background: #fffbeb;
+  background: rgba(255, 251, 235, 0.82);
   border: 1px solid #fef3c7;
   color: #78350f;
 }
 
 .dark .toast-warning {
-  background: rgba(127, 201, 168, 0.15);
+  background: rgba(245, 158, 11, 0.2);
   border-color: rgba(127, 201, 168, 0.3);
-  color: #fed7aa;
+  color: #fbbf24;
 }
 
 .toast-warning .toast-icon {
@@ -147,15 +147,15 @@
 
 /* Info Toast */
 .toast-info {
-  background: #eff6ff;
+  background: rgba(240, 250, 245, 0.82);
   border: 1px solid #dbeafe;
-  color: #082f49;
+  color: #2e7d32;
 }
 
 .dark .toast-info {
-  background: rgba(59, 130, 246, 0.15);
+  background: rgba(127, 201, 168, 0.2);
   border-color: rgba(59, 130, 246, 0.3);
-  color: #bfdbfe;
+  color: #81c784;
 }
 
 .toast-info .toast-icon {
@@ -202,16 +202,6 @@
 @media (max-width: 480px) {
   .toast-container {
     left: 12px;
-    right: 12px;
-    max-width: none;
-  }
-
-  .toast {
-    min-height: 44px;
-    font-size: 13px;
-  }
-
-  .toast-message {
-    font-size: 13px;
+    bottom: 12px;
   }
 }

@@ -131,7 +131,7 @@
 
 /* Placeholder text styling */
 .form-input::placeholder {
-  color: #94a3b8;
+  color: var(--text-primary, #2e7d32);
 }
 
 /* Eye icon button to toggle password visibility */
@@ -141,12 +141,12 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #94a3b8;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   transition: color 0.3s ease;
+  color: var(--text-primary, #2e7d32);
 }
 
 /* Icon color change on hover */
@@ -469,12 +469,9 @@
 }
 
 .dark .form-input::placeholder {
-  color: var(--text-tertiary);
+  color: #81c784 !important;
 }
 
-.dark .input-icon {
-  color: var(--text-tertiary);
-}
 
 .dark .form-link {
   color: var(--accent-orange);

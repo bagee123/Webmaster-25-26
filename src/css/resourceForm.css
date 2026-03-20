@@ -78,6 +78,8 @@
   color: var(--text-primary, #2e7d32);
 }
 
+
+
 .resource-form__input:focus,
 .resource-form__textarea:focus,
 .resource-form__select:focus {
