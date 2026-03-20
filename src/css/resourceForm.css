@@ -75,7 +75,7 @@
 
 .resource-form__input::placeholder,
 .resource-form__textarea::placeholder {
-  color: var(--text-tertiary, #888888);
+  color: var(--text-primary, #2e7d32);
 }
 
 .resource-form__input:focus,
