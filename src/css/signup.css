@@ -130,6 +130,18 @@
   box-shadow: 0 0 0 3px rgba(127, 201, 168, 0.1);
 }
 
+/* Disable autofill background color */
+.form-input:-webkit-autofill,
+.form-input:-webkit-autofill:hover,
+.form-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #2e7d32 !important;
+}
+
+.form-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px white inset, 0 0 0 3px rgba(127, 201, 168, 0.1) !important;
+}
+
 .form-input::placeholder {
   color: var(--text-primary, #2e7d32);
 }
