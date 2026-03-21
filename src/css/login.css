@@ -78,14 +78,16 @@
 }
 
 /* Individual form field container */
-.form-group {
+.login-form .form-group,
+.forgot-password-form .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 /* Form labels above inputs */
-.form-group label {
+.login-form .form-group label,
+.forgot-password-form .form-group label {
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
@@ -120,6 +122,12 @@
   box-sizing: border-box;
   background: var(--input-bg);
   color: #000000;
+}
+
+.login-form .input-wrapper .form-input,
+.forgot-password-form .input-wrapper .form-input {
+  padding-left: 48px !important;
+  padding-right: 44px;
 }
 
 /* Focus state - highlight border and add subtle shadow */
@@ -464,7 +472,8 @@
   color: #f87171;
 }
 
-.dark .form-group label {
+.dark .login-form .form-group label,
+.dark .forgot-password-form .form-group label {
   color: var(--text-primary);
 }
 
