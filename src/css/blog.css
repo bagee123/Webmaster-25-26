@@ -420,6 +420,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(12px, 2vw, 16px);
+  margin-bottom: 12px;
 }
 
 @media (min-width: 640px) {
@@ -445,8 +446,26 @@
   box-shadow: 0 0 0 3px rgba(127, 201, 168, 0.1);
 }
 
+.blog-newsletter-input.is-invalid {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
 .blog-newsletter-input::placeholder {
   color: var(--text-tertiary, #999);
+}
+
+.blog-newsletter-input:-webkit-autofill,
+.blog-newsletter-input:-webkit-autofill:hover,
+.blog-newsletter-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px var(--card-bg, white) inset !important;
+  -webkit-text-fill-color: var(--text-primary, #333) !important;
+  caret-color: var(--text-primary, #333);
+  transition: background-color 5000s ease-in-out;
+}
+
+.blog-newsletter-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px var(--card-bg, white) inset, 0 0 0 3px rgba(127, 201, 168, 0.1) !important;
 }
 
 .blog-newsletter-btn {
@@ -469,6 +488,20 @@
 
 .blog-newsletter-btn:active {
   transform: translateY(0);
+}
+
+.blog-newsletter-message {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.blog-newsletter-message.success {
+  color: #15803d;
+}
+
+.blog-newsletter-message.error {
+  color: #b91c1c;
 }
 
 /* Animations */
@@ -665,8 +698,26 @@
   box-shadow: 0 0 0 3px rgba(129, 199, 132, 0.1);
 }
 
+.dark .blog-newsletter-input.is-invalid {
+  border-color: #f87171;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.16);
+}
+
 .dark .blog-newsletter-input::placeholder {
   color: #64748b;
+}
+
+.dark .blog-newsletter-input:-webkit-autofill,
+.dark .blog-newsletter-input:-webkit-autofill:hover,
+.dark .blog-newsletter-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
+  -webkit-text-fill-color: #e2e8f0 !important;
+  caret-color: #e2e8f0;
+  transition: background-color 5000s ease-in-out;
+}
+
+.dark .blog-newsletter-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #121212 inset, 0 0 0 3px rgba(129, 199, 132, 0.1) !important;
 }
 
 .dark .blog-newsletter-btn {
@@ -675,6 +726,14 @@
 
 .dark .blog-newsletter-btn:hover {
   box-shadow: 0 4px 16px rgba(129, 199, 132, 0.3);
+}
+
+.dark .blog-newsletter-message.success {
+  color: #86efac;
+}
+
+.dark .blog-newsletter-message.error {
+  color: #fca5a5;
 }
 
 /* Blog Actions Bar */

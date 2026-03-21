@@ -78,6 +78,8 @@ const categories = ['All', 'Community', 'Volunteering', 'Health', 'Education', '
 export default function Blog() {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterMessage, setNewsletterMessage] = useState({ type: '', text: '' });
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('newest');
@@ -194,6 +196,26 @@ export default function Blog() {
       return;
     }
     navigate('/blog/write');
+  };
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+
+    const trimmedEmail = newsletterEmail.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!trimmedEmail) {
+      setNewsletterMessage({ type: 'error', text: 'Please enter your email.' });
+      return;
+    }
+
+    if (!emailPattern.test(trimmedEmail)) {
+      setNewsletterMessage({ type: 'error', text: 'Please enter a valid email address.' });
+      return;
+    }
+
+    setNewsletterMessage({ type: 'success', text: "You've been added." });
+    setNewsletterEmail('');
   };
 
   const handleSubmitPost = async (e) => {
@@ -413,16 +435,34 @@ export default function Blog() {
             <p className="blog-newsletter-subtitle">
               Subscribe to our newsletter for the latest community stories and updates
             </p>
-            <div className="blog-newsletter-form">
+            <form className="blog-newsletter-form" onSubmit={handleNewsletterSubmit} noValidate>
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="blog-newsletter-input"
+                className={`blog-newsletter-input ${newsletterMessage.type === 'error' ? 'is-invalid' : ''}`}
+                value={newsletterEmail}
+                onChange={(e) => {
+                  setNewsletterEmail(e.target.value);
+                  if (newsletterMessage.text) {
+                    setNewsletterMessage({ type: '', text: '' });
+                  }
+                }}
+                aria-label="Email address"
+                aria-invalid={newsletterMessage.type === 'error'}
               />
-              <button className="blog-newsletter-btn">
+              <button type="submit" className="blog-newsletter-btn">
                 Subscribe
               </button>
-            </div>
+            </form>
+            {newsletterMessage.text && (
+              <p
+                className={`blog-newsletter-message ${newsletterMessage.type}`}
+                role="status"
+                aria-live="polite"
+              >
+                {newsletterMessage.text}
+              </p>
+            )}
           </div>
         </section>
       </div>
