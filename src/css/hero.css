@@ -517,7 +517,7 @@
 
 /* Dark Mode Support */
 :root[data-theme='dark'] .hero-overlay {
-    background: #1a1a2a;
+    background: #1a1a1a;
     backdrop-filter: blur(2px);
 }
 

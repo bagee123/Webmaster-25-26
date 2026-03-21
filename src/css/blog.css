@@ -555,7 +555,7 @@
 
 /* Dark Mode */
 .dark .blog-hero {
-  background: #161829;
+  background: #161616;
 }
 
 .dark .blog-container {
@@ -646,8 +646,8 @@
 }
 
 .dark .blog-newsletter {
-  background: #1a1a2a;
-  border-top-color: #1e1e1e;
+  background: #1a1a1a;
+  border-top-color: #2a2a2a;
 }
 
 .dark .blog-newsletter-subtitle {

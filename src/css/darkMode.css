@@ -30,16 +30,16 @@
   --text-tertiary: #b0b0b0;
   --border-color: #404040;
   --shadow: rgba(0, 0, 0, 0.5);
-  --accent-orange: #81c784;
-  --accent-orange-light: #81c784;
-  --accent-pink: #81c784;
-  --accent-purple: #81c784;
+  --accent-orange: #7fc9a8;
+  --accent-orange-light: #a8dcc5;
+  --accent-pink: #7fc9a8;
+  --accent-purple: #7fc9a8;
   --card-bg: #1e1e1e;
-  --input-bg: #121212;
-  /* Dark mode: solid green for buttons */
-  --btn-gradient: #388e71;
-  --btn-gradient-hover: #2e7d32;
-  --btn-shadow: rgba(56, 142, 113, 0.4);
+  --input-bg: #1a1a1a;
+  /* Dark mode: mint green for buttons — matches light mode brand color */
+  --btn-gradient: #7fc9a8;
+  --btn-gradient-hover: #6abfa0;
+  --btn-shadow: rgba(127, 201, 168, 0.4);
 }
 
 /* General Dark Mode Styles */
@@ -84,17 +84,17 @@
 }
 
 .dark .nav-login-btn {
-  background: #388e71;
+  background: #7fc9a8;
   color: white;
 }
 
 .dark .nav-signup-btn {
-  background: #388e71;
+  background: #7fc9a8;
   color: white;
 }
 
 .dark .event-card-button {
-  background: #388e71 !important;
+  background: #7fc9a8 !important;
   color: white !important;
 }
 
@@ -240,18 +240,18 @@
 /* Buttons Dark Mode */
 .dark .btn,
 .dark button {
-  background-color: #388e71;
+  background-color: #7fc9a8;
   color: white;
-  border-color: #388e71;
+  border-color: #7fc9a8;
 }
 
 .dark .btn:hover,
 .dark button:hover {
-  background-color: #2e7d32;
+  background-color: #6abfa0;
 }
 
 .dark .btn-submit:hover {
-  background: #2e7d32 !important;
+  background: #6abfa0 !important;
 }
 
 
@@ -271,10 +271,10 @@
 
 .dark .events-category-btn.active,
 .dark .category-btn.active {
-  background: #388e71 !important;
+  background: #7fc9a8 !important;
   color: white !important;
   border-color: transparent !important;
-  box-shadow: 0 4px 12px rgba(56, 142, 113, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(127, 201, 168, 0.3) !important;
 }
 
 /* Search Bar Dark Mode */
@@ -425,12 +425,12 @@
 }
 
 .dark .social-btn:hover {
-  background: #388e71 !important;
+  background: #7fc9a8 !important;
   color: white !important;
 }
 
 .dark .logo-circle {
-  background: #388e71 !important;
+  background: #7fc9a8 !important;
 }
 
 /* Modal Dark Mode */
@@ -533,7 +533,7 @@
 /* CTA Sections Dark Mode */
 .dark .calendar-cta,
 .dark .highlight-cta {
-  background: #1a1a2a;
+  background: #1a1a1a;
 }
 
 .dark .calendar-cta-content h2 {
@@ -582,18 +582,12 @@
   background: var(--card-bg);
   color: var(--text-secondary);
   border-color: var(--border-color);
-    background: #2d5016;
-    border-color: #3d6b1f;
-    color: #c8e6c9;
 }
 
 .dark .category-btn:hover {
   border-color: var(--accent-orange);
   color: var(--accent-orange);
   background: var(--bg-tertiary);
-    background: #3d6b1f;
-    border-color: #5a8c3a;
-    color: #e8f5e9;
 }
 
 .dark .category-btn.active {
@@ -614,7 +608,7 @@
 
 /* Events Hero Dark Mode */
 .dark .events-hero {
-  background: #161829;
+  background: #161616;
 }
 
 .dark .events-hero h1,
@@ -624,7 +618,7 @@
 
 /* Resources Hero Dark Mode */
 .dark .resources-hero {
-  background: #161829;
+  background: #161616;
 }
 
 .dark .resources-hero h1,
@@ -693,13 +687,12 @@
 }
 
 /* Highlights Section Dark Mode */
-/* Highlights Section Dark Mode */
 .dark .highlights-section {
-  background: #1a1a2a;
+  background: #1a1a1a;
 }
 
 .dark .highlights-header h2 {
-  background: #81c784;
+  background: #7fc9a8;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -729,7 +722,7 @@
 
 /* Events Strip Dark Mode */
 .dark .events-section {
-  background: #1a1a2a;
+  background: #1a1a1a;
 }
 
 .dark .events-header h3 {
@@ -751,7 +744,7 @@
 }
 
 .dark .event-date-badge {
-  background: #81c784 !important;
+  background: #7fc9a8 !important;
 }
 
 .dark .event-details h4 {
@@ -786,7 +779,7 @@
 }
 
 .dark .directory-header h2 {
-  background: #81c784;
+  background: #7fc9a8;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -869,7 +862,7 @@
 /* Resource Form Dark Mode */
 
 .dark .resource-form__title {
-  color: #81c784;
+  color: #7fc9a8;
 }
 
 .dark .resource-form__form label {
@@ -879,37 +872,37 @@
 .dark .resource-form__field input,
 .dark .resource-form__field textarea,
 .dark .resource-form__field select {
-  background: #ffffff;
-  color: #81c784;
-  border-color: #8fe0c6;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border-color: #404040;
 }
 
 .dark .resource-form__field input::placeholder,
 .dark .resource-form__field textarea::placeholder {
-  color: #888888;
+  color: #777777;
 }
 
 .dark .resource-form__field input:focus,
 .dark .resource-form__field textarea:focus,
 .dark .resource-form__field select:focus {
-  background: #ffffff;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  background: #1e1e1e;
+  border-color: #7fc9a8;
+  box-shadow: 0 0 0 3px rgba(127, 201, 168, 0.2);
 }
 
 .dark .resource-form__submit {
-  background: #81c784;
+  background: #7fc9a8;
   color: white;
 }
 
 .dark .resource-form__submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(129, 199, 132, 0.3);
+  box-shadow: 0 10px 25px rgba(127, 201, 168, 0.3);
 }
 
 /* Calendar CTA Section Dark Mode */
 .dark .calendar-cta-section {
-  background: #161829;
+  background: #161616;
 }
 
 .dark .calendar-cta-section h2,
@@ -1089,13 +1082,13 @@
 }
 
 .dark .login-button {
-  background: #81c784;
-  box-shadow: 0 4px 15px rgba(129, 199, 132, 0.4);
+  background: #7fc9a8;
+  box-shadow: 0 4px 15px rgba(127, 201, 168, 0.4);
 }
 
 .dark .signup-button {
-  background: #81c784;
-  box-shadow: 0 4px 15px rgba(129, 199, 132, 0.4);
+  background: #7fc9a8;
+  box-shadow: 0 4px 15px rgba(127, 201, 168, 0.4);
 }
 
 .dark .login-button:hover:not(:disabled) {
@@ -1112,7 +1105,7 @@
 
 /* Testimonial Section Dark Mode */
 .dark .testimonial-avatar {
-  background: #81c784;
+  background: #7fc9a8;
 }
 
 /* Submit Resource Section Dark Mode */
@@ -1158,7 +1151,7 @@
 
 .dark .resource-form__input::placeholder,
 .dark .resource-form__textarea::placeholder {
-  color: #81c784 !important;
+  color: #888888 !important;
 }
 
 .dark .resource-form__input:focus,
@@ -1170,44 +1163,45 @@
 }
 
 .dark .resource-form__submit {
-  background: #81c784 !important;
+  background: #7fc9a8 !important;
   color: white !important;
 }
 
 .dark .resource-form__submit:hover {
-  box-shadow: 0 8px 20px rgba(129, 199, 132, 0.3) !important;
+  box-shadow: 0 8px 20px rgba(127, 201, 168, 0.3) !important;
 }
 
 .dark .resource-form__input:-webkit-autofill,
 .dark .resource-form__textarea:-webkit-autofill,
 .dark .resource-form__select:-webkit-autofill{
-  -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important;
-  -webkit-text-fill-color: #81c784 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
   transition: background-color 5000s ease-in-out;
 }
 
 .dark .form-input:-webkit-autofill{
-  -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important;
-  -webkit-text-fill-color: #81c784 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
   transition: background-color 5000s ease-in-out;
 }
 
 .dark  .blog-create-btn{
-  background: #81c784;
+  background: #7fc9a8;
 }
 
 .dark .cta-btn-primary{
-  background: #81c784 !important;
+  background: #7fc9a8 !important;
   color: white !important;
 }
 
 .dark .cta-btn-secondary{
-  background: #81c784 !important;
-  color: white !important;
+  background: transparent !important;
+  color: #7fc9a8 !important;
+  border: 2px solid #7fc9a8 !important;
 }
 
 .dark .blog-newsletter-title{
-  background: #81c784 !important;
+  background: #7fc9a8 !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
