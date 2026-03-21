@@ -62,6 +62,7 @@
   padding: 0;
 }
 
+
 .blog-detail-back-link:hover {
   color: white;
   transform: translateX(-4px);
@@ -70,7 +71,7 @@
 .blog-detail-category {
   display: inline-block;
   padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 16px);
-  background: var(--btn-gradient);
+  background: none;
   color: white;
   border-radius: clamp(8px, 1vw, 12px);
   font-size: 12px;
@@ -424,6 +425,11 @@
 }
 
 /* Dark Mode */
+.dark .blog-detail-back-link {
+  background: none !important;
+  border-color: transparent !important;
+}
+
 .dark .blog-detail-container {
   background: #121212;
 }
