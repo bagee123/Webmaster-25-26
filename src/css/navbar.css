@@ -54,7 +54,7 @@
 }
 
 .logo-text {
-  color: #2e7d32;
+  color: #81c784;
   font-weight: 600;
   font-size: 0.95rem;
   white-space: nowrap;
@@ -74,7 +74,7 @@
 
 .nav-link {
   position: relative;
-  color: #2e7d32;
+  color: #81c784;
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
@@ -83,11 +83,11 @@
 }
 
 .nav-link:hover {
-  color: var(--accent-orange, #7fc9a8);
+  color: #81c784;
 }
 
 .nav-link-active {
-  color: var(--accent-orange, #7fc9a8);
+  color: #81c784;
 }
 
 .nav-underline {
@@ -194,7 +194,7 @@
 .nav-link-mobile {
   display: block;
   padding: 0.75rem 0;
-  color: #555555;
+  color: #81c784;
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
@@ -202,11 +202,11 @@
 }
 
 .nav-link-mobile:hover {
-  color: #7fc9a8;
+  color: #81c784;
 }
 
 .nav-link-mobile-active {
-  color: #7fc9a8;
+  color: #81c784;
 }
 
 .nav-login-btn-mobile {

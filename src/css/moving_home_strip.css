@@ -1,7 +1,7 @@
 .ticker{
-  background: "white";
+  background: #f3fbf7;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid #81c784;
   
 }
 
@@ -10,6 +10,7 @@
   margin-right: 160px;
   font-size: 20px;
   font-family: "Segoe UI",Arial,sans-serif;
+  color: #81c784;
 }
 
 .ticker-item:after{
@@ -20,12 +21,12 @@
 }
 
 .dark .ticker{
-  background: "black";
-  border: 1px solid white;
+  background: #121212;
+  border: 1px solid #81c784;
 }
 
 .dark .ticker-item{
-  color: #ddd;
+  color: #81c784;
 }
 
 .ticker-item:hover{

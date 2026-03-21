@@ -121,7 +121,7 @@
   transition: all 0.3s ease;
   box-sizing: border-box;
   background: #ffffff;
-  color: #2e7d32;
+  color: #81c784;
 }
 
 .form-input:focus {
@@ -135,15 +135,28 @@
 .form-input:-webkit-autofill:hover,
 .form-input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
-  -webkit-text-fill-color: #2e7d32 !important;
+  -webkit-text-fill-color: #81c784 !important;
+  transition: background-color 5000s ease-in-out;
 }
 
 .form-input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 30px white inset, 0 0 0 3px rgba(127, 201, 168, 0.1) !important;
 }
 
+.dark .form-input:-webkit-autofill,
+.dark .form-input:-webkit-autofill:hover,
+.dark .form-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
+  -webkit-text-fill-color: #81c784 !important;
+  transition: background-color 5000s ease-in-out;
+}
+
+.dark .form-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #121212 inset, 0 0 0 3px rgba(127, 201, 168, 0.2) !important;
+}
+
 .form-input::placeholder {
-  color: var(--text-primary, #2e7d32);
+  color: #81c784;
 }
 
 .password-toggle {
@@ -399,12 +412,12 @@
 }
 
 .dark .google-signup {
-  background-color: #121212;
-  color: #e2e8f0;
-  border: 2px solid #1e1e1e;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
 }
 
 .dark .google-signup:hover {
-  background-color: #1e1e1e;
-  border-color: #404040;
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-orange);
 }

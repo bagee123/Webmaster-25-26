@@ -19,6 +19,10 @@
   color: var(--accent-orange);
 }
 
+.dark .calendar-cta-icon{
+  color: white;
+}
+
 .calendar-cta-content h2 {
   font-size: 1.875rem;
   font-weight: 700;

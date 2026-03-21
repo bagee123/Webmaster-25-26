@@ -227,13 +227,13 @@
   font-size: 16px;
   font-family: inherit;
   background: var(--bg-primary);
-  color: var(--text-primary);
+  color: #81c784;
   transition: all 0.2s ease;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: var(--text-primary, #2e7d32);
+  color: #81c784;
 }
 
 .form-group input:focus,
@@ -260,9 +260,9 @@
 .form-group textarea:-webkit-autofill:focus,
 .form-group textarea:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
-  -webkit-text-fill-color: #1a1a1a !important;
+  -webkit-text-fill-color: #81c784 !important;
   border: 2px solid #e5e7eb !important;
-  caret-color: #1a1a1a !important;
+  caret-color: #81c784 !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
 
@@ -405,9 +405,9 @@
 .dark .form-group textarea:-webkit-autofill:focus,
 .dark .form-group textarea:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important;
-  -webkit-text-fill-color: #81c784 !important;
-  border: 2px solid #1e1e1e !important;
-  caret-color: #81c784 !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  border: 2px solid #404040 !important;
+  caret-color: var(--text-primary) !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
 
