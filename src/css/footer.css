@@ -127,12 +127,9 @@
   background: #f0f0f0;
   color: #2e7d32;
   transition: background-color 180ms ease, color 180ms ease;
+  border: 1px solid #2e7d32 !important;
 }
 
-.social-btn:hover {
-  background: #2e7d32;
-  color: white;
-}
 
 .footer-bottom {
   padding-top: 2rem;
