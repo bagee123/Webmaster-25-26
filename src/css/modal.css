@@ -284,21 +284,23 @@
 }
 
 .dark .btn-favorite {
-  border-color: #81c784;
-  color: #81c784;
+  border-color: #ffffff;
+  color: #ffffff;
+  background: transparent !important;
 }
 
 .dark .btn-favorite:hover {
-  background: rgba(129, 199, 132, 0.12);
+  background: transparent !important;
 }
 
 .dark .btn-favorite.active {
-  background: #81c784;
+  background: #81c784 !important;
   color: white;
   border-color: transparent;
 }
 
 .dark .btn-favorite.active:hover {
+  background: #81c784 !important;
   box-shadow: 0 8px 16px rgba(129, 199, 132, 0.4);
 }
 

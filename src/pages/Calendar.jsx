@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Clock, MapPin, X, Heart } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, MapPin, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
@@ -165,13 +165,6 @@ export default function Calendar() {
                       title={userEvents.includes(event.id) ? 'Saved to favorites' : 'Save to favorites'}
                     >
                       <Heart size={18} fill={userEvents.includes(event.id) ? 'currentColor' : 'none'} />
-                    </button>
-                    <button
-                      onClick={() => toggleUserEvent(event.id)}
-                      className="event-remove"
-                      title="Remove from calendar"
-                    >
-                      <X size={20} />
                     </button>
                   </div>
                 </div>

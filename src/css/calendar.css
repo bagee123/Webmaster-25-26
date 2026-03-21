@@ -53,13 +53,15 @@
   max-width: 1000px;
   margin: 0 auto 3rem;
   background: var(--card-bg, white);
+  border: 1px solid var(--border-color, #e5e7eb);
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .dark .calendar-container {
-  background: #2e7d32;
+  background: var(--card-bg, #1e1e1e);
+  border-color: var(--border-color, #404040);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -98,17 +100,18 @@
 }
 
 .nav-button:hover {
-  background: var(--bg-secondary, #f9fafb);
+  background: transparent;
   transform: scale(1.1);
 }
 
 .dark .nav-button {
   border-color: #555555;
   color: white;
+  background: none !important;
 }
 
 .dark .nav-button:hover {
-  background: #555555;
+  background: transparent;
 }
 
 .calendar-grid {
@@ -210,12 +213,12 @@
 .day-number {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-primary, #1a1a1a);
+  color: var(--accent-orange, #7fc9a8);
   margin-bottom: 0.25rem;
 }
 
 .dark .day-number {
-  color: white;
+  color: var(--accent-orange, #7fc9a8);
 }
 
 .day-events {
@@ -328,7 +331,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1.5rem;
-  background: var(--card-bg, white);
+  background: transparent;
   border-left: 4px solid var(--accent-orange, #7fc9a8);
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -340,7 +343,7 @@
 }
 
 .dark .event-item {
-  background: #2e7d32;
+  background: transparent;
 }
 
 .event-actions {
@@ -416,7 +419,7 @@
 }
 
 .event-save {
-  background: none;
+  background: transparent !important;
   border: none;
   cursor: pointer;
   color: var(--text-secondary, #999);
@@ -429,12 +432,24 @@
   flex-shrink: 0;
 }
 
+.event-save:focus,
+.event-save:focus-visible,
+.event-save:active,
+.event-save.active,
+.dark .event-save,
+.dark .event-save:focus,
+.dark .event-save:focus-visible,
+.dark .event-save:active,
+.dark .event-save.active {
+  background: transparent !important;
+}
+
 .event-save svg {
   stroke: currentColor;
 }
 
 .event-save:hover {
-  background: rgba(127, 201, 168, 0.1);
+  background: transparent;
   color: var(--accent-orange, #7fc9a8);
 }
 
@@ -448,7 +463,7 @@
 }
 
 .event-save.active:hover {
-  background: rgba(127, 201, 168, 0.1);
+  background: transparent;
 }
 
 .event-save:has-next-sibling .event-remove {
@@ -456,7 +471,7 @@
 }
 
 .dark .event-save:hover {
-  background: rgba(129, 199, 132, 0.15);
+  background: transparent;
   color: var(--accent-orange);
 }
 
@@ -470,7 +485,7 @@
 }
 
 .dark .event-save.active:hover {
-  background: rgba(129, 199, 132, 0.15);
+  background: transparent;
   color: var(--accent-orange);
 }
 

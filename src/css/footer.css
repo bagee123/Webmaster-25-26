@@ -61,7 +61,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #2e7d32;
+  background: var(--btn-gradient);
 }
 
 .logo-letter {
@@ -70,8 +70,12 @@
 }
 
 .brand-name {
-  color: var(--text-primary, #ffffff);
+  color: #81c784;
   font-weight: 600;
+}
+
+.dark .brand-name {
+  color: var(--text-primary, #ffffff);
 }
 
 .footer-root p,

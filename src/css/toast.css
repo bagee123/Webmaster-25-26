@@ -19,6 +19,8 @@
   padding: 18px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   animation: slideInRight 0.3s ease-out;
   pointer-events: auto;
   min-height: 60px;
@@ -69,7 +71,7 @@
 
 /* Success Toast */
 .toast-success {
-  background: rgba(240, 250, 245, 0.82);
+  background: rgba(240, 250, 245, 0.38);
   border: 1px solid #d1fae5;
   color: #2e7d32;
 }
@@ -98,7 +100,7 @@
 
 /* Error Toast */
 .toast-error {
-  background: rgba(254, 242, 242, 0.82);
+  background: rgba(254, 242, 242, 0.38);
   border: 1px solid #fee2e2;
   color: #7f1d1d;
 }
@@ -127,7 +129,7 @@
 
 /* Warning Toast */
 .toast-warning {
-  background: rgba(255, 251, 235, 0.82);
+  background: rgba(255, 251, 235, 0.38);
   border: 1px solid #fef3c7;
   color: #78350f;
 }
@@ -156,7 +158,7 @@
 
 /* Info Toast */
 .toast-info {
-  background: rgba(240, 250, 245, 0.82);
+  background: rgba(240, 250, 245, 0.38);
   border: 1px solid #dbeafe;
   color: #2e7d32;
 }
