@@ -179,11 +179,6 @@
   color: #ffffff !important;
 }
 
-/* Icon color change on hover */
-.password-toggle:hover {
-  color: #7fc9a8;
-}
-
 /* Container for remember me and forgot password */
 .form-options {
   display: flex;
