@@ -217,6 +217,13 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+  background: none !important;
+  background-color: transparent !important;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 /* Forgot password link on hover */
@@ -477,6 +484,14 @@
   color: var(--text-primary);
 }
 
+.dark .forgot-password {
+  color: #7fc9a8;
+}
+
+.dark .forgot-password:hover {
+  color: #95dcc0;
+}
+
 .dark .form-input {
   background: var(--bg-primary);
   border-color: var(--border-color);
@@ -654,7 +669,7 @@
 
 /* Dark mode support for forgot password modal */
 .dark .forgot-password-modal {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
 }
 
 .dark .forgot-password-header h2 {
