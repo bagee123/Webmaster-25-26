@@ -715,7 +715,7 @@
   overflow: hidden;
 }
 
-.dark-mode .navbar-logout-modal {
+.dark .navbar-logout-modal {
   background: var(--card-bg, #1e1e1e);
 }
 
@@ -735,7 +735,7 @@
   border-bottom: 1px solid var(--border-color, #e0e0e0);
 }
 
-.dark-mode .navbar-logout-modal .modal-header {
+.dark .navbar-logout-modal .modal-header {
   border-bottom-color: var(--border-color, #333);
 }
 
@@ -746,7 +746,7 @@
   color: var(--text-primary, #333);
 }
 
-.dark-mode .navbar-logout-modal .modal-header h3 {
+.dark .navbar-logout-modal .modal-header h3 {
   color: var(--text-primary, #fff);
 }
 
@@ -760,7 +760,7 @@
   font-size: 15px;
 }
 
-.dark-mode .navbar-logout-modal .modal-body p {
+.dark .navbar-logout-modal .modal-body p {
   color: var(--text-secondary, #aaa);
 }
 
@@ -770,7 +770,7 @@
   margin-top: 0.75rem !important;
 }
 
-.dark-mode .navbar-logout-modal .modal-subtext {
+.dark .navbar-logout-modal .modal-subtext {
   color: var(--text-secondary, #888) !important;
 }
 
@@ -782,7 +782,7 @@
   justify-content: flex-end;
 }
 
-.dark-mode .navbar-logout-modal .modal-actions {
+.dark .navbar-logout-modal .modal-actions {
   border-top-color: var(--border-color, #333);
 }
 
@@ -803,8 +803,8 @@
   border: 1px solid var(--border-color, #d0d0d0);
 }
 
-.dark-mode .modal-btn-cancel {
-  background: var(--btn-bg-secondary, #2a2a2a);
+.dark .navbar-logout-modal .modal-btn-cancel {
+  background: transparent;
   color: var(--text-primary, #fff);
   border-color: var(--border-color, #444);
 }
@@ -813,8 +813,20 @@
   background: var(--btn-bg-secondary-hover, #e0e0e0);
 }
 
-.dark-mode .modal-btn-cancel:hover:not(:disabled) {
-  background: var(--btn-bg-secondary-hover, #3a3a3a);
+.dark .navbar-logout-modal .modal-btn-cancel:hover:not(:disabled) {
+  background: transparent;
+  border-color: var(--border-color, #666);
+}
+
+.dark .navbar-logout-modal .modal-btn-logout {
+  background: #ef4444;
+  border: 1px solid #ef4444;
+  color: #fff;
+}
+
+.dark .navbar-logout-modal .modal-btn-logout:hover:not(:disabled) {
+  background: #dc2626;
+  border-color: #dc2626;
 }
 
 .modal-btn-logout {
