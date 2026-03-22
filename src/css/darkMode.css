@@ -315,7 +315,8 @@
 .dark .events-search-input,
 .dark .search-input {
   background-color: var(--input-bg) !important;
-  color: var(--text-primary) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
   border: 1px solid var(--border-color) !important;
   box-shadow: 0 2px 8px var(--shadow) !important;
 }

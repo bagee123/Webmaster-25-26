@@ -69,7 +69,7 @@
   transition: border-color 240ms, box-shadow 240ms, background-color 240ms, color 240ms;
   box-shadow: 0 2px 8px var(--shadow, rgba(0, 0, 0, 0.04));
   background: var(--input-bg, #ffffff);
-  color: var(--text-primary, #333);
+  color: #000;
 }
 
 .search-input:focus {
@@ -669,7 +669,7 @@
 .dark .search-input {
   background: #1e1e1e;
   border-color: #1e1e1e;
-  color: #e2e8f0;
+  color: #fff;
 }
 
 .dark .search-input:focus {
