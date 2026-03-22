@@ -103,7 +103,11 @@
 }
 
 .dark .navbar-toggle {
-  color: var(--text-primary);
+  color: white;
+}
+
+.dark .navbar-toggle:hover {
+  color: #7fc9a8;
 }
 
 .dark .nav-link-mobile {
