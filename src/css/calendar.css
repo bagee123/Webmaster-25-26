@@ -291,7 +291,7 @@
 }
 
 .dark .no-events {
-  background: #2e7d32;
+  background: #1e1e1e;
 }
 
 .no-events p {
@@ -317,6 +317,7 @@
 .calendar-cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px var(--btn-shadow);
+  color: white;
 }
 
 .events-list {
