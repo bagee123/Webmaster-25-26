@@ -278,6 +278,12 @@
   background: var(--input-bg-disabled, #1a1a1a);
 }
 
+.dark .form-input:disabled {
+  background: var(--input-bg-disabled, #2b2b2b);
+  color: var(--text-secondary, #c2c2c2);
+  border-color: var(--border-color, #4a4a4a);
+}
+
 .form-input-disabled {
   background: var(--input-bg-disabled, #f5f5f5) !important;
   color: var(--text-secondary, #999) !important;
@@ -286,6 +292,12 @@
 
 .dark-mode .form-input-disabled {
   background: var(--input-bg-disabled, #1a1a1a) !important;
+}
+
+.dark .form-input-disabled {
+  background: var(--input-bg-disabled, #2b2b2b) !important;
+  color: var(--text-secondary, #c2c2c2) !important;
+  border-color: var(--border-color, #4a4a4a) !important;
 }
 
 /* Profile Info Display */

@@ -291,7 +291,11 @@
 }
 
 .dark .no-events {
-  background: #1e1e1e;
+  background: var(--card-bg, #1e1e1e);
+}
+
+.dark .no-events p {
+  color: #d0d0d0;
 }
 
 .no-events p {
