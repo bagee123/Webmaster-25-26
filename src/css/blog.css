@@ -786,7 +786,7 @@
 /* Blog Actions Bar */
 .blog-actions-bar {
   display: flex;
-  gap: 1rem;
+  gap: 10rem;
   margin-bottom: 1.5rem;
   align-items: center;
 }
