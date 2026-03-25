@@ -485,7 +485,7 @@
   outline: none;
   transition: all 0.3s ease;
   background: var(--card-bg, white);
-  color: var(--text-primary, #333);
+  color: black !important;
 }
 
 .blog-newsletter-input:focus {
