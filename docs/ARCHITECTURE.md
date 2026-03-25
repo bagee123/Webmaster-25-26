@@ -28,6 +28,8 @@ src/
 └── utils/           Validation, ID generation, utilities
 ```
 
+For full repository-level layout and conventions, see [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md).
+
 ---
 
 ## State Management
@@ -192,4 +194,5 @@ Total Chunks: 23
 
 [COMPONENTS.md](./COMPONENTS.md) - Component usage and APIs
 [SETUP.md](./SETUP.md) - Development environment setup
+[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) - Canonical folder organization
 [DEPLOYMENT.md](./DEPLOYMENT.md) - Production deployment guide

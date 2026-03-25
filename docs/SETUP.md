@@ -104,6 +104,17 @@ src/
 └── assets/       Images, icons
 ```
 
+For complete repository layout and conventions, see [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md).
+
+---
+
+## Repository Hygiene
+
+- Keep `serviceAccountKey.json` local-only for admin scripts; do not commit it.
+- Keep `.env` local-only; commit only `.env.example`.
+- Do not commit generated build output (`dist/`), caches, or coverage folders.
+- Run `npm run build` only for deployment artifacts, not source control.
+
 ---
 
 ## Creating New Pages
@@ -222,4 +233,5 @@ npm run dev -- --port 3000
 
 [ARCHITECTURE.md](./ARCHITECTURE.md) - System design
 [COMPONENTS.md](./COMPONENTS.md) - Component APIs
+[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) - Canonical folder organization
 [DEPLOYMENT.md](./DEPLOYMENT.md) - Production deployment

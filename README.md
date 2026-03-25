@@ -76,15 +76,18 @@ npm run lint        Check code quality
 ## Project Structure
 
 ```
-src/
-├── pages/           Route pages (lazy-loaded)
-├── components/      Reusable UI components
-├── context/         State management (Auth, Theme, Toast, Resources)
-├── utils/           Validation, ID generation, utilities
-├── css/             Component and page styles
-├── config/          Firebase configuration
-└── assets/          Images and icons
+CoppellCommunityHub/
+├── docs/            Technical documentation
+├── public/          Static assets served as-is
+├── scripts/         Admin/data scripts (Node)
+├── src/             React application source
+├── firebase.json    Firebase project config
+├── firestore.rules  Database security rules
+├── netlify.toml     Netlify deployment config
+└── package.json     Scripts and dependencies
 ```
+
+Detailed source organization and conventions: [PROJECT_STRUCTURE.md](./docs/PROJECT_STRUCTURE.md)
 
 ---
 
@@ -105,6 +108,7 @@ Security - Firebase security rules, email verification, input sanitization, pass
 [ARCHITECTURE.md](./docs/ARCHITECTURE.md) - System design, data models, component structure
 [COMPONENTS.md](./docs/COMPONENTS.md) - Component usage, hooks, validation utilities
 [SETUP.md](./docs/SETUP.md) - Development setup, Firebase config
+[PROJECT_STRUCTURE.md](./docs/PROJECT_STRUCTURE.md) - Canonical repo and `src/` layout
 [DEPLOYMENT.md](./docs/DEPLOYMENT.md) - Production deployment guide
 [SECURITY.md](./docs/SECURITY.md) - Security features and validation
 [FIRESTORE_INDEXES.md](./docs/FIRESTORE_INDEXES.md) - Database performance indexes
