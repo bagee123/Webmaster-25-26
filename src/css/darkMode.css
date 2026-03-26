@@ -328,6 +328,17 @@
   box-shadow: 0 4px 12px rgba(129, 199, 132, 0.2) !important;
 }
 
+.dark .forum-search input:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.dark .forum-search:focus-within {
+  border-color: var(--border-color) !important;
+  box-shadow: none !important;
+}
+
 .dark .events-search-input::placeholder,
 .dark .search-input::placeholder {
   color: var(--text-tertiary) !important;
