@@ -160,10 +160,15 @@
   color: #e0e0e0 !important;
 }
 
-.dark .card-badge,
+
 .dark .event-category-badge,
 .dark .badge {
   background-color: var(--bg-tertiary) !important;
+  color: var(--accent-orange) !important;
+}
+
+.dark .card-badge{
+  background: white !important;
   color: var(--accent-orange) !important;
 }
 
