@@ -240,7 +240,7 @@
 .btn-explore,
 .btn-submit {
     font-size: clamp(14px, 3.5vw, 16px);
-    white-space: nowrap;
+    white-space: normal;
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
@@ -270,7 +270,7 @@
     border: 2px solid #7fc9a8;
     color: white;
     padding: 14px 28px;
-    min-width: 180px;
+    min-width: min(180px, 100%);
     position: relative;
     border-radius: 9999px;
 }
@@ -347,7 +347,7 @@
     border: 2px solid #7fc9a8;
     color: white;
     padding: 14px 28px;
-    min-width: 180px;
+    min-width: min(180px, 100%);
     position: relative;
     border-radius: 9999px;
 }
@@ -408,10 +408,36 @@
     padding: 24px 40px;
     border: 1px solid rgba(127, 201, 168, 0.2);
     text-align: center;
-    min-width: 180px;
+    min-width: min(180px, 100%);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
     position: relative;
     overflow: hidden;
+}
+
+@media (max-width: 360px) {
+    .hero-buttons {
+        gap: 12px;
+        padding: 0 12px;
+        margin-bottom: 56px;
+    }
+
+    .btn-explore,
+    .btn-submit {
+        width: 100%;
+        max-width: 100%;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .hero-stats {
+        padding: 0 12px;
+    }
+
+    .stat-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 18px 16px;
+    }
 }
 
 .stat-card::before {
@@ -627,7 +653,7 @@
     }
 
     .stat-card {
-        min-width: 140px;
+        min-width: min(140px, 100%);
         padding: 16px 24px;
     }
 }

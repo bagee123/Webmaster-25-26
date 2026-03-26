@@ -229,7 +229,7 @@
 /* Featured Grid */
 .blog-featured-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
   gap: clamp(24px, 3vw, 32px);
 }
 
@@ -255,7 +255,7 @@
 /* Regular Grid */
 .blog-regular-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: clamp(24px, 3vw, 32px);
 }
 

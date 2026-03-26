@@ -163,3 +163,43 @@
     color: var(--text-primary);
     border-color: var(--border-color);
 }
+
+@media (max-width: 768px) {
+    .page-container {
+        padding: 24px 16px;
+    }
+
+    .page-container h2 {
+        font-size: 28px;
+    }
+
+    .contact-form,
+    .submit-form {
+        margin: 24px auto;
+        padding: 24px 16px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-container {
+        padding: 20px 12px;
+    }
+
+    .page-container h2 {
+        font-size: 24px;
+    }
+
+    .contact-form,
+    .submit-form {
+        padding: 20px 12px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .submit-form input,
+    .submit-form textarea,
+    .submit-form select {
+        font-size: 16px;
+    }
+}

@@ -119,6 +119,39 @@
     transition: box-shadow 0.3s ease;
 }
 
+@media (max-width: 640px) {
+    .events-section {
+        padding: 56px 0;
+    }
+
+    .events-container {
+        padding: 0 12px;
+    }
+
+    .events-header {
+        margin-bottom: 40px;
+    }
+
+    .events-header h3 {
+        font-size: 28px;
+    }
+
+    .events-scroll-container {
+        gap: 12px;
+        padding-bottom: 12px;
+        scroll-padding-inline: 12px;
+    }
+
+    .event-card {
+        width: min(320px, calc(100vw - 24px));
+        padding: 18px;
+    }
+
+    .events-fade-gradient {
+        display: none;
+    }
+}
+
 .event-card:hover {
     box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 }
