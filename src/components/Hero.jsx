@@ -9,14 +9,7 @@ export default function Hero() {
   const [isLoading, setIsLoading] = useState(false);
   const heroSectionRef = useRef(null);
 
-  const handleExploreClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      navigate('/resources');
-      window.scrollTo(0, 0);
-      setIsLoading(false);
-    }, 600);
-  };
+ 
 
   const handleSubmitClick = () => {
     const submitSection = document.getElementById('submit-resource');
@@ -60,7 +53,7 @@ export default function Hero() {
         <div className="hero-buttons">
           <button 
             className={`btn-explore ${isLoading ? 'loading' : ''}`}
-            onClick={handleExploreClick}
+            onClick={() => navigate('/resources')}
             disabled={isLoading}
           >
             <span className="btn-text">Explore Resources</span>
