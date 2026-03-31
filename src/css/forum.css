@@ -346,6 +346,10 @@
   border-color: #7fc9a8;
 }
 
+.dark .forum-search:focus-within {
+  border-color: var(--border-color);
+}
+
 .dark .forum-search {
   background: var(--bg-secondary);
   border-color: var(--border-color);

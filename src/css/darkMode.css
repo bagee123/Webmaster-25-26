@@ -160,10 +160,15 @@
   color: #e0e0e0 !important;
 }
 
-.dark .card-badge,
+
 .dark .event-category-badge,
 .dark .badge {
   background-color: var(--bg-tertiary) !important;
+  color: var(--accent-orange) !important;
+}
+
+.dark .card-badge{
+  background: white !important;
   color: var(--accent-orange) !important;
 }
 
@@ -326,6 +331,17 @@
   background-color: var(--input-bg) !important;
   border-color: var(--accent-orange) !important;
   box-shadow: 0 4px 12px rgba(129, 199, 132, 0.2) !important;
+}
+
+.dark .forum-search input:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.dark .forum-search:focus-within {
+  border-color: var(--border-color) !important;
+  box-shadow: none !important;
 }
 
 .dark .events-search-input::placeholder,
