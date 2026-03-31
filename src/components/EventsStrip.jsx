@@ -1,22 +1,274 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../config/firebase';
+import localEvents from '../data/events';
 import '../css/events.css';
 
-const events = [
-  { id: 1, name: 'Community Farmers Market', date: 'Dec 14, 2024', time: '8:00 AM', location: 'Town Square' },
-  { id: 2, name: 'Holiday Food Drive', date: 'Dec 20, 2024', time: '10:00 AM', location: 'Community Center' },
-  { id: 3, name: 'Free Health Fair', date: 'Jan 5, 2025', time: '9:00 AM', location: 'Recreation Center' },
-  { id: 4, name: 'Youth Arts Workshop', date: 'Jan 12, 2025', time: '2:00 PM', location: 'Library' },
-  { id: 5, name: 'Senior Social Gathering', date: 'Jan 18, 2025', time: '1:00 PM', location: 'Senior Center' },
-];
+const MAX_UPCOMING_EVENTS = 8;
+const AUTO_SCROLL_MS = 2600;
+
+const toDate = (value) => {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value?.toDate === 'function') {
+    return value.toDate();
+  }
+
+  if (value instanceof Date) {
+    return value;
+  }
+
+  if (typeof value === 'number') {
+    return new Date(value);
+  }
+
+  if (typeof value === 'string') {
+    const parsed = new Date(value);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed;
+    }
+  }
+
+  return null;
+};
+
+const getDateBadge = (value) => {
+  const parsedDate = toDate(value);
+  if (!parsedDate) {
+    return { month: 'UP', day: '!' };
+  }
+
+  return {
+    month: parsedDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
+    day: String(parsedDate.getDate())
+  };
+};
+
+const normalizeEvent = (event, fallbackId) => {
+  const dateValue = event.eventDate || event.date;
+  const parsedDate = toDate(dateValue);
+
+  return {
+    id: event.id ?? fallbackId,
+    name: event.name || 'Community Event',
+    date: event.date || (parsedDate ? parsedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date TBD'),
+    time: event.time || 'Time TBD',
+    location: event.location || event.address || 'Coppell',
+    eventDate: parsedDate
+  };
+};
+
+const sortByUpcomingDate = (a, b) => {
+  if (a.eventDate && b.eventDate) {
+    return a.eventDate - b.eventDate;
+  }
+
+  if (a.eventDate) {
+    return -1;
+  }
+
+  if (b.eventDate) {
+    return 1;
+  }
+
+  return 0;
+};
+
+const getCardsPerView = () => {
+  if (typeof window === 'undefined') {
+    return 3;
+  }
+
+  if (window.innerWidth <= 640) {
+    return 1;
+  }
+
+  if (window.innerWidth <= 1024) {
+    return 2;
+  }
+
+  return 3;
+};
 
 export default function EventsStrip() {
   const navigate = useNavigate();
+  const [events, setEvents] = useState([]);
+  const [cardsPerView, setCardsPerView] = useState(getCardsPerView);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
+
   const scrollWrapperRef = useRef(null);
   const scrollContainerRef = useRef(null);
+  const interactionTimeoutRef = useRef(null);
+  const activeIndexRef = useRef(0);
+  const isJumpingRef = useRef(false);
+
   const previousBodyOverflowRef = useRef('');
   const previousHtmlOverflowRef = useRef('');
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCardsPerView(getCardsPerView());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const fetchUpcomingEvents = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'events'));
+        const firebaseEvents = snapshot.docs
+          .map((doc, index) => normalizeEvent({ id: doc.id, ...doc.data() }, index + 1))
+          .sort(sortByUpcomingDate)
+          .slice(0, MAX_UPCOMING_EVENTS);
+
+        if (firebaseEvents.length > 0) {
+          setEvents(firebaseEvents);
+          return;
+        }
+      } catch (error) {
+        console.error('Error fetching events from Firestore:', error);
+      }
+
+      const fallbackEvents = localEvents
+        .map((event, index) => normalizeEvent(event, index + 1))
+        .sort(sortByUpcomingDate)
+        .slice(0, MAX_UPCOMING_EVENTS);
+
+      setEvents(fallbackEvents);
+    };
+
+    fetchUpcomingEvents();
+  }, []);
+
+  const mappedEvents = useMemo(() => {
+    return events.map((event) => {
+      const badge = getDateBadge(event.eventDate || event.date);
+      return {
+        ...event,
+        badgeMonth: badge.month,
+        badgeDay: badge.day
+      };
+    });
+  }, [events]);
+
+  const cloneCount = useMemo(() => {
+    if (mappedEvents.length === 0) {
+      return 0;
+    }
+
+    return Math.min(cardsPerView, mappedEvents.length);
+  }, [cardsPerView, mappedEvents.length]);
+
+  const loopedEvents = useMemo(() => {
+    if (mappedEvents.length === 0) {
+      return [];
+    }
+
+    if (mappedEvents.length === 1) {
+      return mappedEvents;
+    }
+
+    const head = mappedEvents.slice(0, cloneCount);
+    const tail = mappedEvents.slice(-cloneCount);
+
+    return [...tail, ...mappedEvents, ...head];
+  }, [cloneCount, mappedEvents]);
+
+  const realActiveIndex = useMemo(() => {
+    if (mappedEvents.length === 0) {
+      return 0;
+    }
+
+    if (mappedEvents.length === 1) {
+      return 0;
+    }
+
+    const normalized = (activeIndex - cloneCount) % mappedEvents.length;
+    return (normalized + mappedEvents.length) % mappedEvents.length;
+  }, [activeIndex, cloneCount, mappedEvents.length]);
+
+  const getCardOffsets = () => {
+    const container = scrollContainerRef.current;
+    if (!container) {
+      return [];
+    }
+
+    return Array.from(container.children).map((card) => card.offsetLeft);
+  };
+
+  const scrollToIndex = (index, behavior = 'smooth') => {
+    const container = scrollContainerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const offsets = getCardOffsets();
+    if (offsets.length === 0) {
+      return;
+    }
+
+    const maxIndex = offsets.length - 1;
+    const boundedIndex = Math.min(Math.max(index, 0), maxIndex);
+
+    container.scrollTo({
+      left: offsets[boundedIndex],
+      behavior
+    });
+    setActiveIndex(boundedIndex);
+  };
+
+  useEffect(() => {
+    if (mappedEvents.length === 0) {
+      return;
+    }
+
+    const initialIndex = mappedEvents.length > 1 ? cloneCount : 0;
+    setActiveIndex(initialIndex);
+
+    const container = scrollContainerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const setInitialPosition = () => {
+      const offsets = getCardOffsets();
+      if (offsets.length === 0) {
+        return;
+      }
+
+      container.scrollTo({
+        left: offsets[initialIndex] ?? 0,
+        behavior: 'auto'
+      });
+    };
+
+    setInitialPosition();
+    requestAnimationFrame(setInitialPosition);
+  }, [cloneCount, mappedEvents.length]);
+
+  const startInteractionCooldown = () => {
+    setIsUserInteracting(true);
+
+    if (interactionTimeoutRef.current) {
+      window.clearTimeout(interactionTimeoutRef.current);
+    }
+
+    interactionTimeoutRef.current = window.setTimeout(() => {
+      setIsUserInteracting(false);
+    }, 1300);
+  };
 
   useEffect(() => {
     const wrapper = scrollWrapperRef.current;
@@ -28,7 +280,7 @@ export default function EventsStrip() {
 
     const wheelInterceptor = (event) => {
       const canScrollHorizontally = container.scrollWidth > container.clientWidth;
-      if (!canScrollHorizontally) {
+      if (!canScrollHorizontally || mappedEvents.length <= 1) {
         return;
       }
 
@@ -40,26 +292,120 @@ export default function EventsStrip() {
       event.preventDefault();
       event.stopPropagation();
 
-      container.scrollBy({
-        left: delta,
-        behavior: 'smooth',
-      });
+      startInteractionCooldown();
+      const direction = delta > 0 ? 1 : -1;
+      scrollToIndex(activeIndexRef.current + direction);
     };
 
     wrapper.addEventListener('wheel', wheelInterceptor, { passive: false });
 
     return () => {
       wrapper.removeEventListener('wheel', wheelInterceptor);
+      if (interactionTimeoutRef.current) {
+        window.clearTimeout(interactionTimeoutRef.current);
+      }
       document.body.style.overflowY = previousBodyOverflowRef.current;
       document.documentElement.style.overflowY = previousHtmlOverflowRef.current;
     };
-  }, []);
+  }, [mappedEvents.length]);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || loopedEvents.length === 0) {
+      return undefined;
+    }
+
+    const handleScroll = () => {
+      if (isJumpingRef.current) {
+        return;
+      }
+
+      const offsets = getCardOffsets();
+      if (offsets.length === 0) {
+        return;
+      }
+
+      const currentLeft = container.scrollLeft;
+      let nearestIndex = 0;
+      let nearestDistance = Number.POSITIVE_INFINITY;
+
+      offsets.forEach((offset, index) => {
+        const distance = Math.abs(offset - currentLeft);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearestIndex = index;
+        }
+      });
+
+      setActiveIndex(nearestIndex);
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, [loopedEvents.length]);
+
+  useEffect(() => {
+    if (mappedEvents.length <= 1 || cloneCount === 0) {
+      return;
+    }
+
+    const startBoundary = cloneCount;
+    const endBoundary = cloneCount + mappedEvents.length - 1;
+
+    if (activeIndex < startBoundary || activeIndex > endBoundary) {
+      const correctedIndex = activeIndex < startBoundary
+        ? activeIndex + mappedEvents.length
+        : activeIndex - mappedEvents.length;
+
+      const container = scrollContainerRef.current;
+      if (!container) {
+        return;
+      }
+
+      const offsets = getCardOffsets();
+      if (offsets.length === 0) {
+        return;
+      }
+
+      isJumpingRef.current = true;
+      container.scrollTo({
+        left: offsets[correctedIndex] ?? 0,
+        behavior: 'auto'
+      });
+      setActiveIndex(correctedIndex);
+
+      const resetJumpFlag = () => {
+        isJumpingRef.current = false;
+      };
+
+      requestAnimationFrame(resetJumpFlag);
+    }
+  }, [activeIndex, cloneCount, mappedEvents.length]);
+
+  useEffect(() => {
+    if (mappedEvents.length <= 1 || isAutoScrollPaused || isUserInteracting) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      scrollToIndex(activeIndexRef.current + 1);
+    }, AUTO_SCROLL_MS);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [activeIndex, isAutoScrollPaused, isUserInteracting, mappedEvents.length]);
 
   const handleViewAll = () => {
     navigate('/events');
   };
 
   const handleScrollAreaEnter = () => {
+    setIsUserInteracting(true);
+
     if (!window.matchMedia('(pointer: fine)').matches) {
       return;
     }
@@ -74,8 +420,19 @@ export default function EventsStrip() {
   };
 
   const handleScrollAreaLeave = () => {
+    setIsUserInteracting(false);
     document.body.style.overflowY = previousBodyOverflowRef.current;
     document.documentElement.style.overflowY = previousHtmlOverflowRef.current;
+  };
+
+  const handleDotClick = (index) => {
+    startInteractionCooldown();
+    const destination = mappedEvents.length > 1 ? cloneCount + index : index;
+    scrollToIndex(destination);
+  };
+
+  const toggleAutoScroll = () => {
+    setIsAutoScrollPaused((prev) => !prev);
   };
 
   return (
@@ -98,13 +455,15 @@ export default function EventsStrip() {
           <div
             ref={scrollContainerRef}
             className="events-scroll-container"
+            onPointerDown={startInteractionCooldown}
+            onTouchStart={startInteractionCooldown}
           >
-            {events.map((event) => (
-              <div key={event.id} className="event-card">
+            {loopedEvents.map((event, index) => (
+              <div key={`${event.id}-${index}`} className="event-card">
                 <div className="event-content">
                   <div className="event-date-badge">
-                    <span className="date-month">DEC</span>
-                    <span className="date-day">14</span>
+                    <span className="date-month">{event.badgeMonth}</span>
+                    <span className="date-day">{event.badgeDay}</span>
                   </div>
                   <div className="event-details">
                     <h4>{event.name}</h4>
@@ -129,6 +488,32 @@ export default function EventsStrip() {
           </div>
           <div className="events-fade-gradient"></div>
         </div>
+
+        {mappedEvents.length > 0 && (
+          <div className="events-carousel-controls">
+            <div className="events-dots" aria-label="Event slide navigation">
+              {mappedEvents.map((event, index) => (
+                <button
+                  key={`dot-${event.id}`}
+                  type="button"
+                  className={`events-dot ${index === realActiveIndex ? 'active' : ''}`}
+                  onClick={() => handleDotClick(index)}
+                  aria-label={`Go to event ${index + 1}`}
+                  aria-pressed={index === realActiveIndex}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="events-autoplay-toggle"
+              onClick={toggleAutoScroll}
+              aria-pressed={isAutoScrollPaused}
+            >
+              {isAutoScrollPaused ? 'Resume Auto Scroll' : 'Pause Auto Scroll'}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

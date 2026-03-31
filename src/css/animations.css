@@ -344,23 +344,6 @@ button:active {
   box-shadow: 0 10px 24px rgba(127, 201, 168, 0.25);
 }
 
-/* Heading animations */
-h1, h2, h3 {
-  opacity: 1;
-}
-
-h1.animate, h2.animate, h3.animate {
-  animation: slideInUp 0.6s ease-out both;
-  will-change: transform, opacity;
-}
-
-.hero-content h1.animate { animation-delay: 0.2s; }
-.categories-header h3.animate { animation-delay: 0.1s; }
-.events-header h3.animate { animation-delay: 0.1s; }
-.highlights-header h2.animate { animation-delay: 0.1s; }
-.testimonial-header h2.animate { animation-delay: 0.1s; }
-.resource-form__title.animate { animation-delay: 0.2s; }
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,

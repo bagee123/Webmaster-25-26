@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Users, Sparkles } from 'lucide-react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../config/firebase';
 import DetailModal from './DetailModal';
 import '../css/highlights.css';
 
-const highlights = [
+const fallbackHighlights = [
   {
     id: 1,
     icon: Heart,
@@ -29,6 +31,33 @@ const highlights = [
     bgColor: 'amber-orange-light',
   },
 ];
+
+const colorPairs = [
+  { color: 'rose-pink', bgColor: 'rose-pink-light', icon: Heart },
+  { color: 'blue-cyan', bgColor: 'blue-cyan-light', icon: Users },
+  { color: 'amber-orange', bgColor: 'amber-orange-light', icon: Sparkles }
+];
+
+const normalizeResource = (resource, index) => {
+  const palette = colorPairs[index % colorPairs.length];
+  const numericId = Number(resource.id);
+
+  return {
+    id: resource.id ?? String(index + 1),
+    modalId: Number.isFinite(numericId) ? numericId : index + 1,
+    title: resource.name || resource.resourceName || 'Community Resource',
+    description: resource.description || 'Supporting Coppell families with essential local services.',
+    color: palette.color,
+    bgColor: palette.bgColor,
+    icon: palette.icon,
+    phone: resource.phone || '(555) 555-5555',
+    email: resource.email || 'info@coppellcommunityhub.com',
+    address: resource.address || 'Coppell, TX 75019',
+    hours: resource.hours || 'Mon-Fri 9AM-5PM',
+    website: resource.website || 'coppellcommunityhub.com',
+    category: resource.category || 'community'
+  };
+};
 
 const testimonials = [
   {
@@ -69,28 +98,84 @@ const testimonials = [
 ];
 
 export default function HighlightSpotlight() {
+  const [highlights, setHighlights] = useState(fallbackHighlights);
   const [selectedResource, setSelectedResource] = useState(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const interactionTimeoutRef = useRef(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+    const fetchFeaturedResources = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'resources'));
+        const firebaseHighlights = snapshot.docs
+          .map((doc, index) => normalizeResource({ id: doc.id, ...doc.data() }, index))
+          .slice(0, 3);
 
-    return () => clearInterval(interval);
+        if (firebaseHighlights.length > 0) {
+          setHighlights(firebaseHighlights);
+        }
+      } catch (error) {
+        console.error('Error fetching featured resources from Firestore:', error);
+      }
+    };
+
+    fetchFeaturedResources();
   }, []);
+
+  useEffect(() => {
+    if (isAutoScrollPaused || isUserInteracting) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 3800);
+
+    return () => window.clearTimeout(timer);
+  }, [currentTestimonial, isAutoScrollPaused, isUserInteracting]);
+
+  useEffect(() => {
+    return () => {
+      if (interactionTimeoutRef.current) {
+        window.clearTimeout(interactionTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const startInteractionCooldown = () => {
+    setIsUserInteracting(true);
+
+    if (interactionTimeoutRef.current) {
+      window.clearTimeout(interactionTimeoutRef.current);
+    }
+
+    interactionTimeoutRef.current = window.setTimeout(() => {
+      setIsUserInteracting(false);
+    }, 1600);
+  };
+
+  const handleTestimonialDotClick = (index) => {
+    startInteractionCooldown();
+    setCurrentTestimonial(index);
+  };
+
+  const toggleTestimonialAutoplay = () => {
+    setIsAutoScrollPaused((prev) => !prev);
+  };
 
   const handleLearnMore = (highlight) => {
     const resource = {
-      id: highlight.id,
+      id: highlight.modalId || Number(highlight.id) || 1,
       name: highlight.title,
-      category: highlight.color || 'community',
+      category: highlight.category || highlight.color || 'community',
       description: highlight.description,
-      phone: '(555) 555-5555',
-      email: 'info@placeholder.local',
-      address: '123 Service Street, Coppell, TX 75019',
-      hours: 'Mon-Fri 9AM-5PM',
-      website: 'example.org',
+      phone: highlight.phone || '(555) 555-5555',
+      email: highlight.email || 'info@coppellcommunityhub.com',
+      address: highlight.address || 'Coppell, TX 75019',
+      hours: highlight.hours || 'Mon-Fri 9AM-5PM',
+      website: highlight.website || 'coppellcommunityhub.com',
     };
     setSelectedResource(resource);
   };
@@ -133,7 +218,11 @@ export default function HighlightSpotlight() {
         {/* Testimonial Section - Auto-scrolling Carousel */}
         <div className="testimonial-section">
           <h3 className="testimonial-header">What Our Community Says</h3>
-          <div className="testimonial-carousel-auto">
+          <div
+            className="testimonial-carousel-auto"
+            onPointerDown={startInteractionCooldown}
+            onTouchStart={startInteractionCooldown}
+          >
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.id}
@@ -154,6 +243,30 @@ export default function HighlightSpotlight() {
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="testimonial-carousel-controls">
+            <div className="testimonial-dots" aria-label="Testimonial slide navigation">
+              {testimonials.map((testimonial, index) => (
+                <button
+                  key={`testimonial-dot-${testimonial.id}`}
+                  type="button"
+                  className={`testimonial-dot ${index === currentTestimonial ? 'active' : ''}`}
+                  onClick={() => handleTestimonialDotClick(index)}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                  aria-pressed={index === currentTestimonial}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="testimonial-autoplay-toggle"
+              onClick={toggleTestimonialAutoplay}
+              aria-pressed={isAutoScrollPaused}
+            >
+              {isAutoScrollPaused ? 'Resume Auto Scroll' : 'Pause Auto Scroll'}
+            </button>
           </div>
         </div>
       </div>

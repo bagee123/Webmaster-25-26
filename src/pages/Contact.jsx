@@ -168,7 +168,7 @@ export default function Contact() {
         subtitle="We'd love to hear from you. Send us a message and we'll respond as soon as possible."
       />
 
-      <div className="page-container">
+      <div className="page-container contact-page">
       <div className = "contact-stats">
         <div className="stat-card2">
           <Mail size={32} className="stat-icon" />
