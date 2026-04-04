@@ -4,7 +4,7 @@ import { Calendar, Clock, MapPin, Users, CheckCircle, Star } from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
-import reactLogo from '../assets/react.svg';
+import logoImage from '../assets/logo.jpeg';
 import '../css/eventCard.css';
 
 export default function EventCard({ event }) {
@@ -30,7 +30,7 @@ export default function EventCard({ event }) {
     <div className="event-card">
       <div className="event-card-image">
         <img 
-          src={reactLogo} 
+          src={logoImage} 
           alt={event.name}
           onLoad={() => setImageLoaded(true)}
           style={{ opacity: imageLoaded ? 1 : 0.5 }}

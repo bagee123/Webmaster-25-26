@@ -477,8 +477,8 @@
 }
 
 
-.dark .logo-circle {
-  background: #7fc9a8 !important;
+.dark .brand-logo {
+  border: 2px solid #7fc9a8;
 }
 
 /* Modal Dark Mode */

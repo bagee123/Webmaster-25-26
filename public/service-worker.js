@@ -10,7 +10,11 @@ const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/vite.svg',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/apple-touch-icon.png',
+  '/bg-less-logo.png',
+  '/logo.jpeg',
 ];
 
 // Install event - cache static assets

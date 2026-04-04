@@ -53,6 +53,14 @@
   flex-shrink: 0;
 }
 
+.logo-image {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .logo-text {
   color: #81c784;
   font-weight: 600;
@@ -861,10 +869,9 @@
     display: none;
   }
 
-  .logo-badge {
+  .logo-image {
     width: 2rem;
     height: 2rem;
-    font-size: 1rem;
   }
 
   .navbar-toggle {
@@ -1004,10 +1011,9 @@
     padding: 0 0.625rem;
   }
 
-  .logo-badge {
+  .logo-image {
     width: 1.875rem;
     height: 1.875rem;
-    font-size: 0.95rem;
   }
 
   .navbar-inner {

@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, LogIn, Moon, Sun, LogOut, Settings, Bookmark, Calendar, Shield } from 'lucide-react';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useAuth } from '../context/AuthContext';
+import logoImage from '../assets/logo.jpeg';
 import '../css/navbar.css';
 
 const navLinks = [
@@ -95,7 +96,7 @@ export default function Navbar({ onLoginClick = () => {} }) {
       <div className="navbar-container">
         <div className="navbar-inner">
           <Link to="/" className="navbar-logo" onClick={() => handleNavClick('/')}>
-            <div className="logo-badge">C</div>
+            <img src={logoImage} alt="Coppell Community Hub logo" className="logo-image" />
             <span className="logo-text">Coppell Community Resource Hub</span>
           </Link>
 

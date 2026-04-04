@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import logoImage from '../assets/logo.jpeg';
 import '../css/footer.css';
 
 export default function Footer() {
@@ -12,9 +13,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-column">
             <div className="footer-brand">
-              <div className="logo-circle">
-                <span className="logo-letter">C</span>
-              </div>
+              <img src={logoImage} alt="Coppell Community Hub logo" className="brand-logo" />
               <span className="brand-name">Coppell Hub</span>
             </div>
             <p className="footer-description">
