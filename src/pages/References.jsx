@@ -41,7 +41,7 @@ export default function References() {
     },
     {
       name: 'Project Work Log',
-      filename: '1086-10 Work Log.pdf',
+      filename: 'Webmaster Work Log - Regionals (1).pdf',
       description: 'Detailed log of project development and team contributions'
     }
   ];
