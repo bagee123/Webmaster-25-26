@@ -218,11 +218,41 @@
   }
 }
 
-.resource-form__input:-webkit-autofill,
-.resource-form__textarea:-webkit-autofill,
-.resource-form__select:-webkit-autofill{
-  -webkit-box-shadow: 0 0 0px 1000px var(--input-bg, #ffffff) inset;
-  -webkit-text-fill-color: #000000;
-  transition: background-color 5000s ease-in-out;
+/* -------------------- Light mode autofill fix -------------------- */
+.resource-form .resource-form__input:-webkit-autofill,
+.resource-form .resource-form__input:-webkit-autofill:hover,
+.resource-form .resource-form__input:-webkit-autofill:focus,
+.resource-form .resource-form__input:-webkit-autofill:active,
+.resource-form .resource-form__textarea:-webkit-autofill,
+.resource-form .resource-form__textarea:-webkit-autofill:hover,
+.resource-form .resource-form__textarea:-webkit-autofill:focus,
+.resource-form .resource-form__textarea:-webkit-autofill:active,
+.resource-form .resource-form__select:-webkit-autofill,
+.resource-form .resource-form__select:-webkit-autofill:hover,
+.resource-form .resource-form__select:-webkit-autofill:focus,
+.resource-form .resource-form__select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important; /* light input bg */
+  -webkit-text-fill-color: #000000 !important; /* black text */
+  caret-color: #000000 !important;
+  transition: background-color 9999s ease-in-out 0s !important;
 }
 
+/* -------------------- Dark mode autofill fix -------------------- */
+.dark .resource-form .resource-form__input:-webkit-autofill,
+.dark .resource-form .resource-form__input:-webkit-autofill:hover,
+.dark .resource-form .resource-form__input:-webkit-autofill:focus,
+.dark .resource-form .resource-form__input:-webkit-autofill:active,
+.dark .resource-form .resource-form__textarea:-webkit-autofill,
+.dark .resource-form .resource-form__textarea:-webkit-autofill:hover,
+.dark .resource-form .resource-form__textarea:-webkit-autofill:focus,
+.dark .resource-form .resource-form__textarea:-webkit-autofill:active,
+.dark .resource-form .resource-form__select:-webkit-autofill,
+.dark .resource-form .resource-form__select:-webkit-autofill:hover,
+.dark .resource-form .resource-form__select:-webkit-autofill:focus,
+.dark .resource-form .resource-form__select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important; /* dark input bg */
+  -webkit-text-fill-color: #ffffff !important; /* white text */
+  caret-color: #ffffff !important;
+  background-clip: padding-box !important; 
+  transition: background-color 0s ease-in-out 0s !important;
+}

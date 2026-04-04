@@ -261,3 +261,35 @@
     flex-direction: column;
   }
 }
+
+/* -------------------- Write Blog Page Autofill Fix -------------------- */
+/* Light Mode */
+.write-blog-form-group input:-webkit-autofill,
+.write-blog-form-group input:-webkit-autofill:hover,
+.write-blog-form-group input:-webkit-autofill:focus,
+.write-blog-form-group input:-webkit-autofill:active,
+.write-blog-form-group textarea:-webkit-autofill,
+.write-blog-form-group textarea:-webkit-autofill:hover,
+.write-blog-form-group textarea:-webkit-autofill:focus,
+.write-blog-form-group textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-primary) inset !important; /* Light input background */
+  -webkit-text-fill-color: black !important; /* Text color */
+  caret-color: var(--text-primary) !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+
+/* Dark Mode */
+.dark .write-blog-form-group input:-webkit-autofill,
+.dark .write-blog-form-group input:-webkit-autofill:hover,
+.dark .write-blog-form-group input:-webkit-autofill:focus,
+.dark .write-blog-form-group input:-webkit-autofill:active,
+.dark .write-blog-form-group textarea:-webkit-autofill,
+.dark .write-blog-form-group textarea:-webkit-autofill:hover,
+.dark .write-blog-form-group textarea:-webkit-autofill:focus,
+.dark .write-blog-form-group textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important; /* Dark input background */
+  -webkit-text-fill-color: white !important; /* Text color */
+  caret-color: var(--text-primary) !important;
+  background-clip: padding-box !important;
+  transition: background-color 0s ease-in-out 0s !important;
+}

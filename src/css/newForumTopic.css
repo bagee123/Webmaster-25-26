@@ -271,3 +271,35 @@
     flex-direction: column;
   }
 }
+
+/* -------------------- New Topic Page Autofill Fix -------------------- */
+/* Light Mode */
+.new-topic-form-group input:-webkit-autofill,
+.new-topic-form-group input:-webkit-autofill:hover,
+.new-topic-form-group input:-webkit-autofill:focus,
+.new-topic-form-group input:-webkit-autofill:active,
+.new-topic-form-group textarea:-webkit-autofill,
+.new-topic-form-group textarea:-webkit-autofill:hover,
+.new-topic-form-group textarea:-webkit-autofill:focus,
+.new-topic-form-group textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-primary) inset !important; /* Light input background */
+  -webkit-text-fill-color: black !important; /* Text color */
+  caret-color: var(--text-primary) !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+
+/* Dark Mode */
+.dark .new-topic-form-group input:-webkit-autofill,
+.dark .new-topic-form-group input:-webkit-autofill:hover,
+.dark .new-topic-form-group input:-webkit-autofill:focus,
+.dark .new-topic-form-group input:-webkit-autofill:active,
+.dark .new-topic-form-group textarea:-webkit-autofill,
+.dark .new-topic-form-group textarea:-webkit-autofill:hover,
+.dark .new-topic-form-group textarea:-webkit-autofill:focus,
+.dark .new-topic-form-group textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important; /* Dark input background */
+  -webkit-text-fill-color: white !important; /* Text color */
+  caret-color: var(--text-primary) !important;
+  background-clip: padding-box !important;
+  transition: background-color 0s ease-in-out 0s !important;
+}

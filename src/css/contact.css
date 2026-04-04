@@ -193,6 +193,9 @@
   font-size: 0.9rem;
 }
 
+/* Target ALL autofill states */
+
+
 .form-group input,
 .form-group textarea {
   width: 100%;
@@ -446,4 +449,36 @@
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+
+/* -------------------- Light mode autofill fix -------------------- */
+.contact-page .form-group input:-webkit-autofill,
+.contact-page .form-group input:-webkit-autofill:hover,
+.contact-page .form-group input:-webkit-autofill:focus,
+.contact-page .form-group input:-webkit-autofill:active,
+.contact-page .form-group textarea:-webkit-autofill,
+.contact-page .form-group textarea:-webkit-autofill:hover,
+.contact-page .form-group textarea:-webkit-autofill:focus,
+.contact-page .form-group textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important; /* match light background */
+  -webkit-text-fill-color: #000000 !important; /* black text */
+  caret-color: #000000 !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+
+/* Dark mode autofill for contact page */
+.dark .contact-page .form-group input:-webkit-autofill,
+.dark .contact-page .form-group input:-webkit-autofill:hover,
+.dark .contact-page .form-group input:-webkit-autofill:focus,
+.dark .contact-page .form-group input:-webkit-autofill:active,
+.dark .contact-page .form-group textarea:-webkit-autofill,
+.dark .contact-page .form-group textarea:-webkit-autofill:hover,
+.dark .contact-page .form-group textarea:-webkit-autofill:focus,
+.dark .contact-page .form-group textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px var(--input-bg) inset !important; /* exact dark input bg */
+  -webkit-text-fill-color: #ffffff !important; /* white text */
+  caret-color: #ffffff !important;
+  background-clip: padding-box !important; 
+  transition: background-color 0s ease-in-out 0s !important; /* use 0s instead of 9999s in Chrome */
 }
