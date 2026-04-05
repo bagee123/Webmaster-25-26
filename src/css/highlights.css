@@ -476,6 +476,10 @@
     color: #81c784;
 }
 
+.dark .testimonial-autoplay-toggle:hover {
+    background: none !important;
+}
+
 @media (max-width: 768px) {
     .highlights-section {
         padding: 60px 0;

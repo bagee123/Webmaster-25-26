@@ -332,6 +332,10 @@
     color: #81c784;
 }
 
+.dark .events-autoplay-toggle:hover {
+    background: none !important;
+}
+
 @media (max-width: 640px) {
     .events-carousel-controls {
         margin-top: 14px;
