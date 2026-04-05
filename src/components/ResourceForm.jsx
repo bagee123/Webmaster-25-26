@@ -82,6 +82,7 @@ export default function ResourceForm(){
       await addDoc(collection(db, "submissions"), {
         firstName: sanitizeInput(formData.firstName),
         lastName: sanitizeInput(formData.lastName),
+        user: auth.currentUser?.email || '',
         resourceName: sanitizeInput(formData.resourceName),
         website: sanitizeInput(formData.website),
         category: formData.category,
