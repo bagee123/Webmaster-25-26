@@ -16,6 +16,28 @@ const validateUrl = (url) => {
   }
 };
 
+const formatPhoneNumber = (value) => {
+
+  const digits  = value.replace(/\D/g, '');
+
+  if(digits.length === 0) {
+    return value = "";
+  }
+
+  else if (digits.length <= 3) {
+    return value = `(${digits}`;
+  }
+
+  else if (digits.length <= 6) {
+    return value = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  }
+
+  else {
+    return value = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+  }
+
+};
+
 const sanitizeInput = (str) => {
   if (typeof str !== 'string') return '';
   return str.trim().slice(0, 500); // Limit length and trim
@@ -28,7 +50,16 @@ export default function ResourceForm(){
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    let {name, value} = e.target;
+
+    if(name === "website"){
+      const digits = value.replace(/\D/g, '');
+
+      if (digits.length > 0 && /^\(?\d/.test(value)) {
+        value = formatPhoneNumber(value);
+      }
+    }
+    setFormData({ ...formData, [name]:value });
     setError(''); // Clear error on new input
   }
 
