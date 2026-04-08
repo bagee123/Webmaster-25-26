@@ -123,10 +123,10 @@
 
 .hero-content {
     position: relative;
-    z-index: 10;
+    z-index: 12;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 16px 96px;
     text-align: center;
 }
 
@@ -382,7 +382,7 @@
     justify-content: center;
     gap: 24px;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 0 auto 18px;
     padding: 0 20px;
 }
 
@@ -506,11 +506,11 @@
 /* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
-        bottom: 12px;
-        bottom: max(12px, env(safe-area-inset-bottom, 0px));
+        bottom: 16px;
+        bottom: max(16px, env(safe-area-inset-bottom, 0px));
     left: 50%;
         margin-left: -22px;
-    z-index: 10;
+    z-index: 9;
         width: 44px;
         height: 56px;
         display: flex;
@@ -650,7 +650,7 @@
 
 @media (max-width: 768px) {
     .hero-content {
-        padding-bottom: 90px;
+        padding-bottom: 88px;
     }
 
     .hero-stats {

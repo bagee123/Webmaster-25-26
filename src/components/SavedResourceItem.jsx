@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Phone, Mail, MapPin, Clock, Globe, Heart, x } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Globe, Heart } from 'lucide-react';
 import { useResources } from '../context/ResourceContext';
 import { useAuth } from '../context/AuthContext';
 import '../css/savedResourceItem.css';

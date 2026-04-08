@@ -1,5 +1,5 @@
 .ticker {
-  padding: 0.75rem 0;
+  padding: 0.9rem 0;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-secondary);
@@ -10,8 +10,13 @@
   align-items: center;
   margin-right: 1rem;
   padding: 0.45rem 0.9rem;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
   border-radius: 999px;
   font-size: 0.95rem;
+  line-height: 1.2;
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--accent-orange);
@@ -26,8 +31,9 @@
 }
 
 .ticker-item:hover {
-  transform: translateY(-1px);
+  transform: scale(1.03);
   border-color: var(--accent-orange);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .dark .ticker {
