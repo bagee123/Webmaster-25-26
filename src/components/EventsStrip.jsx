@@ -101,12 +101,15 @@ export default function EventsStrip() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
   const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const [disableCardTransitions, setDisableCardTransitions] = useState(false);
 
   const scrollWrapperRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const interactionTimeoutRef = useRef(null);
+  const programmaticScrollTimeoutRef = useRef(null);
   const activeIndexRef = useRef(0);
   const isJumpingRef = useRef(false);
+  const isProgrammaticScrollRef = useRef(false);
 
   const previousBodyOverflowRef = useRef('');
   const previousHtmlOverflowRef = useRef('');
@@ -208,6 +211,63 @@ export default function EventsStrip() {
     return Array.from(container.children).map((card) => card.offsetLeft);
   };
 
+  const getCenteredScrollLeft = (index) => {
+    const container = scrollContainerRef.current;
+    if (!container) {
+      return 0;
+    }
+
+    const card = container.children[index];
+    if (!card) {
+      return 0;
+    }
+
+    const cardLeft = card.offsetLeft;
+    const cardWidth = card.clientWidth;
+    const viewportWidth = container.clientWidth;
+    const maxScrollLeft = Math.max(0, container.scrollWidth - viewportWidth);
+    const centeredLeft = cardLeft - ((viewportWidth - cardWidth) / 2);
+
+    return Math.min(Math.max(centeredLeft, 0), maxScrollLeft);
+  };
+
+  const getNearestLoopedIndex = (targetRealIndex) => {
+    if (mappedEvents.length <= 1 || cloneCount === 0) {
+      return targetRealIndex;
+    }
+
+    const baseTarget = cloneCount + targetRealIndex;
+    const active = activeIndexRef.current;
+    const candidates = [
+      baseTarget,
+      baseTarget - mappedEvents.length,
+      baseTarget + mappedEvents.length,
+    ].filter((candidate) => candidate >= 0 && candidate < loopedEvents.length);
+
+    if (candidates.length === 0) {
+      return baseTarget;
+    }
+
+    return candidates.reduce((best, current) => {
+      return Math.abs(current - active) < Math.abs(best - active) ? current : best;
+    });
+  };
+
+  const getCardPositionClass = (index) => {
+    const distance = Math.abs(index - activeIndex);
+    const wrappedDistance = Math.min(distance, Math.max(loopedEvents.length - distance, 0));
+
+    if (wrappedDistance === 0) {
+      return 'event-card-center';
+    }
+
+    if (wrappedDistance === 1) {
+      return 'event-card-side';
+    }
+
+    return 'event-card-far';
+  };
+
   const scrollToIndex = (index, behavior = 'smooth') => {
     const container = scrollContainerRef.current;
     if (!container) {
@@ -222,11 +282,75 @@ export default function EventsStrip() {
     const maxIndex = offsets.length - 1;
     const boundedIndex = Math.min(Math.max(index, 0), maxIndex);
 
+    const normalizeLoopIndex = (candidateIndex) => {
+      if (mappedEvents.length <= 1 || cloneCount === 0) {
+        return candidateIndex;
+      }
+
+      const startBoundary = cloneCount;
+      const endBoundary = cloneCount + mappedEvents.length - 1;
+
+      if (candidateIndex < startBoundary) {
+        return candidateIndex + mappedEvents.length;
+      }
+
+      if (candidateIndex > endBoundary) {
+        return candidateIndex - mappedEvents.length;
+      }
+
+      return candidateIndex;
+    };
+
+    if (behavior === 'smooth') {
+      isProgrammaticScrollRef.current = true;
+      if (programmaticScrollTimeoutRef.current) {
+        window.clearTimeout(programmaticScrollTimeoutRef.current);
+      }
+      programmaticScrollTimeoutRef.current = window.setTimeout(() => {
+        isProgrammaticScrollRef.current = false;
+
+        const correctedIndex = normalizeLoopIndex(activeIndexRef.current);
+        if (correctedIndex !== activeIndexRef.current) {
+          isJumpingRef.current = true;
+          jumpToIndex(correctedIndex);
+          requestAnimationFrame(() => {
+            isJumpingRef.current = false;
+          });
+        }
+      }, 520);
+    } else {
+      isProgrammaticScrollRef.current = false;
+    }
+
     container.scrollTo({
-      left: offsets[boundedIndex],
+      left: getCenteredScrollLeft(boundedIndex),
       behavior
     });
     setActiveIndex(boundedIndex);
+  };
+
+  const jumpToIndex = (index) => {
+    const container = scrollContainerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const previousScrollBehavior = container.style.scrollBehavior;
+    const previousSnapType = container.style.scrollSnapType;
+
+    setDisableCardTransitions(true);
+    container.style.scrollBehavior = 'auto';
+    container.style.scrollSnapType = 'none';
+    container.scrollLeft = getCenteredScrollLeft(index);
+    setActiveIndex(index);
+
+    requestAnimationFrame(() => {
+      container.style.scrollBehavior = previousScrollBehavior;
+      container.style.scrollSnapType = previousSnapType;
+      requestAnimationFrame(() => {
+        setDisableCardTransitions(false);
+      });
+    });
   };
 
   useEffect(() => {
@@ -248,10 +372,7 @@ export default function EventsStrip() {
         return;
       }
 
-      container.scrollTo({
-        left: offsets[initialIndex] ?? 0,
-        behavior: 'auto'
-      });
+      jumpToIndex(initialIndex);
     };
 
     setInitialPosition();
@@ -304,6 +425,9 @@ export default function EventsStrip() {
       if (interactionTimeoutRef.current) {
         window.clearTimeout(interactionTimeoutRef.current);
       }
+      if (programmaticScrollTimeoutRef.current) {
+        window.clearTimeout(programmaticScrollTimeoutRef.current);
+      }
       document.body.style.overflowY = previousBodyOverflowRef.current;
       document.documentElement.style.overflowY = previousHtmlOverflowRef.current;
     };
@@ -320,17 +444,22 @@ export default function EventsStrip() {
         return;
       }
 
+      if (isProgrammaticScrollRef.current && !isUserInteracting) {
+        return;
+      }
+
       const offsets = getCardOffsets();
       if (offsets.length === 0) {
         return;
       }
 
-      const currentLeft = container.scrollLeft;
+      const currentCenter = container.scrollLeft + (container.clientWidth / 2);
       let nearestIndex = 0;
       let nearestDistance = Number.POSITIVE_INFINITY;
 
-      offsets.forEach((offset, index) => {
-        const distance = Math.abs(offset - currentLeft);
+      Array.from(container.children).forEach((card, index) => {
+        const cardCenter = card.offsetLeft + (card.clientWidth / 2);
+        const distance = Math.abs(cardCenter - currentCenter);
         if (distance < nearestDistance) {
           nearestDistance = distance;
           nearestIndex = index;
@@ -345,10 +474,14 @@ export default function EventsStrip() {
     return () => {
       container.removeEventListener('scroll', handleScroll);
     };
-  }, [loopedEvents.length]);
+  }, [isUserInteracting, loopedEvents.length]);
 
   useEffect(() => {
     if (mappedEvents.length <= 1 || cloneCount === 0) {
+      return;
+    }
+
+    if (isProgrammaticScrollRef.current) {
       return;
     }
 
@@ -371,11 +504,7 @@ export default function EventsStrip() {
       }
 
       isJumpingRef.current = true;
-      container.scrollTo({
-        left: offsets[correctedIndex] ?? 0,
-        behavior: 'auto'
-      });
-      setActiveIndex(correctedIndex);
+      jumpToIndex(correctedIndex);
 
       const resetJumpFlag = () => {
         isJumpingRef.current = false;
@@ -427,7 +556,7 @@ export default function EventsStrip() {
 
   const handleDotClick = (index) => {
     startInteractionCooldown();
-    const destination = mappedEvents.length > 1 ? cloneCount + index : index;
+    const destination = mappedEvents.length > 1 ? getNearestLoopedIndex(index) : index;
     scrollToIndex(destination);
   };
 
@@ -454,12 +583,15 @@ export default function EventsStrip() {
         >
           <div
             ref={scrollContainerRef}
-            className="events-scroll-container"
+            className={`events-scroll-container ${disableCardTransitions ? 'events-no-card-anim' : ''}`}
             onPointerDown={startInteractionCooldown}
             onTouchStart={startInteractionCooldown}
           >
             {loopedEvents.map((event, index) => (
-              <div key={`${event.id}-${index}`} className="event-card">
+              <div
+                key={`${event.id}-${index}`}
+                className={`event-card ${getCardPositionClass(index)}`}
+              >
                 <div className="event-content">
                   <div className="event-date-badge">
                     <span className="date-month">{event.badgeMonth}</span>
